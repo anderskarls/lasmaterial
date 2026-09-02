@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1F1A15; --ink-2: #4A3F33;
+    --paper: #F4EDE1; --paper-2: #EBE1CF;
+    --rule: #D6C9B4; --bordeaux: #7A2E2E; --ocker: #B8862F;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter Tight", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #EDE6DA; --ink-2: #B3A796; --paper: #17140F; --paper-2: #201C16; --rule: #3A332A; --ocker: #D9A445; --bordeaux: #C98A8A; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 18px; line-height: 1.6; }
+  .omslag { border-bottom: 2px solid var(--rule); padding: 56px 28px 34px; }
+  .inre { max-width: 720px; margin: 0 auto; }
+  .etikett { font-family: var(--mono); font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--bordeaux); }
+  h1 { font-family: var(--serif); font-size: 60px; line-height: 1.02;
+    margin: 14px 0 10px; font-weight: 600; letter-spacing: -1px; }
+  h1 em { font-style: italic; }
+  .ingress { font-family: var(--serif); font-size: 24px; font-style: italic;
+    color: var(--ink-2); margin: 0; max-width: 32ch; }
+  main { padding: 40px 28px 72px; }
+  h2 { font-family: var(--serif); font-size: 30px; font-weight: 600;
+    margin: 0 0 20px; letter-spacing: -0.4px; }
+  ul.kort { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+  a.kort { display: block; background: var(--paper-2); border-left: 5px solid var(--ocker);
+    padding: 22px 26px; text-decoration: none; color: inherit; }
+  a.kort:hover { border-left-color: var(--bordeaux); }
+  a.kort .kurs { font-family: var(--mono); font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--ink-2); }
+  a.kort .titel { font-family: var(--serif); font-size: 28px; font-weight: 600;
+    margin: 6px 0 8px; }
+  a.kort p { margin: 0; font-size: 16px; color: var(--ink-2); }
+  footer { border-top: 2px solid var(--rule); margin-top: 48px; padding-top: 22px;
+    font-size: 15px; color: var(--ink-2); font-style: italic; }
+</style>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="inre">
+    <span class="etikett">Undervisningsmaterial</span>
+    <h1>Läs<em>material</em></h1>
+    <p class="ingress">Texter med lässtöd. Varje sida går att växla mellan bearbetad version och original.</p>
+  </div>
+</header>
+
+<main>
+  <div class="inre">
+    <h2>Internationella relationer</h2>
+    <ul class="kort">
+      <li>
+        <a class="kort" href="israel-palestina/tidslinjen.html">
+          <div class="kurs">Israel och Palestina · lektion 2</div>
+          <div class="titel">Femtio år på en bild</div>
+          <p>Tidslinjen 1917-1967. Balfourdeklarationen, delningsplanen, staten Israel utropas, den gröna linjen och sexdagarskriget - med utskrivna orsakssamband och förklarade begrepp.</p>
+        </a>
+      </li>
+    </ul>
+
+    <footer>
+      Materialet är framtaget för undervisning på gymnasiet. Den bearbetade versionen är en stötta,
+      inte en permanent version - växla till originalet när du klarar den.
+    </footer>
+  </div>
+</main>
+
+</body>
+</html>
