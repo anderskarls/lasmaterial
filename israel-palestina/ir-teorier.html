@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tre sätt att fråga - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Israel och Palestina · lektion 3</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Tre sätt att fråga</h1>
+  <p class="ingress">Realism, liberal institutionalism och konstruktivism - vad varje teori frågar först, och varför de kommer fram till olika saker om samma händelse.</p>
+  <p class="byline"><span class="avsandare">Skriven av din lärare som underlag till lektion 3. Inte en källa.</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p><strong>Den här texten är skriven av din lärare, som en sammanfattning inför lektion 3.</strong> Den är alltså inte en källa och inte ett vittne. Ingen forskare står bakom just de här formuleringarna, och när du senare i momentet ska granska vem som säger något och varför, är det inte den här texten du ska granska - den är en stötta, inget studieobjekt.</p><p>Texten handlar om tre teorier inom internationella relationer: <strong>realism</strong>, <strong>liberal institutionalism</strong> och <strong>konstruktivism</strong>. De är inte tre åsikter om vem som har rätt i en konflikt. De är tre sätt att fråga, och de får olika saker att synas i samma händelse.</p><p>En sak måste sitta innan teorierna går att förstå. <mark>Det finns ingen världsregering.</mark> FN är inte en sådan. FN är en organisation som stater har byggt och som stater kan lämna, och generalförsamlingens beslut binder dem inte rättsligt. Det betyder inte att världen är laglös - men det betyder att ingen står <strong>över</strong> staterna och kan tvinga dem. Alla tre teorierna utgår från det. De drar bara olika slutsatser av det.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>Anarki</dt><dd>Att det inte finns någon makt över staterna. Inte kaos, inte laglöshet - frånvaro av en överordnad, inte frånvaro av ordning.</dd><dt>Suverän</dt><dd>Att en stat bestämmer själv inom sina gränser och inte lyder under någon annan stat. Inte detsamma som stark: också en svag stat är suverän.</dd><dt>Stat och nation</dt><dd>En stat är en politisk enhet med gränser, regering och lagar. En nation är en grupp människor som känner att de hör ihop. Det är två olika saker.</dd><dt>Säkerhetsdilemma</dt><dd>När A stärker sin säkerhet minskar B:s. B stärker då sin, och båda blir mindre säkra än förut - utan att någon av dem ville det.</dd><dt>Självhjälp</dt><dd>Att varje stat i sista hand är hänvisad till sig själv för sin överlevnad.</dd><dt>Maktbalans</dt><dd>Fördelningen av makt mellan stater, och strävan att ingen ska bli för stark.</dd><dt>Institution</dt><dd>En regel eller organisation som binder parters handlande över tid.</dd><dt>Ömsesidigt beroende</dt><dd>Att parter är beroende av varandra och därför förlorar på konflikt.</dd><dt>Absoluta vinster</dt><dd>Att fråga om jag vinner på ett samarbete - inte om jag vinner mer än den andre. Motsatsen kallas relativa vinster.</dd><dt>Identitet</dt><dd>Uppfattningen om vilka vi är, som formar vad vi ser som möjligt.</dd><dt>Narrativ</dt><dd>Den berättelse en grupp har om vad som hänt och varför.</dd><dt>Socialt konstruerat hot</dt><dd>Att något blir ett hot genom hur det uppfattas, inte bara genom vad det är.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p><strong>Läs ett avsnitt i taget, när du behöver det.</strong> Ska ni fylla i realistrutan i matrisen? Läs realismavsnittet. Texten är byggd för att slås upp mitt i arbetet.</p><p><strong>Leta efter frågan, inte efter svaret.</strong> Varje avsnitt börjar med den fråga teorin ställer <strong>först</strong>. Det är den raden ni ska ha med er till matrisen - resten är förklaring till varför teorin ställer just den frågan.</p><p><strong>Stanna vid exemplen.</strong> De handlar med flit om helt andra konflikter än den ni arbetar med. Fungerar teorin bara på ett enda fall är det ingen teori.</p><p><strong>Kontrollera dig själv efter varje avsnitt:</strong> kan du säga teorins första fråga med egna ord, utan att titta? Kan du inte det, läs om de tre första raderna innan du går vidare.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <h4>Realism · Vem har makt, och vad hotar överlevnaden?</h4>
+  <blockquote><strong>Kärnan.</strong> Världen är ett system av stater där ingen står över någon annan. Varje stat är i sista hand hänvisad till sig själv. Därför handlar den utifrån vad som tryggar dess överlevnad - inte utifrån vad som vore rätt eller önskvärt.</blockquote>
+  <div class="stycke"><p>Realismen börjar i <strong><span class="begrepp" title="Att det inte finns någon makt över staterna. Inte kaos, inte laglöshet - frånvaro av en överordnad, inte frånvaro av ordning.">anarkin</span></strong>. <mark>Eftersom</mark> ingen kan garantera en stats säkerhet åt den, måste staten ordna den själv. Det kallas <strong><span class="begrepp" title="Att varje stat i sista hand är hänvisad till sig själv för sin överlevnad.">självhjälp</span></strong>, och det är inte ett karaktärsdrag utan en situation: också en fredlig stat med de bästa avsikter befinner sig i den.</p><aside class="gloss"><b>Självhjälp</b>Att varje stat i sista hand är hänvisad till sig själv för sin överlevnad.</aside></div>
+  <div class="stycke"><p>Härifrån följer realismens skarpaste verktyg. <span class="def">Det är lätt att tro att en stat som rustar upp har bestämt sig för att anfalla. Realismen säger att det inte behöver vara så - och att det är just därför problemet är så svårt.</span></p></div>
+  <div class="stycke"><p>Tänk på kapprustningen till sjöss mellan <strong>Storbritannien</strong> och <strong>Tyskland</strong> före första världskriget. Tyskland byggde en flotta och förklarade att den var till för försvar. <mark>Men Storbritannien kunde inte veta säkert om det var sant</mark>, och en tysk flotta minskade den brittiska säkerheten oavsett vad avsikten var. <mark>Alltså</mark> byggde Storbritannien mer. <mark>Följden blev att</mark> båda hade större flottor och mindre trygghet än när de började. Det är <strong><span class="begrepp" title="När A stärker sin säkerhet minskar B:s. B stärker då sin, och båda blir mindre säkra än förut - utan att någon av dem ville det.">säkerhetsdilemmat</span></strong>, och lägg märke till vad det inte kräver: ingen av parterna behöver vilja kriget.</p><aside class="gloss"><b>Mellanledet</b>Att ingen behöver ha onda avsikter är hela poängen med säkerhetsdilemmat. Det är också det som oftast hoppas över när mekanismen förklaras - därför står det utskrivet här.</aside></div>
+  <div class="stycke"><p>Realisten frågar därför sällan vad någon tyckte. Den frågar vad någon hade för <strong>möjligheter</strong>, vem som kunde göra vad, och vad som skulle ha hänt om den valt annorlunda. Makt är valutan, och <strong>maktbalansen</strong> - hur makten är fördelad - är det som förklarar utfallet.</p></div>
+  <div class="stycke"><p><em>Vad får den här frågan inte syn på?</em> Det är din uppgift i matrisen att avgöra. Texten svarar inte på det.</p></div>
+  <h4>Liberal institutionalism · Vad skulle kunna binda dem?</h4>
+  <blockquote><strong>Kärnan.</strong> Samma utgångspunkt som realismen: ingen står över staterna. Men en annan slutsats. Stater som är beroende av varandra förlorar på konflikt, och de kan bygga regler som gör samarbete lönsamt även när ingen kan tvinga fram det.</blockquote>
+  <div class="stycke"><p>Det här är den avgörande skillnaden mellan de två första teorierna, och den är lätt att missa: <span class="def">de är överens om anarkin och oense om vad som följer av den.</span></p></div>
+  <div class="stycke"><p>En vanlig reaktion är att om ingen kan tvinga en stat, så är regler meningslösa. <mark>Men det stämmer inte</mark>, och liberalen förklarar varför: stater följer avtal de tjänar på att följa, och ett avtal gör det lättare att lita på varandra <mark>eftersom</mark> det blir synligt när någon bryter mot det. Den som bryter mot ett avtal betalar i framtida samarbeten som uteblir.</p></div>
+  <div class="stycke"><p>Därför frågar liberalen efter <strong><span class="begrepp" title="Att fråga om jag vinner på ett samarbete - inte om jag vinner mer än den andre. Motsatsen kallas relativa vinster.">absoluta vinster</span></strong>. <mark>Frågan är inte om jag vinner mer än den andre</mark> - det är realistens fråga - <mark>utan om jag vinner på samarbetet alls.</mark> Den som bara räknar relativa vinster tackar nej till uppgörelser som skulle ha gynnat båda.</p><aside class="gloss"><b>Absoluta vinster</b>Att fråga om jag vinner på ett samarbete - inte om jag vinner mer än den andre. Motsatsen kallas relativa vinster.</aside></div>
+  <div class="stycke"><p>Skolexemplet är Västeuropa efter andra världskriget. Frankrike och Tyskland hade fört krig mot varandra tre gånger på sjuttio år. I början av <strong>1950-talet</strong> band de i stället samman kol- och stålproduktionen - alltså råvarorna till krigsindustrin - i en gemensam organisation. <mark>Poängen var inte att parterna litade på varandra.</mark> <mark>Poängen var att kriget blev dyrare och svårare att förbereda i hemlighet.</mark> Ur den organisationen växte det som i dag är EU.</p><aside class="gloss"><b>Vad exemplet visar</b>Att en institution kan vara starkare än förtroendet mellan dem som byggde den. Den institution som håller är den som överlever de personer som skapade den.</aside></div>
+  <div class="stycke"><p>Liberalen letar alltså efter det som <strong>håller</strong>: avtal, erkända gränser, handel, organisationer. Och när något inte höll frågar den inte <em>vem som svek</em>, utan <em>varför bindningen var för svag</em>.</p></div>
+  <div class="stycke"><p><em>Vad får den här frågan inte syn på?</em> Din matris, inte texten.</p></div>
+  <h4>Konstruktivism · Vad betyder det här för dem?</h4>
+  <blockquote><strong>Kärnan.</strong> Vad en stat vill är inte givet på förhand. Det beror på hur den uppfattar sig själv och sin omvärld - och den uppfattningen är skapad av människor, i berättelser, minnen och i vad man lärt sig kalla saker.</blockquote>
+  <div class="stycke"><p>De två första teorierna tar statens intressen för givna och frågar hur den kan uppnå dem. Konstruktivismen tar ett steg bakåt och frågar var intressena kom ifrån.</p></div>
+  <div class="stycke"><p>Börja med ett problem de andra två har svårt med. <strong>Storbritannien</strong> har kärnvapen. <strong>Nordkorea</strong> har kärnvapen, och färre. Ändå uppfattar USA de nordkoreanska som ett hot och de brittiska inte alls. <mark>Räknar man bara militär styrka går det inte att förklara.</mark> <span class="def">Ett hot är alltså inte bara en fråga om vad någon kan göra, utan om vem man tror att den som kan göra det är.</span> Det är vad <em><span class="begrepp" title="Att något blir ett hot genom hur det uppfattas, inte bara genom vad det är.">socialt konstruerat hot</span></em> betyder: hotet är verkligt, men det uppstår i relationen, inte i vapnet.</p><aside class="gloss"><b>Mellanledet</b>Att hotet är socialt konstruerat betyder inte att det är inbillat. Det betyder att samma vapen i andra händer inte hade räknats som hot. Blandas de två ihop låter teorin naivare än den är.</aside></div>
+  <div class="stycke"><p>Härifrån kommer konstruktivistens andra verktyg. <strong><span class="begrepp" title="Uppfattningen om vilka vi är, som formar vad vi ser som möjligt.">Identitet</span></strong> - vilka vi tror att vi är - avgör vad vi uppfattar som möjligt och rimligt. <strong>Narrativ</strong> - berättelsen om vad som hänt och varför - avgör vad som räknas som en oförrätt och vad som räknas som självförsvar. <mark>Därför</mark> är det inte en petitess för konstruktivisten när två parter har olika namn på samma händelse. Det är själva saken.</p><aside class="gloss"><b>Identitet</b>Uppfattningen om vilka vi är, som formar vad vi ser som möjligt.</aside></div>
+  <div class="stycke"><p>Och eftersom uppfattningar är skapade kan de i princip förändras. <mark>Det är teorins mest hoppfulla påstående och samtidigt dess mest omstridda</mark>, <mark>eftersom</mark> det förpliktar teorin att förklara varför förändringen ibland uteblir i generationer.</p></div>
+  <div class="stycke"><p>En varning: konstruktivismen är inte den mjuka teorin bland tre. Den ställer en lika stram fråga som de andra, bara om en annan sorts sak.</p></div>
+  <div class="stycke"><p><em>Vad får den här frågan inte syn på?</em> Samma uppgift som för de andra två.</p></div>
+  <h4>Vad den här texten inte gör</h4><ol><li>Den säger <strong>inte</strong> vilken teori som har rätt. De är verktyg, inte lag.</li><li>Den säger <strong>inte</strong> vad teorierna säger om det ni läser om i momentet. Det arbetet är ert, och det börjar i matrisen.</li><li>Den fyller <strong>inte</strong> i era matrisrutor. Exemplen här är med flit hämtade från andra konflikter - hade de varit hämtade ur ert eget material hade ni haft facit i handen och uppgiften hade blivit avskrift.</li></ol>
+  
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Säg de tre första frågorna högt i ordning, utan att titta. Den du inte kan säga är det avsnitt du ska läsa om.</li><li>Realismen och den liberala institutionalismen är överens om en sak och oense om en annan. Vilken är vilken? Svara i två meningar.</li><li>Förklara säkerhetsdilemmat för någon som inte läst texten, utan att någon av parterna i din förklaring vill kriget.</li><li>Varför räknas nordkoreanska kärnvapen som ett hot mot USA när brittiska inte gör det? Svara med konstruktivismens begrepp, och förklara sedan varför svaret inte betyder att hotet är inbillat.</li><li>★ Texten säger tre gånger att den inte svarar på vad en teori inte får syn på. Välj en av teorierna och svara själv - och skilj på vad den missade i ett enskilt fall och vad den systematiskt aldrig kan se.</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Skriven av din lärare som underlag till lektion 3. Inte en källa.</em></p>
+  
+  
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
