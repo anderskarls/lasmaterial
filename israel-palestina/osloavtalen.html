@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vad som stod i avtalen - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Israel och Palestina · lektion 4</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Vad som stod i avtalen</h1>
+  <p class="ingress">Fyra utdrag ur Osloavtalen: erkännandebreven 1993, A-, B- och C-områdena 1995, frågorna som sköts upp och tidsgränsen. Svensk översättning med det engelska originalet en knapptryckning bort.</p>
+  <p class="byline"><span id="bylineversion">Svensk översättning</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Hösten 1993 hade Israels regering och PLO förhandlat i hemlighet i Norge, trots att de dittills inte erkänt varandra. Resultatet blev två saker samma vecka: en brevväxling där parterna erkände varandra, och principdeklarationen, som undertecknades i Washington den 13 september 1993. Två år senare, den 28 september 1995, kom interimsavtalet, ofta kallat Oslo II, som gjorde principerna till en detaljerad ordning för Västbanken och Gazaremsan.</p><p>Avtalen är skrivna på engelska, och det är den engelska texten som gäller. Det ni läser här är fyra korta utdrag i svensk översättning, gjord av er lärare. Originalet finns under knappen <em>Originalet</em> ovanför texten.</p><p>Avtalen är juridisk text. Varje ord är valt, och meningarna är långa för att vara exakta, inte för att vara svåra. Ni behöver inte förstå varje ord för att kunna svara på de tre frågorna.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>Principdeklarationen</dt><dd>Avtalet från den 13 september 1993, på engelska <em>Declaration of Principles</em>. Ett avtal om hur parterna ska förhandla vidare, inte om vad de ska komma fram till.</dd><dt>Interimsavtalet</dt><dd>Avtalet från den 28 september 1995, ofta kallat Oslo II. <em>Interim</em> betyder provisorisk: en ordning med bestämd sluttid, inte en slutlösning.</dd><dt>Övergångsperiod</dt><dd>Den tidsbegränsade tiden mellan den gamla ordningen och en slutlig uppgörelse. Avtalet kallar den både <em>transitional period</em> och <em>interim period</em>.</dd><dt>Slutstatusfråga</dt><dd>En fråga som avtalet uttryckligen skjuter upp till en senare förhandling. På engelska <em>permanent status issue</em>.</dd><dt>PLO</dt><dd>Palestinska befrielseorganisationen, den organisation som förhandlade för palestiniernas räkning. Inte samma sak som Palestinska myndigheten.</dd><dt>Rådet</dt><dd>Det palestinska rådet, den valda instans som avtalen inrättade för att styra palestinska områden under övergångsperioden. När texten säger <em>Rådet</em> menar den den palestinska sidan. Rådet är kärnan i det som kallas Palestinska myndigheten.</dd><dt>Jurisdiktion</dt><dd>Rätten att utöva myndighet över ett område eller en person: att stifta regler, döma och genomdriva beslut där.</dd><dt>Civil kontroll</dt><dd>Att styra det vardagliga: planering, bygglov, skola, vägar, markanvändning. På engelska <em>civil powers and responsibilities</em>.</dd><dt>Säkerhetskontroll</dt><dd>Ansvaret för allmän ordning och för militär närvaro. Avtalet skiljer mellan <em>inre säkerhet</em>, <em>allmän ordning</em> och det <em>övergripande</em> säkerhetsansvaret.</dd><dt>Omgruppering</dt><dd>På engelska <em>redeployment</em>: att israeliska militära styrkor flyttas från ett område till angivna militära platser. Inte samma sak som ett tillbakadragande.</dd><dt>Ömsesidigt erkännande</dt><dd>Att två parter samtidigt erkänner något om varandra. Läs noga vad var och en erkänner. Det behöver inte vara samma sorts sak.</dd><dt>Bilaga</dt><dd>På engelska <em>annex</em>: en del av avtalet som står efter huvudtexten och har samma rättsliga kraft. Detaljerna står ofta där.</dd><dt>Påföljd</dt><dd>Det som drabbar den som bryter mot en regel. På engelska <em>sanction</em>.</dd><dt>Förlikning</dt><dd>Uppgörelse med hjälp av en utomstående som parterna själva valt. Den utomstående föreslår, men tvingar inte.</dd><dt>Skiljedom</dt><dd>Bindande avgörande av en nämnd som båda parter i förväg gått med på att lyda.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Ha de tre frågorna framför er hela tiden: <strong>Vad avtalas? Vad skjuts upp? Vem får bestämma vad, och var?</strong> Läs varje utdrag två gånger, första gången rakt igenom, andra gången med en fråga i taget.</p><p>Ni behöver inte förstå varje ord. Fastnar ni på ett: slå upp det i ordlistan, eller läs meningen till slut och se om den gick att förstå ändå.</p><p>Anteckningarna i marginalen säger <em>var</em> i texten en fråga besvaras, aldrig <em>vad</em> svaret är. Det är med flit. Svaren är ert arbete.</p><p>Ser något i översättningen konstigt ut: växla till originalet och läs meningen där. Det är originalet som gäller, inte översättningen.</p><p>Stanna efter varje utdrag och säg för varandra: vad bestämdes här, och vad sköts upp? Kan ni inte svara, läs om utdraget innan ni går vidare.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj språk">
+    <button type="button" id="btn-stod" aria-pressed="true">Översättningen</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Översättningen är lärarens och inte officiell avtalstext. Originalet finns under knappen Originalet.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Fyra utdrag ur två avtal och en brevväxling. Under varje citat står var det är hämtat, så att ni kan hitta det i originalet. Det som står mellan citaten är lärarens orientering, inte avtalets ord.</p></div>
+  <h4>Utdrag 1 · Det ömsesidiga erkännandet, september 1993</h4>
+  <div class="stycke"><p><strong>Vad ni läser.</strong> Två brev, båda daterade den 9 september 1993 och överlämnade i Jerusalem dagen därpå. Det första är från <span class="begrepp" title="Palestinska befrielseorganisationen, den organisation som förhandlade för palestiniernas räkning. Inte samma sak som Palestinska myndigheten.">PLO</span>:s ordförande Yasser Arafat till Israels premiärminister Yitzhak Rabin, det andra är Rabins svar. Breven kom före <span class="begrepp" title="Avtalet från den 13 september 1993, på engelska Declaration of Principles. Ett avtal om hur parterna ska förhandla vidare, inte om vad de ska komma fram till.">principdeklarationen</span> och var villkoret för att den alls kunde undertecknas.</p><aside class="gloss"><b>Fråga 1</b>Här står vad den ena parten erkänner. Det står i brevets första mening. Läs ändå hela brevet, för erkännandet är inte det enda som står där.</aside></div>
+  <div class="stycke"><p><strong>Brev 1, Arafat till Rabin.</strong></p></div>
+  <blockquote>"PLO erkänner Staten Israels rätt att existera i fred och säkerhet."<cite>Arafats brev till Rabin, 9 september 1993</cite></blockquote>
+  <blockquote>"PLO betraktar undertecknandet av principförklaringen som en historisk händelse som inleder en ny epok av fredlig samexistens, fri från våld och andra handlingar som hotar fred och stabilitet. I enlighet med detta avsäger sig PLO användandet av terrorism och andra våldshandlingar och kommer att ta ansvar för alla PLO:s element och personal för att säkerställa efterlevnad, förhindra överträdelser och bestraffa överträdare."<cite>Samma brev</cite></blockquote>
+  <div class="stycke"><p>Brevet innehåller ytterligare två åtaganden utöver de här två styckena: att PLO godkänner FN:s säkerhetsråds resolutioner 242 och 338, och att PLO ska förklara de delar av den palestinska nationalstadgan som förnekar Israels rätt att existera ogiltiga och lägga fram ändringarna för det palestinska nationalrådet.</p><aside class="gloss"><b>Räkna</b>Hur många saker lovar PLO i sitt brev? Räkna erkännandet som ett av dem.</aside></div>
+  <div class="stycke"><p><strong>Brev 2, Rabin till Arafat.</strong> Hela brevet är fem meningar långt. Det här är meningen som bär erkännandet.</p></div>
+  <blockquote>"Som svar på ert brev av den 9 september 1993 vill jag bekräfta för er att Israels regering, mot bakgrund av de åtaganden från PLO som ingår i ert brev, har beslutat att erkänna PLO som det palestinska folkets företrädare och att inleda förhandlingar med PLO inom ramen för fredsprocessen i Mellanöstern."<cite>Rabins brev till Arafat, 9 september 1993</cite></blockquote>
+  <div class="stycke"><p>Jämför de två breven innan ni går vidare.</p><aside class="gloss"><b>Fråga 1 igen</b>Här står vad den andra parten erkänner. Erkänner de två parterna samma sorts sak, och lovar de lika mycket?</aside></div>
+  <div class="stycke"><p><strong>Ett tredje brev.</strong> Växlingen bestod av tre brev, inte två. Det tredje skrev Arafat samma dag till Norges utrikesminister Johan Jørgen Holst, och i det lovar Arafat att offentligt uppmana palestinier på Västbanken och i Gaza att avvisa våld. Det var Holst som personligen förde Arafats brev till Rabin i Jerusalem. Norge var alltså en aktiv tredje part, inte bara platsen där samtalen hölls.</p></div>
+  <h4>Utdrag 2 · A-, B- och C-områdena, 1995</h4>
+  <div class="stycke"><p><strong>Vad ni läser.</strong> Utdrag ur <span class="begrepp" title="Avtalet från den 28 september 1995, ofta kallat Oslo II. Interim betyder provisorisk: en ordning med bestämd sluttid, inte en slutlösning.">interimsavtalet</span> av den 28 september 1995, ofta kallat Oslo II. Först definitionen av de tre områdena, sedan de stycken som säger vem som bestämmer vad i varje område, och sist hur länge ordningen skulle gälla. Utdraget är det längsta av de fyra, och det är här fråga 3 avgörs.</p><aside class="gloss"><b>Fråga 3 börjar här</b>Vem bestämmer, och över vad? Håll isär två saker medan ni läser: det civila och säkerheten. Avtalet gör det.</aside></div>
+  <div class="stycke"><p><strong>Vad områdena är.</strong> Artikel XI, punkt 3.</p></div>
+  <blockquote>"a. 'Område A' avser de befolkade områden som avgränsas av en röd linje och skuggas i brunt på bifogad karta nr 1."<cite>Interimsavtalet 1995, artikel XI.3 a</cite></blockquote>
+  <blockquote>"b. 'Område B' avser de befolkade områden som avgränsas av en röd linje och skuggas i gult på bifogad karta nr 1, samt de bebyggda områdena i de byar som listas i tillägg 6 till bilaga I."<cite>Artikel XI.3 b</cite></blockquote>
+  <blockquote>"c. 'Område C' avser de delar av Västbanken utanför Områdena A och B som, med undantag för frågor som ska förhandlas i förhandlingarna om den permanenta statusen, successivt ska överföras till palestinsk jurisdiktion i enlighet med detta avtal."<cite>Artikel XI.3 c</cite></blockquote>
+  <div class="stycke"><p>Läs definitionerna en gång till och lägg märke till vad de består av.</p><aside class="gloss"><b>Röd linje, brunt, gult</b>Vad pekar definitionen på? Var i avtalet står det hur stort ett område är, och står det alls?</aside></div>
+  <div class="stycke"><p><strong>Vem bestämmer vad: det civila.</strong> Artikel XI, punkt 2 b och c.</p></div>
+  <blockquote>"b. Alla civila befogenheter och ansvarsområden, inklusive planering och zonindelning, i Områdena A och B, såsom anges i bilaga III, ska överföras till och övertas av Rådet under omgrupperingens första fas."<cite>Artikel XI.2 b</cite></blockquote>
+  <blockquote>"c. I Område C ska Israel under omgrupperingens första fas till Rådet överföra sådana civila befogenheter och ansvarsområden som inte rör territoriet, såsom anges i bilaga III."<cite>Artikel XI.2 c</cite></blockquote>
+  <div class="stycke"><p><strong>Vem bestämmer vad: säkerhet och allmän ordning.</strong> Artikel XIII, punkt 1 och 2 a.</p><aside class="gloss"><b>Område B</b>Läs långsamt. Här delas kontrollen i två sorter. Vilka två, och vem har vilken?</aside></div>
+  <blockquote>"1. Rådet ska, när omgrupperingen av israeliska militära styrkor i varje distrikt är genomförd [...], överta befogenheterna och ansvaret för inre säkerhet och allmän ordning i Område A i det distriktet."<cite>Artikel XIII.1</cite></blockquote>
+  <blockquote>"2. a. Det ska ske en fullständig omgruppering av israeliska militära styrkor från Område B. Israel ska till Rådet överföra, och Rådet ska överta, ansvaret för allmän ordning för palestinier. Israel ska ha det övergripande ansvaret för säkerheten, i syfte att skydda israeler och möta hotet från terrorism."<cite>Artikel XIII.2 a</cite></blockquote>
+  <div class="stycke"><p><strong>Område C.</strong> <span class="begrepp" title="På engelska annex: en del av avtalet som står efter huvudtexten och har samma rättsliga kraft. Detaljerna står ofta där.">Bilaga</span> III, artikel IV, punkt 4.</p><aside class="gloss"><b>Bilaga</b>På engelska <em>annex</em>: en del av avtalet som står efter huvudtexten och har samma rättsliga kraft. Detaljerna står ofta där.</aside></div>
+  <blockquote>"Överföringen av befogenheter och ansvarsområden i Område C ska inte påverka Israels fortsatta rätt att utöva sina befogenheter och sitt ansvar i fråga om inre säkerhet och allmän ordning, liksom i fråga om andra befogenheter och ansvarsområden som inte överförts."<cite>Bilaga III, artikel IV.4</cite></blockquote>
+  <div class="stycke"><p><strong>Vad <span class="begrepp" title="Att styra det vardagliga: planering, bygglov, skola, vägar, markanvändning. På engelska civil powers and responsibilities.">civil kontroll</span> innehåller.</strong> Bilaga III, tillägg 1, artikel 27, om planering och zonindelning.</p><aside class="gloss"><b>Bygglov</b>Fråga 3. Är ett bygglov en civil fråga eller en säkerhetsfråga enligt avtalet? Svaret står i det här stycket. Lägg det sedan bredvid vad som just sades om Område C.</aside></div>
+  <blockquote>"Befogenheter och ansvarsområden inom området planering och zonindelning på Västbanken och i Gazaremsan ska överföras från militärregeringen och dess civilförvaltning till den palestinska sidan. Detta innefattar att ta initiativ till, utarbeta, ändra och upphäva planer, och annan lagstiftning i frågor som regleras genom planer [...] att utfärda bygglov samt att övervaka och kontrollera byggverksamhet."<cite>Bilaga III, tillägg 1, artikel 27</cite></blockquote>
+  <div class="stycke"><p><strong>Sammanställt.</strong> Så här fördelas kontrollen enligt de stycken ni just läst. Det är lärarens sammanfattning, inte avtalets ord. Kontrollera den mot texten.</p></div>
+  <div class="stycke"><p><strong>Område A.</strong> Civil kontroll: palestinsk, genom <span class="begrepp" title="Det palestinska rådet, den valda instans som avtalen inrättade för att styra palestinska områden under övergångsperioden. När texten säger Rådet menar den den palestinska sidan. Rådet är kärnan i det som kallas Palestinska myndigheten.">Rådet</span>. Säkerhet och allmän ordning: palestinsk.</p><aside class="gloss"><b>Rådet</b>Det palestinska rådet, den valda instans som avtalen inrättade för att styra palestinska områden under övergångsperioden. När texten säger <em>Rådet</em> menar den den palestinska sidan. Rådet är kärnan i det som kallas Palestinska myndigheten.</aside></div>
+  <div class="stycke"><p><strong>Område B.</strong> Civil kontroll: palestinsk, genom Rådet. Säkerheten delad: palestinsk polis för allmän ordning bland palestinier, Israel med det <em>övergripande</em> ansvaret för säkerheten.</p></div>
+  <div class="stycke"><p><strong>Område C.</strong> Civil kontroll: israelisk, utom vissa befogenheter som inte rör marken. Säkerhet: israelisk, fullt ansvar.</p></div>
+  <div class="stycke"><p><strong>Hur länge skulle det gälla.</strong> Artikel XI, punkt 1, 2 och 2 d.</p><aside class="gloss"><b>Fråga 2</b>Hur länge skulle ordningen gälla, och i hur många steg? Orden att leta efter är <em>övergångsperioden</em>, <em>stegvis</em> och <em>tre faser</em>.</aside></div>
+  <blockquote>"1. De två sidorna betraktar Västbanken och Gazaremsan som en enda territoriell enhet, vars integritet och status ska bevaras under övergångsperioden."<cite>Artikel XI.1</cite></blockquote>
+  <blockquote>"2. De två sidorna är överens om att Västbankens och Gazaremsans territorium [...] stegvis ska ställas under det palestinska Rådets jurisdiktion, vilket ska vara fullbordat inom 18 månader från dagen för Rådets tillträde [...]"<cite>Artikel XI.2</cite></blockquote>
+  <blockquote>"d. De fortsatta omgrupperingarna av israeliska militära styrkor till angivna militära platser ska genomföras stegvis i enlighet med principdeklarationen i tre faser, var och en efter ett mellanrum på sex månader räknat från Rådets tillträde, och ska vara fullbordade inom 18 månader från dagen för Rådets tillträde."<cite>Artikel XI.2 d</cite></blockquote>
+  <div class="stycke"><p>Tre faser, sex månader mellan varje, allt klart inom arton månader från det att Rådet tillträtt.</p></div>
+  <h4>Utdrag 3 · Frågorna som skjuts upp, 1993</h4>
+  <div class="stycke"><p><strong>Vad ni läser.</strong> En enda punkt ur principdeklarationen av den 13 september 1993: artikel V, punkt 3. Den är kort. Läs den ändå två gånger.</p><aside class="gloss"><b>Fråga 2</b>Läs uppräkningen långsamt och räkna. Känner ni igen frågorna från lektion 1?</aside></div>
+  <blockquote>"3. Det är överenskommet att dessa förhandlingar ska omfatta återstående frågor, däribland: Jerusalem, flyktingarna, bosättningarna, säkerhetsarrangemangen, gränsen, förbindelser och samarbete med grannländerna, samt övriga frågor av gemensamt intresse."<cite>Principdeklarationen 1993, artikel V.3</cite></blockquote>
+  <div class="stycke"><p>Läs meningens första och sista led en extra gång.</p><aside class="gloss"><b>Däribland</b>Ett litet ord före uppräkningen, och ett helt led efter den sista namngivna frågan. Vad betyder de två för hur många frågor som skjuts upp?</aside></div>
+  <h4>Utdrag 4 · Tidsgränsen, 1993</h4>
+  <div class="stycke"><p><strong>Vad ni läser.</strong> Två punkter ur principdeklarationens artikel V, om när <span class="begrepp" title="Den tidsbegränsade tiden mellan den gamla ordningen och en slutlig uppgörelse. Avtalet kallar den både transitional period och interim period.">övergångsperioden</span> börjar och när förhandlingarna om de uppskjutna frågorna senast ska komma igång. Artikel I ramar in samma period som <em>en övergångsperiod om högst fem år</em>, alltså ett tak.</p><aside class="gloss"><b>Fråga 2</b>Perioden börjar inte vid ett datum utan vid en händelse. Vilken?</aside></div>
+  <blockquote>"1. Den femåriga övergångsperioden ska inledas i och med tillbakadragandet från Gazaremsan och Jerichoområdet."<cite>Principdeklarationen 1993, artikel V.1</cite></blockquote>
+  <blockquote>"2. Förhandlingarna om permanent status ska inledas så snart som möjligt, dock senast vid ingången av övergångsperiodens tredje år, mellan Israels regering och företrädarna för det palestinska folket."<cite>Artikel V.2</cite></blockquote>
+  <div class="stycke"><p>Stanna vid punkt 2 innan ni går vidare.</p><aside class="gloss"><b>Inledas eller avslutas</b>Skillnaden mellan att <em>inleda</em> och att <em>avsluta</em> förhandlingarna är hela poängen med punkten. Vilket av de två står det?</aside></div>
+  <div class="stycke"><p><strong>När började klockan gå?</strong> Avtalet anger inget datum. Det knyter starten till en händelse: tillbakadragandet från Gazaremsan och Jerichoområdet. Det datumet bestämdes inte här utan i ett senare avtal, Kairoavtalet, som undertecknades den <strong>4 maj 1994</strong>. Tillbakadragandet genomfördes under maj 1994. Femårsperioden löpte därmed ut <strong>1999</strong>, och förhandlingarna om permanent status skulle ha inletts senast <strong>omkring maj 1996</strong>. De kom formellt igång först vid toppmötet i Camp David i <strong>juli 2000</strong>.</p><aside class="gloss"><b>Utanför texten</b>Datumen i det här stycket kommer från uppföljningsavtalet och från vad som sedan hände. De står inte i principdeklarationen. Skilj på vad avtalet säger och vad läraren lagt till.</aside></div>
+  <div class="stycke"><p><strong>Fanns det någon <span class="begrepp" title="Det som drabbar den som bryter mot en regel. På engelska sanction.">påföljd</span>?</strong> Orden <em>påföljd</em> och <em>sanktion</em> förekommer inte i avtalet. Det som finns är artikel XV, en allmän regel om hur tvister ska lösas. Den gäller alla tvister om avtalet, inte särskilt tidsgränserna i artikel V.</p><aside class="gloss"><b>Fråga 1</b>Vad händer enligt avtalet om någon bryter mot det, och vad krävs för att det ska hända? Läs de tre punkterna som en kedja, och stanna vid det som krävs för sista steget.</aside></div>
+  <blockquote>"1. Tvister som uppstår ur tillämpningen eller tolkningen av denna principdeklaration, eller av senare avtal som rör övergångsperioden, ska lösas genom förhandlingar i den gemensamma sambandskommitté som ska inrättas enligt artikel X ovan."<cite>Artikel XV.1</cite></blockquote>
+  <blockquote>"2. Tvister som inte kan lösas genom förhandlingar kan lösas genom en förlikningsmekanism som parterna kommer överens om."<cite>Artikel XV.2</cite></blockquote>
+  <blockquote>"3. Parterna kan komma överens om att till skiljedom hänskjuta tvister som rör övergångsperioden och som inte kunnat lösas genom förlikning. För detta ändamål ska parterna, om båda parter går med på det, inrätta en skiljedomskommitté."<cite>Artikel XV.3</cite></blockquote>
+  <div class="stycke"><p>Kedjan är alltså förhandling i en gemensam kommitté, därefter eventuell <span class="begrepp" title="Uppgörelse med hjälp av en utomstående som parterna själva valt. Den utomstående föreslår, men tvingar inte.">förlikning</span>, därefter eventuell <span class="begrepp" title="Bindande avgörande av en nämnd som båda parter i förväg gått med på att lyda.">skiljedom</span>. Men skiljedom kräver att båda parter går med på den, det står i punkt 3. Det finns ingen automatisk påföljd, inget vite och ingen utomstående som kan tvinga fram ett avgörande om den ena parten säger nej.</p><aside class="gloss"><b>Förlikning</b>Uppgörelse med hjälp av en utomstående som parterna själva valt. Den utomstående föreslår, men tvingar inte.</aside></div>
+  <h4>Var utdragen är hämtade</h4>
+  <div class="stycke"><p><strong>Erkännandebreven, september 1993.</strong> Israels utrikesministeriums dokumentsamling, volym 13-14, dokument 107, återgiven i sin helhet av <a href="https://peacemaker.un.org/sites/default/files/document/files/2024/05/israel-plo20mutual20recognition.pdf">FN:s Peacemaker-databas</a>.</p></div>
+  <div class="stycke"><p><strong>Principdeklarationen, 13 september 1993.</strong> <a href="https://avalon.law.yale.edu/20th_century/isrplo.asp">The Avalon Project, Yale Law School</a>. Avtalet är också FN-dokument A/48/486-S/26560.</p></div>
+  <div class="stycke"><p><strong>Interimsavtalet, 28 september 1995.</strong> Fulltexten med samtliga bilagor, 188 sidor, hos <a href="https://content.ecf.org.il/files/M00261_TheIsraeli-PalestinianInterimAgreement-EnglishText.pdf">Economic Cooperation Foundation</a>, samma text som i <a href="https://peacemaker.un.org/en/node/9434">FN:s Peacemaker-databas</a>.</p></div>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p>Avtalstexten på engelska, som den undertecknades. Rubrikerna och raderna om var utdragen är hämtade är lärarens; citaten är avtalets.</p></div>
+  <h4>Utdrag 1 · Det ömsesidiga erkännandet, september 1993</h4>
+  <div class="stycke"><p><strong>Brev 1, Arafat till Rabin</strong>, 9 september 1993.</p></div>
+  <blockquote>"The PLO recognizes the right of the State of Israel to exist in peace and security."<cite>Arafats brev till Rabin, 9 september 1993</cite></blockquote>
+  <blockquote>"The PLO considers that the signing of the Declaration of Principles constitutes a historic event, inaugurating a new epoch of peaceful coexistence, free from violence and all other acts which endanger peace and stability. Accordingly, the PLO renounces the use of terrorism and other acts of violence and will assume responsibility over all PLO elements and personnel in order to assure their compliance, prevent violations and discipline violators."<cite>Samma brev</cite></blockquote>
+  <div class="stycke"><p><strong>Brev 2, Rabin till Arafat</strong>, 9 september 1993.</p></div>
+  <blockquote>"In response to your letter of September 9, 1993, I wish to confirm to you that, in light of the PLO commitments included in your letter, the Government of Israel has decided to recognize the PLO as the representative of the Palestinian people and commence negotiations with the PLO within the Middle East peace process."<cite>Rabins brev till Arafat, 9 september 1993</cite></blockquote>
+  <h4>Utdrag 2 · A-, B- och C-områdena, 1995</h4>
+  <div class="stycke"><p><strong>Vad områdena är.</strong> Interimsavtalet, artikel XI, punkt 3.</p></div>
+  <blockquote>"a. 'Area A' means the populated areas delineated by a red line and shaded in brown on attached map No. 1;"<cite>Interimsavtalet 1995, artikel XI.3 a</cite></blockquote>
+  <blockquote>"b. 'Area B' means the populated areas delineated by a red line and shaded in yellow on attached map No. 1, and the built-up area of the hamlets listed in Appendix 6 to Annex I, and"<cite>Artikel XI.3 b</cite></blockquote>
+  <blockquote>"c. 'Area C' means areas of the West Bank outside Areas A and B, which, except for the issues that will be negotiated in the permanent status negotiations, will be gradually transferred to Palestinian jurisdiction in accordance with this Agreement."<cite>Artikel XI.3 c</cite></blockquote>
+  <div class="stycke"><p><strong>Vem bestämmer vad: det civila.</strong> Artikel XI, punkt 2 b och c.</p></div>
+  <blockquote>"b. All civil powers and responsibilities, including planning and zoning, in Areas A and B, set out in Annex III, will be transferred to and assumed by the Council during the first phase of redeployment."<cite>Artikel XI.2 b</cite></blockquote>
+  <blockquote>"c. In Area C, during the first phase of redeployment Israel will transfer to the Council civil powers and responsibilities not relating to territory, as set out in Annex III."<cite>Artikel XI.2 c</cite></blockquote>
+  <div class="stycke"><p><strong>Vem bestämmer vad: säkerhet och allmän ordning.</strong> Artikel XIII, punkt 1 och 2 a.</p></div>
+  <blockquote>"1. The Council will, upon completion of the redeployment of Israeli military forces in each district [...] assume the powers and responsibilities for internal security and public order in Area A in that district."<cite>Artikel XIII.1</cite></blockquote>
+  <blockquote>"2. a. There will be a complete redeployment of Israeli military forces from Area B. Israel will transfer to the Council and the Council will assume responsibility for public order for Palestinians. Israel shall have the overriding responsibility for security for the purpose of protecting Israelis and confronting the threat of terrorism."<cite>Artikel XIII.2 a</cite></blockquote>
+  <div class="stycke"><p><strong>Område C.</strong> Annex III, artikel IV, punkt 4.</p></div>
+  <blockquote>"The transfer of powers and responsibilities in Area C shall not affect Israel's continued authority to exercise its powers and responsibilities with regard to internal security and public order, as well as with regard to other powers and responsibilities not transferred."<cite>Annex III, artikel IV.4</cite></blockquote>
+  <div class="stycke"><p><strong>Vad civil kontroll innehåller.</strong> Annex III, Appendix 1, artikel 27 (Planning and Zoning).</p></div>
+  <blockquote>"Powers and responsibilities in the sphere of Planning and Zoning in the West Bank and the Gaza Strip shall be transferred from the military government and its Civil Administration to the Palestinian side. This includes initiating, preparing, amending and abrogating Planning Schemes, and other legislation pertaining to issues regulated by Planning Schemes [...] issuing building permits and supervising and monitoring building activities."<cite>Annex III, Appendix 1, artikel 27</cite></blockquote>
+  <div class="stycke"><p><strong>Hur länge skulle det gälla.</strong> Artikel XI, punkt 1, 2 och 2 d.</p></div>
+  <blockquote>"1. The two sides view the West Bank and the Gaza Strip as a single territorial unit, the integrity and status of which will be preserved during the interim period."<cite>Artikel XI.1</cite></blockquote>
+  <blockquote>"2. The two sides agree that West Bank and Gaza Strip territory [...] will come under the jurisdiction of the Palestinian Council in a phased manner, to be completed within 18 months from the date of the inauguration of the Council [...]"<cite>Artikel XI.2</cite></blockquote>
+  <blockquote>"d. The further redeployments of Israeli military forces to specified military locations will be gradually implemented in accordance with the DOP in three phases, each to take place after an interval of six months, after the inauguration of the Council, to be completed within 18 months from the date of the inauguration of the Council."<cite>Artikel XI.2 d</cite></blockquote>
+  <h4>Utdrag 3 · Frågorna som skjuts upp, 1993</h4>
+  <div class="stycke"><p>Principdeklarationen, artikel V, punkt 3.</p></div>
+  <blockquote>"3. It is understood that these negotiations shall cover remaining issues, including: Jerusalem, refugees, settlements, security arrangements, border, relations and cooperation with their neighbors, and other issues of common interest."<cite>Principdeklarationen 1993, artikel V.3</cite></blockquote>
+  <h4>Utdrag 4 · Tidsgränsen, 1993</h4>
+  <div class="stycke"><p>Principdeklarationen, artikel V, punkt 1 och 2. Artikel I talar om "a transitional period not exceeding five years".</p></div>
+  <blockquote>"1. The five-year transitional period will begin upon the withdrawal from the Gaza strip and Jericho area."<cite>Principdeklarationen 1993, artikel V.1</cite></blockquote>
+  <blockquote>"2. Permanent status negotiations will commence as soon as possible, but not later than the beginning of the third year of the interim period between the Government of Israel and the Palestinian people representatives."<cite>Artikel V.2</cite></blockquote>
+  <div class="stycke"><p><strong>Tvistlösningen.</strong> Artikel XV.</p></div>
+  <blockquote>"1. Disputes arising out of the application or interpretation of this Declaration of Principles, or any subsequent agreements pertaining to the interim period, shall be resolved by negotiations through the Joint Liaison Committee to be established pursuant to Article X above."<cite>Artikel XV.1</cite></blockquote>
+  <blockquote>"2. Disputes which cannot be settled by negotiations may be resolved by a mechanism of conciliation to be agreed upon by the parties."<cite>Artikel XV.2</cite></blockquote>
+  <blockquote>"3. The parties may agree to submit to arbitration disputes relating to the interim period, which cannot be settled through conciliation. To this end, upon the agreement of both parties, the parties will establish an Arbitration Committee."<cite>Artikel XV.3</cite></blockquote>
+</article>
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Utdrag 1: Vad erkänner PLO, och vad erkänner Israel? Är det samma sorts sak? Räkna hur många åtaganden vardera parten gör i sitt brev.</li><li>Utdrag 2: Var i avtalet står det hur stor del av Västbanken som är Område C? Svara med artikel och punkt, eller förklara varför frågan inte går att besvara ur texten.</li><li>Utdrag 2: En palestinsk familj i Område C vill bygga ut sitt hus 1996. Vem utfärdar bygglovet enligt avtalet? Visa vägen genom texten: vilket stycke säger vad bygglov är för slags fråga, och vilket stycke säger vem som har den sortens befogenhet i Område C.</li><li>Utdrag 3: Uppräkningen börjar med <em>däribland</em> och slutar med <em>övriga frågor av gemensamt intresse</em>. Vad betyder de två leden för hur många frågor som sköts upp, och vem skulle avgöra vilka de övriga är?</li><li>Utdrag 4: Senast när skulle förhandlingarna om permanent status ha inletts enligt artikel V.2, räknat i år från starten? Och vad kräver artikel XV för att en skiljedom ska kunna komma till stånd? Svara med avtalets egna ord.</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Översättningen är ett hjälpmedel. Det är den engelska texten som gäller, och det är den du ska gå till om något i översättningen verkar konstigt.</em></p>
+  
+  <p class="kalla">Källa: Israel och Palestina · lektion 4 · Originalet nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Översättningen är lärarens och inte officiell avtalstext. Originalet finns under knappen Originalet.'
+      : 'Avtalstexten som den undertecknades. Det är den engelska lydelsen som gäller.';
+    if(byl) byl.textContent = medStod ? 'Svensk översättning' : 'Originalet på engelska';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

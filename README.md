@@ -26,4 +26,6 @@ Filerna genereras i vaultet (`C:\Brain`) och kopieras hit. **Vaultet självt ska
 | Sida | Byggs ur | Med |
 |---|---|---|
 | `israel-palestina/tidslinjen.html` | `output/lessons/Samhällskunskap/Israel och Palestina/lasmaterial-tidslinjen.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` |
+| `israel-palestina/ir-teorier.html` | `output/lessons/Samhällskunskap/Israel och Palestina/lasmaterial-ir-teorier.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` (genre: forfattad) |
+| `israel-palestina/osloavtalen.html` | `output/lessons/Samhällskunskap/Israel och Palestina/lasmaterial-osloavtalen.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` (genre: primarkalla) |
 | `statsskicket/magdalena-andersson-c-och-v.html` | `output/lasmaterial/2026-09-18-sa-kan-magdalena-andersson-makla-fred-mellan-c-och-v.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` |
