@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Expert: Dödläge i Gaza riskerar att vara i tio år - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-08-08</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Expert: Dödläge i Gaza riskerar att vara i tio år</h1>
+  <p class="ingress">Det fredsråd som på Donald Trumps initiativ ska styra och ansvara för återuppbyggnaden av Gaza har tecknat sitt första byggkontrakt.</p>
+  <p class="byline">Text Ulrika By · <span id="bylineversion">Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Efter Hamas attack mot Israel den 7 oktober 2023 följde ett krig i Gazaremsan som pågick i två år. I oktober 2025 presenterade USA:s president Donald Trump en plan i 20 punkter för vapenvila och fred, och Israel och Hamas enades om planens första fas. Sedan dess ska Gaza enligt planen byggas upp igen och få ett nytt styre, under ledning av ett organ som Trump själv har skapat. Hamas, som har styrt Gaza sedan 2007, ska avväpnas och lämna makten. I februari 2026 inledde USA och Israel ett krig mot Iran, och det har pågått i omgångar sedan dess. Artikeln är en nyhetsartikel där reportern låter två svenska forskare bedöma läget: Isabell Schierenbeck vid Göteborgs universitet och Isak Svensson vid Uppsala universitet. Det är alltså de som bedömer, inte reportern.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>dödläge</dt><dd>Ett läge där ingen part kan eller vill röra sig, så att ingenting händer.</dd><dt>vapenvila</dt><dd>En överenskommelse om att sluta strida. Det är inte samma sak som ett fredsavtal: frågorna som orsakade kriget är inte lösta.</dd><dt>medla</dt><dd>Att en utomstående part hjälper två stridande parter att komma överens.</dd><dt>fredsrådet</dt><dd>Det organ Trump skapade hösten 2025, på engelska <em>Board of Peace</em>. Det ska leda Gazas återuppbyggnad och har ett eget utskott för Gaza.</dd><dt>stabiliseringsstyrka</dt><dd>En internationell militär styrka som ska hålla ordning under en övergångsperiod. Här kallad ISF.</dd><dt>avväpning</dt><dd>Att en väpnad grupp lämnar ifrån sig sina vapen.</dd><dt>tillbakadragande</dt><dd>Att en armé drar sig ut ur ett område den kontrollerar.</dd><dt>teknokratiskt organ</dt><dd>Ett styre av experter i stället för politiker från partier. Det ska sköta förvaltningen, men inte driva politik.</dd><dt>FN-systemet</dt><dd>FN och alla dess organ, till exempel säkerhetsrådet. Artikeln säger att fredsrådet är tänkt att "runda" det, alltså gå förbi det.</dd><dt>IDF</dt><dd>Israels försvarsmakt, Israel Defense Forces.</dd><dt>demilitarisering</dt><dd>Att göra ett område fritt från vapen och militära styrkor.</dd><dt>Palestinska myndigheten</dt><dd>Det palestinska självstyret på Västbanken, med säte i Ramallah.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Artikeln har två forskare som ibland säger olika saker. Gör två kolumner, en för Schierenbeck och en för Svensson, och skriv vad var och en påstår.</p><p>Leta efter hindren. Artikeln räknar upp flera saker som gör att processen står still. Hitta minst fyra, och skriv för varje hinder vem som orsakar det.</p><p>Lägg särskilt märke till frågan om <em>ordning</em>: vad ska hända först, och vem kräver vad?</p><p>Faktarutorna i slutet är en del av texten. Läs dem, där står siffror som inte står någon annanstans.</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj version av artikeln">
+    <button type="button" id="btn-stod" aria-pressed="true">Med stöd</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Orsakssambanden är utskrivna och begreppen förklarade.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Donald Trump har tagit initiativ till ett <span class="begrepp" title="Det organ Trump skapade hösten 2025, på engelska Board of Peace. Det ska leda Gazas återuppbyggnad och har ett eget utskott för Gaza.">fredsråd</span>. Rådet ska styra Gaza och ansvara för att bygga upp det igen. Nu har fredsrådet tecknat sitt första byggkontrakt.</p><aside class="gloss"><b>fredsrådet</b>Det organ Trump skapade hösten 2025, på engelska <em>Board of Peace</em>. Det ska leda Gazas återuppbyggnad och har ett eget utskott för Gaza.</aside></div>
+  <p class="talstreck">– Ett blygsamt steg framåt i det som länge verkat vara ett dödläge, säger Isabell Schierenbeck, professor vid institutionen för globala studier vid Göteborgs universitet.</p>
+  <div class="stycke"><p>I oktober förra året, alltså 2025, enades Israel och Hamas om den första fasen i en <span class="begrepp" title="En överenskommelse om att sluta strida. Det är inte samma sak som ett fredsavtal: frågorna som orsakade kriget är inte lösta.">vapenvila</span>. Det var USA som medlade fram avtalet, alltså hjälpte parterna att komma överens. USA skapade samtidigt ett <em>fredsråd</em> som ska övervaka återuppbyggnaden. I januari 2026 presenterade <strong>Jared Kushner</strong>, Donald Trumps svärson, sin <em>masterplan</em> för Gaza. Det skedde under World Economic Forum i Davos, ett årligt möte för världens politiska och ekonomiska ledare.</p><aside class="gloss"><b>vapenvila</b>En överenskommelse om att sluta strida. Det är inte samma sak som ett fredsavtal: frågorna som orsakade kriget är inte lösta.</aside></div>
+  <div class="stycke"><p>Enligt planen skulle en futuristisk storstad ha rest sig ur bråten och rasmassorna på Gazaremsan om tre år. Glassiga skisser visades upp för världen: glamorösa resorter, skyskrapor, lyxhotell, grönområden, en ny flygplats, en ny hamn och nya industriområden.</p></div>
+  <div class="stycke"><p><span class="def">Men först nu, drygt åtta månader senare, har fredsrådet tecknat sitt första byggkontrakt.</span></p></div>
+  <div class="stycke"><p>Kontraktet gick till ett amerikanskt bolag. Det ska bygga en militär utpost, alltså en förläggning för soldater, skriver den brittiska tidningen The Guardian. Byggnaden är <strong>100 gånger 120 meter</strong> stor och ska rymma <strong>150</strong> marockanska soldater. Soldaterna ska ingå i den internationella <span class="begrepp" title="En internationell militär styrka som ska hålla ordning under en övergångsperiod. Här kallad ISF.">stabiliseringsstyrkan</span>, <strong>ISF</strong>, som ska övervaka utvecklingen i Gaza.</p><aside class="gloss"><b>Kontrasten</b>Lägg märke till skillnaden mellan planen och det första som faktiskt byggs. Planen visade lyxhotell och skyskrapor. Det första kontraktet gäller en förläggning för soldater. Artikeln drar inte själv slutsatsen, men ställer de två bredvid varandra.</aside></div>
+  <p class="talstreck">– Längre än så har man inte kommit. Jag hade inte förväntat mig det heller. Situationen är enormt komplex. Byggkontraktet är trots allt ett litet steg mot att stabiliseringsstyrkan till slut kommer på plats, säger Isabell Schierenbeck.</p>
+  <h4>Vad som står still</h4>
+  <div class="stycke"><p>Utvecklingen i Gaza har hamnat i skuggan av USA:s krig mot Iran, ett krig som Israel stödjer. <mark>Därför</mark> har världen inte haft blicken på Gaza.</p></div>
+  <div class="stycke"><p>Donald Trump presenterade i oktober 2025 en plan i <strong>20</strong> punkter för vapenvila och fred. Få av punkterna har bockats av, alltså genomförts:</p></div>
+  <div class="stycke"><p>Det finns ännu ingen internationell styrka på plats. Hamas har inte avväpnats. Israel har fortsatt att bomba Gaza, och minst <strong>1 200</strong> människor har dödats under vapenvilan. Israel har också passat på att ta kontroll över betydligt mer mark än vad avtalet om vapenvila tillät. <span class="def">I dag kontrollerar IDF, Israels försvarsmakt, någonstans mellan 60 och 70 procent av Gazas yta. Avtalet sade 53 procent.</span></p></div>
+  <div class="stycke"><p>Fredsrådets arbete för Gaza har ändå ett organ: <strong>Gaza executive board</strong>, alltså Gazas verkställande styrelse. Den leds av bulgaren och diplomaten <strong>Nickolay Mladenov</strong>.</p></div>
+  <p class="talstreck">– Han är omvittnat skicklig, har mycket goda kontakter bland israeler och palestinier och ett bra rykte internationellt. Att han utsetts till att leda arbetet gör att jag är försiktigt positiv till utvecklingen, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p><mark>Men</mark> Mladenov har haft oddsen emot sig. USA:s krig med Iran, konflikten om Hormuzsundet och Israels agerande i Libanon har slukat de diplomatiska förhandlingsresurserna. Med det menas att diplomaterna, och deras tid och uppmärksamhet, har gått åt till andra kriser.</p></div>
+  <p class="talstreck">– Hade Gaza fortsatt att stå i USA:s och världens fokus hade man förmodligen kommit längre, säger Isabell Schierenbeck.</p>
+  <h4>Trumps sätt att förhandla</h4>
+  <div class="stycke"><p>Till allt detta kommer Donald Trumps ständiga utspel, alltså hans plötsliga besked och uttalanden.</p></div>
+  <p class="talstreck">– Hans okonventionella förhandlingsteknik är ineffektiv. Han gör uppgörelser med en part och använder sedan det för att sätta press på den andra parten – i stället för att bygga samförstånd, konstaterar Isak Svensson, professor vid institutionen för freds- och konfliktforskning i Uppsala.</p>
+  <div class="stycke"><p>Den senaste veckans händelser är enligt artikeln ett skolboksexempel, alltså ett tydligt exempel, på den tekniken:</p></div>
+  <div class="stycke"><p>Först meddelade Trump att Hamas hade gått med på att lämna in sina vapen. Trump beskrev överenskommelsen som ”ett monumentalt steg mot varaktig fred och säkerhet”.</p></div>
+  <div class="stycke"><p>Israels premiärminister <strong>Benjamin Netanyahu</strong> sa sedan inte ett ord på flera dagar. Enligt Schierenbeck tyder tystnaden på att han har svårt att hantera situationen:</p></div>
+  <p class="talstreck">– Han kan inte säga nej till Trump men inte heller gå med på det med tanke på den inrikespolitiska situationen, konstaterar Isabell Schierenbeck.</p>
+  <p class="talstreck">– Trump har haft svårt att utöva något inflytande alls över Netanyahu i den här processen, tillägger Isak Svensson.</p>
+  <div class="stycke"><p><span class="def">Isak Svensson menar också att processen har fördröjts av att Trump har skapat en ny organisation för att runda FN-systemet, alltså gå förbi FN i stället för att arbeta genom det.</span></p><aside class="gloss"><b>Var påståendet står</b>I originalet står den här meningen direkt efter faktarutan om fredsrådet, och det är lätt att missa vem "han" är. Det är Isak Svensson.</aside></div>
+  <div class="stycke"><p><mark>Förutom</mark> Trumps nyckfullhet gör även Netanyahus inrikespolitiska läge allt mer komplicerat, menar Isabell Schierenbeck. Netanyahu är trängd hemma, <mark>och därför</mark> styrs hans beslut enligt Schierenbeck av inrikespolitiken snarare än av säkerhetspolitiken. Det framgår av det hon säger härnäst.</p></div>
+  <p class="talstreck">– För att nå en politisk lösning krävs det dels en ny israelisk regering som drivs av säkerhetspolitiska snarare än inrikespolitiska agendor, dels en reformering av den palestinska myndigheten till ett fungerande politiskt styre, säger hon.</p>
+  <h4>Vem ska göra vad först?</h4>
+  <div class="stycke"><p>Både Schierenbeck och Svensson ser den utlovade stabiliseringsstyrkan som en absolut nyckel. Styrkan behövs <mark>för att</mark> Hamas ska kunna avväpnas <mark>och för att</mark> Israel ska kunna dra sig tillbaka. <span class="def">Problemet är i vilken ordning det ska ske.</span></p></div>
+  <div class="stycke"><p>Hamas har gått med på en stegvis <span class="begrepp" title="Att en väpnad grupp lämnar ifrån sig sina vapen.">avväpning</span>, som sker parallellt med att Israel drar sig tillbaka. Israel kräver däremot att Hamas avväpnas helt innan Israel drar sig tillbaka.</p><aside class="gloss"><b>avväpning</b>Att en väpnad grupp lämnar ifrån sig sina vapen.</aside></div>
+  <div class="stycke"><p>Nästa hinder är att de länder som har sagt sig vara villiga att bidra med soldater, till exempel <strong>Marocko</strong>, <strong>Albanien</strong> och <strong>Kosovo</strong>, inte vill gå in så länge Hamas inte är avväpnat. <mark>Men</mark> styrkan behövs ju för att avväpningen ska kunna ske. <span class="def">Det blir alltså en cirkel: ingen vill ta det första steget.</span></p><aside class="gloss"><b>Mellanledet</b>Att hindren bildar en cirkel står inte utskrivet i originalet. Artikeln räknar upp dem ett i taget. Lägg dem bredvid varandra: Israel väntar på avväpningen, länderna väntar på avväpningen, och avväpningen väntar på styrkan.</aside></div>
+  <p class="talstreck">– Sedan kan man ju också konstatera att inte heller arabvärlden satt palestiniernas intressen först, de månar också om relationen till Israel, vilket bland annat syns på att de inte har brutit med Israel trots tre års krig, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p>Enligt Isak Svensson finns det små tecken på att förhandlingarna rör sig framåt. Under tiden betalar befolkningen i Gaza ett högt pris. Isabell Schierenbeck är pessimistisk:</p></div>
+  <p class="talstreck">– Risken är stor för att vi om tio år befinner oss i ungefär samma läge som i dag.</p>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p># Expert: Dödläge i Gaza riskerar att vara i tio år</p></div>
+  <div class="stycke"><p>Det fredsråd som på president Donald Trumps initiativ ska styra och ansvara för återuppbyggnaden av Gaza har tecknat sitt första byggkontrakt.</p></div>
+  <p class="talstreck">– Ett blygsamt steg framåt i det som länge verkat vara ett dödläge, säger Isabell Schierenbeck, professor vid institutionen för globala studier vid Göteborgs universitet.</p>
+  <div class="stycke"><p>I oktober förra året enades Israel och Hamas om den första fasen i en vapenvila. USA medlade fram avtalet – och skapade ett ”fredsråd” som ska övervaka återuppbyggnaden. Under World Economic Forum i Davos i januari presenterade Jared Kushner, Donald Trumps svärson, sin ”masterplan”:</p></div>
+  <div class="stycke"><p>Om tre år har en futuristisk storstad rest sig ur bråten och rasmassorna på Gazaremsan. Glassiga skisser på glamorösa resorter, skyskrapor, lyxhotell, grönområden, ny flygplats, ny hamn och nya industriområden visades upp för världen.</p></div>
+  <div class="stycke"><p><strong>Först nu, drygt</strong> åtta månader senare, har fredsrådet tecknat sitt första byggkontrakt.</p></div>
+  <div class="stycke"><p>Det gick till ett amerikanskt bolag som ska bygga en militär utpost, skriver The Guardian. Byggnaden är 100 gånger 120 meter stor och ska rymma 150 marockanska soldater som ska ingå i den internationella stabiliseringsstyrkan, ISF, som ska övervaka utvecklingen i Gaza.</p></div>
+  <p class="talstreck">– Längre än så har man inte kommit. Jag hade inte förväntat mig det heller. Situationen är enormt komplex. Byggkontraktet är trots allt ett litet steg mot att stabiliseringsstyrkan till slut kommer på plats, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p><strong>Utvecklingen i Gaza</strong> har hamnat i skuggan av USA:s Israelstödda krig mot Iran.</p></div>
+  <div class="stycke"><p>Få av punkterna i den 20-punktsplan för vapenvila och fred som Donald Trump presenterade i oktober 2025 har bockats av:</p></div>
+  <div class="stycke"><p>Det finns ännu ingen internationell styrka på plats. Hamas har inte avväpnats. Israel har fortsatt bomba Gaza, minst 1 200 människor har dödats under vapenvilan och Israel har passat på att lägga under sig betydligt mer mark än vad avtalet om vapenvila stipulerade. I dag har IDF kontroll över någonstans mellan 60 och 70 procent av ytan – mot de 53 procent man kom överens om.</p></div>
+  <div class="stycke"><p><strong>Gaza executive board</strong> – som fredsrådets insats för Gaza heter – finns dock. Det leds av bulgaren och diplomaten Nickolay Mladenov.</p></div>
+  <p class="talstreck">– Han är omvittnat skicklig, har mycket goda kontakter bland israeler och palestinier och ett bra rykte internationellt. Att han utsetts till att leda arbetet gör att jag är försiktigt positiv till utvecklingen, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p>Men Nickolay Mladenov har haft oddsen emot sig. USA:s krig med Iran, konflikten om Hormuzsundet och Israels agerande i Libanon har slukat de diplomatiska förhandlingsresurserna.</p></div>
+  <p class="talstreck">– Hade Gaza fortsatt att stå i USA:s och världens fokus hade man förmodligen kommit längre, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p>Till det ska läggas Donald Trumps ständiga utspel:</p></div>
+  <p class="talstreck">– Hans okonventionella förhandlingsteknik är ineffektiv. Han gör uppgörelser med en part och använder sedan det för att sätta press på den andra parten – i stället för att bygga samförstånd, konstaterar Isak Svensson, professor vid institutionen för freds- och konfliktforskning i Uppsala.</p>
+  <div class="stycke"><p><strong>Senaste veckans</strong> händelseutveckling är ett skolboksexempel:</p></div>
+  <div class="stycke"><p>Först meddelade Trump att Hamas gått med på att lämna in sina vapen. Trump beskrev överenskommelsen som ”ett monumentalt steg mot varaktig fred och säkerhet”.</p></div>
+  <div class="stycke"><p>Netanyahu sa inte ett ord under flera dagar, vilket tyder på att han har svårt att hantera situationen:</p></div>
+  <p class="talstreck">– Han kan inte säga nej till Trump men inte heller gå med på det med tanke på den inrikespolitiska situationen, konstaterar Isabell Schierenbeck.</p>
+  <p class="talstreck">– Trump har haft svårt att utöva något inflytande alls över Netanyahu i den här processen, tillägger Isak Svensson.</p>
+  <div class="stycke"><p><strong>Fakta. Fredsrådet</strong></p></div>
+  <div class="stycke"><p>● Donald Trump skapade sitt ”Board of Peace” under hösten 2025 för att utmana FN. Det är tänkt som ett globalt fredsorgan och består i dag av ledare från 29 olika länder.</p></div>
+  <div class="stycke"><p>● I fredsrådet styrelse sitter bland andra Donald Trump, Ajay Banga, chef för Världsbankens, Tony Blair, före detta premiärminister i Storbritannien, Marco Rubio, utrikesminister USA, Steve Wittkoff, USA:s särskilda sändebud i Mellanöstern.</p></div>
+  <div class="stycke"><p>● ”Board of Peace” har ett särskilt ”Gaza-utskott”. Det leds av den bulgariska diplomaten Nickolay Mladenov. Situationen i Gaza är för övrigt det enda konkreta uppdrag som Board of Peace har i nuläget.</p></div>
+  <div class="stycke"><p>● Under Fredsrådets Gaza utskott verkar National Committee for the Administration of Gaza (NCAG) – ett palestinskt teknokratiskt organ som sköter den dagliga förvaltningen i Gaza. Den ska vara opolitisk och får inte fungera som regering för Palestina eller representera palestinier internationellt.</p></div>
+  <div class="stycke"><p>● International Stabilization Force (ISF) – en internationell styrka som ska bidra till säkerheten under övergångsperioden. Man har utlovat 20 000 soldater. Ingen är ännu på plats.</p></div>
+  <div class="stycke"><p>Han menar att även det faktum att Trump skapat en ny organisation för att runda FN-systemet fördröjt processen.</p></div>
+  <div class="stycke"><p><strong>Förutom Trumps nyckfullhet</strong> gör även Netanyahus inrikespolitiskt trängda situation att allt blir mer komplicerat, menar Isabell Schierenbeck.</p></div>
+  <p class="talstreck">– För att nå en politisk lösning krävs det dels en ny israelisk regering som drivs av säkerhetspolitiska snarare än inrikespolitiska agendor, dels en reformering av den palestinska myndigheten till ett fungerande politiskt styre, säger hon.</p>
+  <div class="stycke"><p><strong>Den utlovade internationella</strong> stabiliseringsstyrkan ses av både Schierenbeck och Svensson som en absolut nyckel för att möjliggöra både en avväpning av Hamas och ett israeliskt tillbakadragande. Problemet är i vilken ordning det ska ske.</p></div>
+  <div class="stycke"><p>Hamas har gått med på en stegvis avväpning som sker parallellt med ett israeliskt tillbakadragande – men Israel kräver fullständig avväpning innan de drar sig tillbaka.</p></div>
+  <div class="stycke"><p>Nästa hinder är att de länder som sagt sig vara villiga att bidra (till exempel Marocko, Albanien och Kosovo) inte vill gå in så länge Hamas inte är avväpnat.</p></div>
+  <p class="talstreck">– Sedan kan man ju också konstatera att inte heller arabvärlden satt palestiniernas intressen först, de månar också om relationen till Israel, vilket bland annat syns på att de inte har brutit med Israel trots tre års krig, säger Isabell Schierenbeck.</p>
+  <div class="stycke"><p><strong>Enligt Isak Svensson</strong> finns det små tecken på att förhandlingarna rör sig framåt. Under tiden betalar befolkningen i Gaza ett högt pris och Isabell Schierenbeck är pessimistisk:</p></div>
+  <p class="talstreck">– Risken är stor för att vi om tio år befinner oss i ungefär samma läge som i dag.</p>
+  <div class="stycke"><p><strong>Fakta. International Stabilization Force – ISF</strong></p></div>
+  <div class="stycke"><p>Hela Trumps plan bygger på en International Stabilization Force – ISF, som ska fungera som en internationell säkerhetsstyrka i Gaza. 20 000 personer ska ingå.</p></div>
+  <div class="stycke"><p>ISF ska bland annat:</p></div>
+  <div class="stycke"><p>● separera israeliska styrkor från områden som överlämnas till den nya palestinska administrationen</p></div>
+  <div class="stycke"><p>● bidra till säkerheten</p></div>
+  <div class="stycke"><p>● hjälpa till att utbilda palestinska säkerhetsstyrkor</p></div>
+  <div class="stycke"><p>● stödja demilitariseringen av Gaza</p></div>
+  <div class="stycke"><p>● på sikt ersätta delar av den israeliska militära säkerhetsrollen.</p></div>
+  <div class="stycke"><p>Rafah är tänkt att bli den första platsen där styrkan etablerar sig.</p></div>
+</article>
+
+<section><div class="ruta fakta"><h3 class="rubrik">Fakta</h3><ul><li>Donald Trump skapade sitt <em>Board of Peace</em> under hösten 2025 för att utmana FN. Det är tänkt som ett globalt fredsorgan och består i dag av ledare från <strong>29</strong> olika länder.</li><li>I fredsrådets styrelse sitter bland andra Donald Trump, <strong>Ajay Banga</strong> som är chef för Världsbanken, <strong>Tony Blair</strong> som är före detta premiärminister i Storbritannien, <strong>Marco Rubio</strong> som är USA:s utrikesminister, och <strong>Steve Wittkoff</strong>, USA:s särskilda sändebud i Mellanöstern.</li><li><em>Board of Peace</em> har ett särskilt Gazautskott. Det leds av den bulgariska diplomaten Nickolay Mladenov. Gaza är för övrigt det enda konkreta uppdrag som <em>Board of Peace</em> har i nuläget.</li><li>Under Gazautskottet finns <strong>National Committee for the Administration of Gaza (NCAG)</strong>. Det är ett palestinskt teknokratiskt organ, alltså ett expertstyre, som sköter den dagliga förvaltningen i Gaza. Det ska vara opolitiskt. Det får inte fungera som regering för Palestina, och det får inte företräda palestinierna internationellt.</li><li><strong>International Stabilization Force (ISF)</strong> är en internationell styrka som ska bidra till säkerheten under övergångsperioden. <strong>20 000</strong> soldater har utlovats. Ingen av dem är ännu på plats.</li><li>separera israeliska styrkor från de områden som lämnas över till den nya palestinska administrationen</li><li>bidra till säkerheten</li><li>hjälpa till att utbilda palestinska säkerhetsstyrkor</li><li>stödja demilitariseringen av Gaza, alltså att Gaza blir fritt från vapen</li><li>på sikt ersätta delar av den säkerhetsroll som Israels militär har i dag.</li></ul></div></section>
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Avtalet sade att Israel skulle kontrollera 53 procent av Gaza. Enligt artikeln kontrollerar Israel i dag 60-70 procent. Vad säger det om vad en vapenvila kan och inte kan garantera?</li><li>Beskriv cirkeln kring stabiliseringsstyrkan: vem väntar på vad? Varför kommer ingen framåt?</li><li>Isak Svensson säger att Trumps förhandlingsteknik är ineffektiv. Vad består tekniken av enligt honom, och vilket exempel ger artikeln?</li><li>Vilka av påståendena i artikeln är forskarnas bedömningar, och vilka är sakuppgifter som går att kontrollera? Ge två exempel på varje.</li><li>Fredsrådet skapades för att utmana FN. Hur skulle en liberal institutionalist se på det? Och en realist?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-08-08, text Ulrika By · <a href="https://www.dn.se/varlden/expert-dodlaget-i-gaza-riskerar-att-fortsatta-i-tio-ar/">Originalartikeln</a> är oförändrad och nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Orsakssambanden är utskrivna och begreppen förklarade.'
+      : 'Artikeln som den publicerades. Klarar du den behöver du inte stödversionen.';
+    if(byl) byl.textContent = medStod ? 'Bearbetad version med stöd' : 'Originalversionen';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Trump och Iran fast i ett lågintensivt krig - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-08-31</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Trump och Iran fast i ett lågintensivt krig</h1>
+  <p class="ingress">Nya attacker mellan Iran och USA stärker bilden av en konflikt som blossar upp gång på gång medan fredssamtalen står still</p>
+  <p class="byline">Text Emma Bouvin · <span id="bylineversion">Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Den 28 februari 2026 inledde USA och Israel flyganfall mot Iran. Den officiella orsaken var att stoppa Iran från att utveckla kärnvapen. Irans högste ledare, ayatolla Ali Khamenei, dödades redan första dagen. Iran har sedan dess svarat med att attackera länder i regionen där USA har militärbaser. Hormuzsundet, det smala havssund mellan Iran och den arabiska halvön där en stor del av världens olja fraktas, har blivit en av krigets viktigaste platser. Ett ramavtal i april ledde till en vapenvila som bara höll några veckor. Iran är en fiende till Israel och stödjer Hamas och andra väpnade grupper i regionen, och därför påverkar kriget också frågan om Gaza. Texten är en kommentar av DN:s Mellanösternkorrespondent Emma Bouvin. Det betyder att hon inte bara redovisar vad som hänt, utan också gör egna bedömningar.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>lågintensivt krig</dt><dd>Ett krig som inte förs med full kraft hela tiden, utan pågår på låg nivå och blossar upp med jämna mellanrum.</dd><dt>kommenterande text</dt><dd>En text där journalisten får göra egna bedömningar. Skiljer sig från en nyhetsartikel, där journalisten bara ska redovisa.</dd><dt>ekonomiska sanktioner</dt><dd>Straffåtgärder som slår mot ett lands ekonomi, till exempel förbud mot handel. Tanken är att tvinga landet att ändra sig utan att använda vapen.</dd><dt>utarmning</dt><dd>Att göra någon fattig. Här: att med sanktioner göra Iran så fattigt att regimen faller.</dd><dt>minera</dt><dd>Att lägga ut minor, sprängladdningar i vattnet, som förstör fartyg som kör på dem.</dd><dt>Hormuzsundet</dt><dd>Havssundet mellan Iran och den arabiska halvön. Stängs det kan olja inte fraktas ut från Persiska viken.</dd><dt>mullor</dt><dd>Muslimska religiösa lärda. I Iran har de politisk makt, och ordet används här om landets ledning.</dd><dt>Centcom</dt><dd>USA:s militära centralkommando, den del av USA:s försvar som ansvarar för Mellanöstern.</dd><dt>propaganda</dt><dd>Information som sprids för att påverka människor till förmån för den som sprider den, oavsett om den är sann.</dd><dt>regim</dt><dd>Den som har makten i ett land. Används ofta om styren som inte valts i fria val.</dd><dt>diktatur</dt><dd>Ett land där makten inte kan väljas bort och där det saknas fri press och yttrandefrihet.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Texten beskriver ett krig där båda parterna säger saker som inte stämmer med varandra. Leta efter varje gång någon påstår något, och skriv vem som påstår det och om texten säger att det går att kontrollera.</p><p>Artikelns huvudpåstående står i rubriken och upprepas i mitten. Hitta det, och sedan de skäl Bouvin ger för det.</p><p>Skilj på vad som har hänt och vad Bouvin bedömer. Ord som <em>mycket talar för</em>, <em>misstanke</em> och <em>verkar</em> visar att det är en bedömning.</p><p>Stanna efter varje stycke och säg för dig själv vad som just hände. Går det inte, läs om stycket innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj version av artikeln">
+    <button type="button" id="btn-stod" aria-pressed="true">Med stöd</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Orsakssambanden är utskrivna och begreppen förklarade.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>För första gången på flera veckor har USA attackerat Iran. Iran svarade med missiler mot Jordanien och Förenade arabemiraten.</p></div>
+  <div class="stycke"><p><span class="def">Mycket talar för att detta är det nya normala: ett krig som pågår på låg nivå och som med jämna mellanrum flammar upp.</span></p></div>
+  <div class="stycke"><p><em>Detta är en <span class="begrepp" title="En text där journalisten får göra egna bedömningar. Skiljer sig från en nyhetsartikel, där journalisten bara ska redovisa.">kommenterande text</span>. Skribenten svarar för analys och ställningstaganden i texten.</em></p><aside class="gloss"><b>Kommentar, inte nyhet</b>Raden ovan betyder att Emma Bouvin gör egna bedömningar i texten. När hon skriver "mycket talar för" är det hennes slutsats, inte ett faktum.</aside></div>
+  <div class="stycke"><p>Förra gången USA attackerade Iran var i slutet av juli. Sedan dess har president <strong>Donald Trump</strong> meddelat att Iran ska besegras med <span class="begrepp" title="Straffåtgärder som slår mot ett lands ekonomi, till exempel förbud mot handel. Tanken är att tvinga landet att ändra sig utan att använda vapen.">ekonomiska sanktioner</span>, alltså genom att strypa landets ekonomi i stället för med bomber. För ett par veckor sedan var det <em>dagen D</em>, den dag då <span class="begrepp" title="Att göra någon fattig. Här: att med sanktioner göra Iran så fattigt att <span class="begrepp" title="Den som har makten i ett land. Används ofta om styren som inte valts i fria val.">regimen</span> faller.">utarmningen</span> av den islamiska republiken skulle börja.</p><aside class="gloss"><b>Dagen D</b>Uttrycket kommer från andra världskriget, där det betecknade dagen för landstigningen i Normandie. Det används om den dag då en stor operation startar.</aside></div>
+  <div class="stycke"><p><mark>Men trots det</mark> bombade amerikanska plan den iranska ön <strong>Larak</strong> natten mot måndagen. USA förklarar attacken med att Iran höll på att lägga ut minor i <span class="begrepp" title="Havssundet mellan Iran och den arabiska halvön. Stängs det kan olja inte fraktas ut från Persiska viken.">Hormuzsundet</span> igen. Det skulle ha skett bara några dagar efter att amerikanerna hade meddelat att alla minor var borta.</p><aside class="gloss"><b>Hormuzsundet</b>Havssundet mellan Iran och den arabiska halvön. Stängs det kan olja inte fraktas ut från Persiska viken.</aside></div>
+  <div class="stycke"><p>Anfallet fick <span class="begrepp" title="Muslimska religiösa lärda. I Iran har de politisk makt, och ordet används här om landets ledning.">mullorna</span> i Iran, landets religiösa ledning, att högljutt tala om hämnd. Kort därefter avfyrades missiler mot <strong>Jordanien</strong> och <strong>Förenade arabemiraten</strong>. Båda länderna har amerikanska militärbaser på sitt territorium, <mark>och det är därför</mark> Iran siktar på just dem. Alla missiler ska ha skjutits ner, uppges det. <mark>Men</mark> det går inte att veta säkert, <mark>eftersom</mark> både Jordanien och Förenade arabemiraten saknar fri press och yttrandefrihet. Det gör Iran också.</p><aside class="gloss"><b>mullor</b>Muslimska religiösa lärda. I Iran har de politisk makt, och ordet används här om landets ledning.</aside></div>
+  <div class="stycke"><p>I <span class="begrepp" title="Ett land där makten inte kan väljas bort och där det saknas fri press och yttrandefrihet.">diktaturer</span> dröjer det ofta innan någon får inblick i eventuella skador efter ett anfall.</p><aside class="gloss"><b>Källkritiken i texten</b>Bouvin gör här själv en källkritisk bedömning: uppgiften om att alla missiler sköts ner kommer från länder där ingen fritt kan granska den. Lägg märke till att hon skriver "ska ha" och "uppges". Hon tar alltså inte ställning till om uppgiften stämmer.</aside></div>
+  <h4>Två olika berättelser</h4>
+  <div class="stycke"><p><span class="begrepp" title="USA:s militära centralkommando, den del av USA:s försvar som ansvarar för Mellanöstern.">Centcom</span>, USA:s militära centralkommando, hävdar att anfallet var en begränsad insats för att stoppa Iran från att lägga ut fler minor. <mark>Men</mark> Donald Trump lade snabbt ut en film i sociala medier, gjord med AI. Filmen visade den strategiskt viktiga oljeön <strong>Kharg</strong> i lågor.</p><aside class="gloss"><b>Centcom</b>USA:s militära centralkommando, den del av USA:s försvar som ansvarar för Mellanöstern.</aside></div>
+  <div class="stycke"><p>”Khargön håller på att sprängas i bitar!” förkunnade Trump. Sedan gav han sig uppenbarligen ut för att spela golf. Hans nästa inlägg i sociala medier var i alla fall från golfbanan.</p></div>
+  <div class="stycke"><p>Ingenting tyder på att några amerikanska attacker har riktats mot Kharg. Den iranska propagandamaskinen på internet kallar Trumps inlägg <em>skrattretande</em>.</p><aside class="gloss"><b>Tre avsändare</b>Här finns tre olika versioner: Centcom säger en begränsad insats, Trump visar en ö i lågor, och Irans propaganda hånar honom. Ingen av dem är en neutral källa.</aside></div>
+  <blockquote>Ingen vill ge upp. Ingen vill hitta möjligheter till fred</blockquote>
+  <h4>Vad vill Trump?</h4>
+  <div class="stycke"><p>Frågan är vad Trump menade med inlägget. Om han alls menade något särskilt. <span class="def">Enligt Bouvin misstänker allt fler analytiker att Trump har tappat greppet om vad han egentligen vill uppnå med kriget.</span> Det skulle i så fall bero på att Iran visade sig vara mycket svårare att besegra än han hade trott.</p></div>
+  <div class="stycke"><p>Sanktionerna har också ett problem. Den iranska regimen är van vid att hantera hårda sanktioner. Den har förmågan att se till att det är folket som blir fattigt, inte den styrande makten. <mark>Därför</mark> är det inte säkert att sanktionerna slår mot dem de är riktade mot.</p><aside class="gloss"><b>Mellanledet</b>Att regimen kan föra över bördan på folket står i originalet. Slutsatsen att sanktionerna därför kanske inte tvingar fram någon förändring är tillagd.</aside></div>
+  <div class="stycke"><p>Förhandlingarna mellan de två länderna tycks ha satts på paus. Ingen vill ge upp. Ingen vill hitta möjligheter till fred.</p></div>
+  <div class="stycke"><p><mark>Det betyder att</mark> det nuvarande läget, med aggressioner som flammar upp då och då, kan fortsätta under en framtid som ingen kan överblicka.</p></div>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p># Trump och Iran fast i ett lågintensivt krig</p></div>
+  <div class="stycke"><p>För första gången på flera veckor har USA attackerat Iran, som svarade med missiler mot Jordanien och Förenade arabemiraten.</p></div>
+  <div class="stycke"><p>Mycket talar för att detta är det nya normala – ett krig som pågår lågintensivt för att flamma upp med jämna mellanrum.</p></div>
+  <div class="stycke"><p>Detta är en kommenterande text. Skribenten svarar för analys och ställningstaganden i texten.</p></div>
+  <div class="stycke"><p>Senast USA attackerade Iran var i slutet av juli. Sedan dess har president Donald Trump meddelat att det är med ekonomiska sanktioner Iran ska besegras. För ett par veckor sedan var det ”dagen D”, då utarmningen av den islamiska republiken skulle inledas.</p></div>
+  <div class="stycke"><p>Men natten mot måndagen bombade amerikanska plan ändå den iranska ön Larak. Enligt USA berodde denna insats på att Iran var i färd med att minera Hormuzsundet igen, bara några dagar efter att amerikanerna hade deklarerat att alla minor var undanröjda.</p></div>
+  <div class="stycke"><p><strong>Anfallet fick mullorna i Iran</strong> att mullra högljutt om hämnd och inte långt därefter avlossades missiler mot Jordanien och Förenade arabemiraten, två länder som båda har amerikanska militärbaser inom sina territorier. Alla missiler ska ha skjutits ner, uppges det, men eftersom både Jordanien och Förenade arabemiraten saknar fri press och yttrandefrihet – liksom Iran – kan man inte riktigt säkert veta.</p></div>
+  <div class="stycke"><p>I diktaturer dröjer det ofta innan man får någon inblick i eventuella skador efter anfall.</p></div>
+  <div class="stycke"><p>Centcom, USA:s militära centralkommando, hävdar som sagt att anfallet var en begränsad insats för att stoppa Iran från att plantera fler minor. Men den amerikanska presidenten lade snabbt ut en AI-animerad film i sociala medier, som visade den strategiskt viktiga oljeön Kharg i lågor.</p></div>
+  <div class="stycke"><p>”Khargön håller på att sprängas i bitar!” förkunnade Trump innan han uppenbarligen gav sig ut för att spela golf. Åtminstone var nästa inlägg i hans sociala medier från golfbanan.</p></div>
+  <div class="stycke"><p>Det verkar inte som att några amerikanska attacker har riktats mot Kharg och den iranska propagandamaskinen på internet kallar Trumps inlägg ”skrattretande”.</p></div>
+  <blockquote>Ingen vill ge upp. Ingen vill hitta möjligheter till fred</blockquote>
+  <div class="stycke"><p><strong>Frågan är vad Trump</strong> menade. Om han alls menade något särskilt. En växande misstanke hos analytiker är att Trump har tappat greppet om vad han egentligen vill uppnå med kriget, efter att Iran visade sig mycket svårare att besegra än vad han hade trott.</p></div>
+  <div class="stycke"><p>Den iranska regimen är också van vid att hantera hårda sanktioner och har en förmåga att se till att det är folket som utarmas, inte den styrande makten.</p></div>
+  <div class="stycke"><p>Förhandlingar mellan de två länderna tycks ha satts på paus. Ingen vill ge upp. Ingen vill hitta möjligheter till fred.</p></div>
+  <div class="stycke"><p>Det innebär att den nuvarande situationen, med tidvis uppflammande aggressioner, kan fortsätta under oöverblickbar framtid.</p></div>
+  <div class="stycke"><p><strong>Fakta. Kriget mellan USA och Iran</strong></p></div>
+  <div class="stycke"><p>● Den 27 februari 2026 gav USA:s president Donald Trump order om offensiven, som han kallar ”Operation Epic Fury”. Dagen därpå inleddes amerikanska och israeliska flyganfall där bland annat Irans högste ledare, ayatolla Ali Khamenei, dödades.</p></div>
+  <div class="stycke"><p>● Iran svarade med att attackera alla länder i regionen som har amerikanska militärbaser.</p></div>
+  <div class="stycke"><p>● I april slöts ett ramavtal som skulle leda till fred och vapenvila inleddes. Den höll dock inte längre än i några veckor.</p></div>
+</article>
+
+<section><div class="ruta fakta"><h3 class="rubrik">Fakta</h3><ul><li>Den <strong>27 februari 2026</strong> gav USA:s president Donald Trump order om offensiven, som han kallar <em>Operation Epic Fury</em>. Dagen därpå började amerikanska och israeliska flyganfall. Bland annat dödades Irans högste ledare, ayatolla <strong>Ali Khamenei</strong>.</li><li>Iran svarade med att attackera alla länder i regionen som har amerikanska militärbaser.</li><li>I april slöts ett ramavtal som skulle leda till fred, och en vapenvila inleddes. Den höll dock inte längre än några veckor.</li></ul></div></section>
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Bouvin säger att kriget blivit "det nya normala". Vilka skäl ger hon för det? Hitta minst två.</li><li>Varför går det inte att veta säkert om alla iranska missiler sköts ner? Vad säger det om vilka källor som finns från ett krig mellan diktaturer?</li><li>Centcom, Trump och Irans propaganda ger olika bilder av samma natt. Beskriv de tre versionerna. Vilken skulle du lita mest på, och varför?</li><li>Trump vill besegra Iran med sanktioner. Enligt texten finns ett problem med det. Vilket?</li><li>Rubriken säger att "ingen vill ha krig och ingen vill sluta fred". Hur skulle en realist förklara ett sådant läge?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-08-31, text Emma Bouvin · <a href="https://www.dn.se/varlden/emma-bouvin-ingen-vill-ha-krig-och-ingen-vill-sluta-fred/">Originalartikeln</a> är oförändrad och nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Orsakssambanden är utskrivna och begreppen förklarade.'
+      : 'Artikeln som den publicerades. Klarar du den behöver du inte stödversionen.';
+    if(byl) byl.textContent = medStod ? 'Bearbetad version med stöd' : 'Originalversionen';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

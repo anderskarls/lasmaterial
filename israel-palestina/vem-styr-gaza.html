@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hamas regering i Gaza avgår - men ministrarna sitter kvar - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-07-06</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Hamas regering i Gaza avgår - men ministrarna sitter kvar</h1>
+  <p class="ingress">Hamasregimen i Gazaremsan meddelade på måndagen att dess provisoriska regering ska avvecklas.</p>
+  <p class="byline">Text Nathan Shachar · <span id="bylineversion">Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Hamas vann det palestinska parlamentsvalet 2006 och tog året därpå makten i Gazaremsan med våld från Fatah, det parti som leder det palestinska självstyret på Västbanken. Sedan dess har palestinierna haft två rivaliserande styren: Hamas i Gaza och självstyret i Ramallah. Efter Hamas attack mot Israel den 7 oktober 2023 följde ett krig i Gaza. I oktober 2025 enades Israel och Hamas om en vapenvila som USA hade medlat fram. USA:s president Donald Trump skapade samtidigt ett så kallat fredsråd som ska leda Gazas återuppbyggnad och utse ett nytt styre där. Samma vår som artikeln skrevs pågick dessutom ett krig mellan USA och Iran, och det tog världens uppmärksamhet. Texten är skriven av DN:s Mellanösternkorrespondent Nathan Shachar. Den redovisar vad som hänt, men innehåller också hans egna bedömningar av vad aktörerna vill.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>regim</dt><dd>Den som i praktiken har makten i ett område. Ordet används ofta om ett styre som inte har fått makten genom fria val, och har därför en negativ klang.</dd><dt>provisorisk regering</dt><dd>En regering som bara är tänkt att sitta tills vidare, i väntan på en mer permanent ordning.</dd><dt>teknokratregering</dt><dd>En regering av experter, till exempel ingenjörer och ekonomer, i stället för politiker från partier. Tanken är att den ska sköta förvaltningen utan att driva politik.</dd><dt>civilt styre</dt><dd>Det som rör människors vardag: vatten, skolor, sjukvård, bistånd, vägar. Ställs mot militär makt, alltså vapnen och de väpnade styrkorna.</dd><dt>avväpna</dt><dd>Att ta ifrån en väpnad grupp dess vapen, så att den inte längre kan använda våld.</dd><dt>fredsrådet</dt><dd>Det organ som Donald Trump skapade hösten 2025 för att leda återuppbyggnaden av Gaza och utse ett nytt styre där. Kallas på engelska <em>Board of Peace</em>.</dd><dt>självstyret</dt><dd>Den palestinska myndighet som sedan Osloavtalen styr delar av Västbanken, med säte i Ramallah. Leds av Fatah.</dd><dt>Fatah</dt><dd>Det palestinska parti som leder självstyret. Fatah har erkänt Israel, vilket Hamas inte har gjort.</dd><dt>splittringen</dt><dd>Att palestinierna sedan 2007 har två rivaliserande styren i två områden: Hamas i Gaza och Fatah på Västbanken.</dd><dt>kommuniké</dt><dd>Ett officiellt skriftligt besked från en organisation eller regering.</dd><dt>sanktioner</dt><dd>Straffåtgärder som ska tvinga någon att ändra sitt beteende, till exempel att stoppa pengar eller handel.</dd><dt>tvåstatslösning</dt><dd>Tanken att konflikten ska lösas genom att en palestinsk stat bildas vid sidan av Israel.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Artikeln handlar om vem som ska styra Gaza. Gör en lista över alla aktörer som nämns, och skriv för var och en vad den vill. Det finns minst fem.</p><p>Skilj på två sorters makt: det civila styret och den militära makten. Håll reda på vem artikeln säger ska få vilken.</p><p>Leta efter var det är Nathan Shachar själv som bedömer, och var han återger vad någon annan har sagt. Ord som <em>uteslutet</em>, <em>på inga villkor</em> och <em>hörnsten</em> är ledtrådar.</p><p>Stanna efter varje stycke och säg för dig själv vad som just hände. Går det inte, läs om stycket innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj version av artikeln">
+    <button type="button" id="btn-stod" aria-pressed="true">Med stöd</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Orsakssambanden är utskrivna och begreppen förklarade.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Hamas styr Gazaremsan. På måndagen meddelade Hamas att dess provisoriska regering, alltså den regering som styrt tills vidare, ska avvecklas. <mark>Det betyder att</mark> vägen öppnas för en ny palestinsk regering, en som Donald Trump och hans <span class="begrepp" title="Det organ som Donald Trump skapade hösten 2025 för att leda återuppbyggnaden av Gaza och utse ett nytt styre där. Kallas på engelska Board of Peace.">fredsråd</span> har utsett att styra Gaza och som ska vara fredsvänlig. <span class="def">Men det gäller åtminstone på papperet.</span></p><aside class="gloss"><b>På papperet</b>Uttrycket betyder att något gäller formellt, men inte säkert i verkligheten. Resten av artikeln förklarar varför Shachar tvivlar.</aside></div>
+  <div class="stycke"><p>Hamas beslutade alltså att lämna över det civila styret i Gazaremsan, det som rör vardagen, till den palestinska <em><span class="begrepp" title="En regering av experter, till exempel ingenjörer och ekonomer, i stället för politiker från partier. Tanken är att den ska sköta förvaltningen utan att driva politik.">teknokratregeringen</span></em>. Hamas fattade beslutet <mark>efter att</mark> fredsrådets generaldirektör <strong>Nickolay Mladenov</strong> hade hotat att klassa Hamas som <em>sabotör</em>, alltså som någon som förstör rådets riktlinjer. <mark>Men</mark> de medlemmar som sitter i det civila Hamasstyret ska ändå sitta kvar på sina poster tills vidare, uppger rörelsen. <span class="def">Regeringen avgår alltså, men människorna i den blir kvar.</span></p><aside class="gloss"><b>teknokratregering</b>En regering av experter, till exempel ingenjörer och ekonomer, i stället för politiker från partier. Tanken är att den ska sköta förvaltningen utan att driva politik.</aside></div>
+  <div class="stycke"><p>Teknokratregeringen består av <strong>15</strong> medlemmar. De har väntat i Kairo i Egypten ända sedan januari, <mark>eftersom</mark> de behöver tillstånd från Hamas för att få resa in i Gaza. Regeringen står nära <span class="begrepp" title="Den palestinska myndighet som sedan Osloavtalen styr delar av Västbanken, med säte i Ramallah. Leds av <span class="begrepp" title="Det palestinska parti som leder självstyret. Fatah har erkänt Israel, vilket Hamas inte har gjort.">Fatah</span>.">självstyret</span> i Ramallah och leds av ingenjören <strong>Ali Shaath</strong>. Det var Trump och flera Gulfstater, de oljerika staterna kring Persiska viken, som skulle ha betalat för Gazas återuppbyggnad. <mark>Men</mark> både Trump och Gulfstaterna har varit upptagna med Irankrisen hela våren. <mark>Därför</mark> har ingenting konkret hänt på marken i Gaza sedan fredsrådet bildades i början av året.</p><aside class="gloss"><b>Mellanledet</b>Att väntan i Kairo beror på att Hamas måste ge inresetillstånd står i originalet. Slutsatsen att det är Hamas som i praktiken bestämmer om den nya regeringen alls kommer in är din att dra.</aside></div>
+  <div class="stycke"><p>Hamas ställer dock ett krav: rörelsens tjänstemän ska få plats i den nya civila förvaltningen och få lön därifrån. Enligt fredsrådets plan ska palestinska polisstyrkor nu ta upp positioner i Gaza. Det nämner Hamas inte alls i sin <span class="begrepp" title="Ett officiellt skriftligt besked från en organisation eller regering.">kommuniké</span>, sitt officiella besked.</p><aside class="gloss"><b>Vad som inte sägs</b>Att polisen saknas i Hamas besked är en detalj som är lätt att missa. Polisen är den del av styret som bär vapen, och det leder över till nästa fråga i artikeln.</aside></div>
+  <h4>Frågan om vapnen</h4>
+  <div class="stycke"><p>Enligt fredsrådets plan ska Hamas avväpnas, alltså lämna ifrån sig sina vapen. Hur det ska gå till är inte klart. Israel har förstört väldiga mängder av Hamas vapen under de <strong>tre</strong> krigsåren. Mer än <strong>15 000</strong> Hamaskrigare har dödats. <mark>Men</mark> enligt israeliska underrättelsekällor har de ersatts av unga män som Hamas har värvat, <mark>så att</mark> styrkan inte har krympt i motsvarande grad.</p></div>
+  <div class="stycke"><p><span class="def">Shachar bedömer att det är uteslutet att Hamas frivilligt skulle lämna ifrån sig också den militära makten i Gaza.</span> Hamas lämnar gärna över ansvaret för bistånd, nödhjälp och infrastruktur till andra. <mark>Men</mark> Hamas planerar att fortsätta ha sista ordet i allt som rör de politiska förhållandena. Med andra ord: Hamas släpper det civila, <mark>men</mark> behåller vapnen och därmed makten.</p><aside class="gloss"><b>Vem som bedömer</b>"Uteslutet" är Shachars egen bedömning, inte något Hamas har sagt. Artikeln hänvisar inte till någon källa för just det påståendet.</aside></div>
+  <h4>Israels syn - och den långa linjen</h4>
+  <div class="stycke"><p>Källor inom den israeliska regeringen avfärdar Hamasregeringens avgång. De menar att den är ett knep, <mark>alltså</mark> ett sätt för Hamas att slippa <span class="begrepp" title="Straffåtgärder som ska tvinga någon att ändra sitt beteende, till exempel att stoppa pengar eller handel.">sanktioner</span> och straff från fredsrådet.</p><aside class="gloss"><b>sanktioner</b>Straffåtgärder som ska tvinga någon att ändra sitt beteende, till exempel att stoppa pengar eller handel.</aside></div>
+  <div class="stycke"><p>Därefter kommer Shachar med en egen bedömning av den israeliska regeringen. Under många år lät <strong>Benjamin Netanyahus</strong> regering Qatar stärka Hamas med astronomiska summor, alltså enorma summor pengar. Enligt Shachar vill Netanyahus regering på inga villkor se en fredlig palestinsk teknokratregering i Gaza.</p></div>
+  <div class="stycke"><p>Skälet, enligt Shachar, är <span class="begrepp" title="Att palestinierna sedan 2007 har två rivaliserande styren i två områden: Hamas i Gaza och Fatah på Västbanken.">splittringen</span>. Fatah, som styr självstyret på Västbanken, har erkänt Israel. Hamas styr Gaza. Att permanenta splittringen mellan dem, alltså göra den bestående, är enligt Shachar en hörnsten i Netanyahus långsiktiga strategi. Tänk om teknokratregeringen, mot förmodan, skulle ta kontrollen över Gaza och samordna sin politik med självstyret på Västbanken. <mark>Då skulle</mark> palestinierna åter ha ett gemensamt styre, <mark>och då skulle</mark> förhandlingar om en <span class="begrepp" title="Tanken att konflikten ska lösas genom att en palestinsk stat bildas vid sidan av Israel.">tvåstatslösning</span> på nytt kunna bli aktuella. <span class="def">Inga sådana förhandlingar har ägt rum sedan 2008.</span></p><aside class="gloss"><b>Mellanledet</b>Originalet säger att samordning "skulle" kunna göra förhandlingar aktuella, men inte varför. Varför det hänger ihop är tillagt: den som ska förhandla om en stat måste kunna tala för hela det område staten ska omfatta.</aside></div>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p># Hamas regering i Gaza avgår – men ministrarna sitter kvar</p></div>
+  <div class="stycke"><p>Hamasregimen i Gazaremsan meddelade på måndagen att dess provisoriska regering ska avvecklas. Därmed banas väg för den fredsvänliga palestinska regering som Donald Trump och hans ”fredsråd” utsett att styra Gaza – åtminstone på papperet.</p></div>
+  <div class="stycke"><p>Hamas fattade beslutet att överlåta det civila styret i remsan till den palestinska ”teknokratregeringen”, efter att fredsrådets generaldirektör Nickolay Mladenov hotat att klassa Hamas som ”sabotör” av rådets riktlinjer. De olika medlemmarna i det civila Hamas-styret kvarstår dock tills vidare på sina poster, uppger rörelsen.</p></div>
+  <div class="stycke"><p>Teknokratregeringen, vars 15 medlemmar väntat i Kairo på inresetillstånd från Hamas sedan i januari, står nära det palestinska självstyret i Ramallah och leds av ingenjören Ali Shaath. Eftersom Trump och de Gulfstater som skulle ha bekostat Gazas återuppbyggnad varit upptagna med Irankrisen hela våren, har inget konkret skett på marken i Gaza sedan fredsrådet etablerades i början av året.</p></div>
+  <div class="stycke"><p>Hamas kräver dock att dess tjänstemän bereds plats i, och avlönas av, den nya civiladministrationen. Enligt fredsrådets plan ska palestinska polisstyrkor nu ta upp positioner i Gaza, något som inte nämns i Hamas kommuniké.</p></div>
+  <div class="stycke"><p><strong>Hamas ska enligt</strong> fredsrådets plan avväpnas. Hur detta ska ske är inte klart. Väldiga mängder Hamasvapen har förstörts av Israel under de tre krigsåren, men de drygt 15 000 Hamaskrigare som dödats har enligt israeliska underrättelsekällor ersatts av nyvärvade unga män.</p></div>
+  <div class="stycke"><p>Att islamiströrelsen frivilligt skulle lämna ifrån sig också den militära makten i Gaza är uteslutet. Hamas ser gärna att andra tar över ansvaret för bistånd, nödhjälp och infrastruktur. Men Hamas planerar att även i fortsättningen ha sista ordet i allt som rör de politiska förhållandena.</p></div>
+  <div class="stycke"><p><strong>Israeliska regeringskällor avfärdar</strong> Hamasregeringens avgång som ett knep för att undgå sanktioner och bestraffningar från fredsrådet. Benjamin Netanyahus regering, som under många år lät Qatar stärka Hamas med astronomiska summor, vill på inga villkor se en fredlig palestinsk teknokratregering i Gaza.</p></div>
+  <div class="stycke"><p>Att permanenta splittringen mellan Västbankens Fatah-parti, som erkänner Israel, och Hamas i Gaza, förblir en hörnsten i Netanyahus långsiktiga strategi. Om teknokratregeringen mot förmodan skulle ta kontrollen över Gaza, och samordna sin politik med självstyret på Västbanken, så skulle förhandlingar om en tvåstatslösning på nytt kunna bli aktuella. Inga sådana förhandlingar har ägt rum sedan 2008.</p></div>
+</article>
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Hamas lämnar över det civila styret men inte vapnen. Förklara varför just den skillnaden avgör vem som i praktiken styr Gaza.</li><li>Varför har inget konkret hänt på marken i Gaza sedan fredsrådet bildades? Följ orsakskedjan i texten.</li><li>Vem påstår att Hamas avgång är ett knep, och vem påstår att Netanyahu vill permanenta splittringen? Är det samma sorts påstående?</li><li>Artikeln säger att förhandlingar om en tvåstatslösning skulle kunna bli aktuella om Gaza och Västbanken fick ett samordnat styre. Förklara sambandet med egna ord.</li><li>Välj en av teorierna. Vad skulle en realist, en liberal eller en konstruktivist fästa sig vid i den här artikeln?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-07-06, text Nathan Shachar · <a href="https://www.dn.se/varlden/hamas-regering-i-gaza-avgar-men-ministrarna-sitter-kvar/">Originalartikeln</a> är oförändrad och nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Orsakssambanden är utskrivna och begreppen förklarade.'
+      : 'Artikeln som den publicerades. Klarar du den behöver du inte stödversionen.';
+    if(byl) byl.textContent = medStod ? 'Bearbetad version med stöd' : 'Originalversionen';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
