@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Så kan Magdalena Andersson mäkla fred mellan C och V - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Samhällskunskap 1b</span>
+    <span class="etikett">Dagens Nyheter · 2026-09-18</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Så kan Magdalena Andersson mäkla fred mellan C och V</h1>
+  <p class="ingress">Lättläst version. Centerpartiet och Vänsterpartiet är oense om mycket. Men i några frågor är de överens.</p>
+  <p class="byline">Text Hans Rosén, Hans Olsson · <span id="bylineversion">Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Sverige hade val till riksdagen den 13 september 2026. Före valet styrde Moderaterna, Kristdemokraterna och Liberalerna. Sverigedemokraterna stödde dem.</p><p>I valet fick den andra sidan flest platser i riksdagen. Den sidan är Socialdemokraterna (S), Centerpartiet (C), Vänsterpartiet (V) och Miljöpartiet (MP). S-ledaren Magdalena Andersson vill bli statsminister.</p><p>Men det räcker inte att vinna valet. Riksdagen röstar om vem som blir statsminister. Riksdagen har <strong>349</strong> ledamöter. Om <strong>175</strong> av dem röstar nej, får Andersson inte bli statsminister. Därför behöver hon att C, V och MP inte röstar nej. De måste komma överens med henne först.</p><p>Det svåra är att C och V tycker väldigt olika. Den här texten handlar om just dem.</p><p>Texten kommer från Dagens Nyheter. Två reportrar har skrivit den. De berättar vad partierna vill. De säger inte själva vad som är rätt.</p><p>Klarar du den här texten? Då kan du läsa den längre versionen nästa gång: <a href="magdalena-andersson-c-och-v.html">Så kan Magdalena Andersson mäkla fred mellan C och V - med stöd</a>.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>regeringsunderlag</dt><dd>De partier som en statsminister behöver i riksdagen. De röstar för statsministern, eller i alla fall inte emot. De behöver inte sitta i regeringen.</dd><dt>regeringsmedverkan</dt><dd>Att ett parti får egna ministrar i regeringen.</dd><dt>minister</dt><dd>En person i regeringen som har ansvar för ett område, till exempel skolan eller ekonomin.</dd><dt>röda linjer</dt><dd>Krav som ett parti säger att det aldrig ger upp.</dd><dt>ideologi</dt><dd>Ett partis grundsyn. Hur partiet tycker att samhället ska vara.</dd><dt>sakpolitik</dt><dd>Konkreta förslag. Till exempel hur hög en skatt ska vara.</dd><dt>arbetsgivaravgift</dt><dd>Pengar som ett företag betalar till staten för varje anställd, utöver lönen.</dd><dt>a-kassa</dt><dd>Pengar man får en tid efter att man har blivit arbetslös.</dd><dt>subvention</dt><dd>Pengar som staten ger för att något ska bli av.</dd><dt>vinster i välfärden</dt><dd>Att privata företag som driver skolor, vård eller äldreboenden får tjäna pengar på det.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Texten har två delar. Först kommer det som C och V är <strong>överens</strong> om. Sedan kommer det som de är <strong>oense</strong> om.</p><p>Leta i varje avsnitt efter två saker: vad <strong>C vill</strong> och vad <strong>V vill</strong>.</p><p>Efter varje avsnitt finns en fråga som heter <strong>Kolla</strong>. Svara på den i huvudet. Går det inte? Läs avsnittet en gång till.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj version av artikeln">
+    <button type="button" id="btn-stod" aria-pressed="true">Med stöd</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Orsakssambanden är utskrivna och begreppen förklarade.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Magdalena Andersson vill bli statsminister. För det behöver hon både Centerpartiet (<strong>C</strong>) och Vänsterpartiet (<strong>V</strong>) i sitt <span class="begrepp" title="De partier som en statsminister behöver i riksdagen. De röstar för statsministern, eller i alla fall inte emot. De behöver inte sitta i regeringen.">regeringsunderlag</span>. Det är svårt, <mark>eftersom</mark> C och V ofta är oense. De har sagt hårda saker om varandra. <mark>Men</mark> i några viktiga frågor är de faktiskt överens. <span class="def">Texten letar efter var de är överens och var de är oense.</span></p><aside class="gloss"><b>regeringsunderlag</b>De partier som en statsminister behöver i riksdagen. De röstar för statsministern, eller i alla fall inte emot. De behöver inte sitta i regeringen.</aside></div>
+  <div class="stycke"><p>Valresultatet är klart. Anderssons sida har fått flest platser i riksdagen, och det går inte att ändra. <mark>Därför</mark> bjöd Andersson in <strong>C</strong>, <strong>V</strong> och <strong>MP</strong> till ett första möte. Nu ska de förhandla. Det betyder att de försöker komma överens.</p></div>
+  <div class="stycke"><p>I en förhandling har partierna <span class="begrepp" title="Krav som ett parti säger att det aldrig ger upp.">röda linjer</span>. Det är krav som de säger att de aldrig ger upp. Den största konflikten finns mellan C och V. De bråkar om två saker. Den första är vilka partier som ska få ministrar. Den andra är vilken politik regeringen ska föra.</p><aside class="gloss"><b>röda linjer</b>Krav som ett parti säger att det aldrig ger upp.</aside></div>
+  <div class="stycke"><p>C har sagt nej till att V får vara med i regeringen. C vill alltså inte att V får egna ministrar. Det kallas att säga nej till <span class="begrepp" title="Att ett parti får egna ministrar i regeringen.">regeringsmedverkan</span>. <mark>Men</mark> V kan ändå vara med i regeringsunderlaget. Det räcker att V röstar för Andersson, eller låter bli att rösta emot henne.</p><aside class="gloss"><b>Kolla</b>Vad är skillnaden mellan att sitta i regeringen och att vara med i regeringsunderlaget?</aside></div>
+  <div class="stycke"><p>I kommunerna är det annorlunda. Där styr C och V tillsammans i ungefär <strong>30</strong> kommuner. <span class="def">C och V kan alltså samarbeta. Men C vill inte göra det i regeringen.</span></p><aside class="gloss"><b>Kolla</b>Var samarbetar C och V redan i dag?</aside></div>
+  <div class="stycke"><p>C och V är mest oense om <span class="begrepp" title="Ett partis grundsyn. Hur partiet tycker att samhället ska vara.">ideologi</span>. Det betyder att de har olika grundsyn på hur samhället ska vara. De är också oense om <span class="begrepp" title="Konkreta förslag. Till exempel hur hög en skatt ska vara.">sakpolitik</span>, alltså om konkreta förslag. <mark>Men</mark> i några frågor är de ändå överens. Först kommer tre frågor där de är överens. Sedan kommer tre frågor där de är oense.</p><aside class="gloss"><b>ideologi</b>Ett partis grundsyn. Hur partiet tycker att samhället ska vara.</aside></div>
+  <h4>Överens: Hela landet ska leva</h4>
+  <div class="stycke"><p>C har alltid brytt sig mycket om landsbygden. C vill att det ska vara bra att bo och ha företag utanför de stora städerna. På landsbygden finns skog, gruvor och vattenkraft. C vill att mer av pengarna från dem ska stanna i kommunerna där de finns.</p></div>
+  <div class="stycke"><p>V vill samma sak. V vill att kommuner med gruvor, vattenkraft och vindkraft ska få behålla mer pengar. V vill också att staten ska se till att det finns skola, service och vägar i hela landet. <span class="def">Både C och V vill att hela landet ska leva.</span></p><aside class="gloss"><b>Kolla</b>Vad är C och V överens om i det här avsnittet?</aside></div>
+  <h4>Överens: Små företag</h4>
+  <div class="stycke"><p>V är kritiskt mot stora företag. <mark>Men</mark> V tycker om små företag. V säger att de skapar jobb och nya idéer. Det tycker C också.</p></div>
+  <div class="stycke"><p>C vill hjälpa små företag på två sätt. Det första är att sänka arbetsgivaravgiften. <mark>Då</mark> blir det billigare att ha anställda. Det andra är att göra reglerna enklare.</p></div>
+  <div class="stycke"><p>V vill hjälpa små företag på andra sätt. V vill att det ska kosta mindre för företaget när en anställd är sjuk. V vill också att det ska bli lättare för små företag att låna pengar. <span class="def">De vill hjälpa samma företag, men på olika sätt.</span></p></div>
+  <div class="stycke"><p>Både C och V vill särskilt hjälpa företag på landsbygden.</p><aside class="gloss"><b>Kolla</b>Hur vill C hjälpa små företag? Hur vill V göra det?</aside></div>
+  <h4>Överens: Klimatet</h4>
+  <div class="stycke"><p>C och V tycker båda att regeringen har gjort för lite för klimatet. De vill minska utsläppen, särskilt från bilar. <mark>Men</mark> de vill inte höja skatten på bensin och diesel. <mark>Det beror på att</mark> många på landsbygden behöver bilen. De skulle få det svårare.</p></div>
+  <div class="stycke"><p>Regeringen har gett pengar till att bygga ny kärnkraft. Det är en <span class="begrepp" title="Pengar som staten ger för att något ska bli av.">subvention</span>. C och V är emot den. De vill hellre att staten betalar för att koppla vindkraft till havs till elnätet.</p><aside class="gloss"><b>subvention</b>Pengar som staten ger för att något ska bli av.</aside></div>
+  <div class="stycke"><p>Båda vill att mer pengar ska gå till grön energi. <mark>Men</mark> här syns ändå en skillnad i grundsyn. V vill att <strong>staten</strong> ska betala. C vill hellre att <strong>företagen</strong> gör det. C och V vill också ge mer pengar till den som köper en elbil. Det vill S och MP också.</p><aside class="gloss"><b>Kolla</b>I klimatfrågan finns det en skillnad trots allt. Vilken?</aside></div>
+  <h4>Oense: Jobben</h4>
+  <div class="stycke"><p>Både C och V vill att fler ska få jobb. Där är de överens. <mark>Men</mark> de vill göra helt olika saker för att nå dit.</p></div>
+  <div class="stycke"><p>C vill <strong>sänka</strong> arbetsgivaravgiften. C tänker så här: <mark>om</mark> det blir billigare att anställa, <mark>så</mark> anställer företagen fler. V vill i stället <strong>höja</strong> arbetsgivaravgiften. V vill också höja skatten på företagens vinster. <span class="def">Samma mål, men rakt motsatta förslag.</span></p></div>
+  <div class="stycke"><p>Det gäller också <span class="begrepp" title="Pengar man får en tid efter att man har blivit arbetslös.">a-kassan</span>. C vill <strong>sänka</strong> den. C tänker så här: <mark>om</mark> a-kassan är lägre, <mark>så</mark> letar folk jobb snabbare. V vill <strong>höja</strong> den. V tänker så här: det är viktigt att ha pengar att leva på när man blir arbetslös. Det gör inte att folk slutar söka jobb.</p><aside class="gloss"><b>Kolla</b>Vad vill C med a-kassan? Vad vill V?</aside></div>
+  <h4>Oense: Skatterna</h4>
+  <div class="stycke"><p>C vill <strong>sänka</strong> skatterna mycket. V vill <strong>höja</strong> dem. Det här handlar om ideologi, alltså om vad partierna tycker att skatten är till för.</p></div>
+  <div class="stycke"><p>C tycker att människor och företag själva ska bestämma över sina pengar. C kallar det <em>egenmakt</em>. <mark>Därför</mark> vill C ha låga skatter.</p></div>
+  <div class="stycke"><p>V tycker att det gemensamma är viktigast. Skatten ska betala för välfärden, till exempel skola och vård. Skatten ska också minska skillnaden mellan dem som har mycket pengar och dem som har lite. <mark>Därför</mark> vill V ha högre skatter.</p></div>
+  <div class="stycke"><p><mark>Men</mark> det finns en öppning. V kan tänka sig att <strong>sänka</strong> skatten för dem som tjänar lite eller mellanmycket. V vill bara höja skatten för dem som tjänar mer än <strong>70 000 kronor</strong> i månaden. <span class="def">För de flesta vill alltså både C och V sänka skatten.</span></p><aside class="gloss"><b>Kolla</b>Var finns öppningen i skattefrågan?</aside></div>
+  <h4>Oense: Vinster i välfärden</h4>
+  <div class="stycke"><p>V vill stoppa <span class="begrepp" title="Att privata företag som driver skolor, vård eller äldreboenden får tjäna pengar på det.">vinster i välfärden</span>. V tycker inte att privata företag ska tjäna pengar på skola, vård och omsorg. V vill att staten utreder ett förbud och sedan inför det.</p></div>
+  <div class="stycke"><p>C tycker tvärtom. C vill att många olika ska få driva vård och omsorg, både kommunen och privata företag. C tror att det <mark>leder till</mark> bättre vård och nya idéer.</p></div>
+  <div class="stycke"><p>För skolan kan C tänka sig att förbjuda vinster, <mark>men bara</mark> i skolor som inte är bra. C vill inte förbjuda att skolor drivs som företag, <mark>eftersom</mark> många skolor redan drivs så. Det skulle bli kaos, säger C. C vill att elever och föräldrar ska kunna välja skola.</p></div>
+  <div class="stycke"><p><span class="def">Här är C och V längst ifrån varandra. Texten visar ingen öppning.</span></p><aside class="gloss"><b>Kolla</b>Vad vill V med vinsterna i välfärden? Vad vill C?</aside></div>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p># Så kan Magdalena Andersson mäkla fred mellan C och V</p></div>
+  <div class="stycke"><p>Magdalena Andersson är under hård press när hon ska försöka jämka samman C och V i sitt regeringsunderlag. Motsättningarna är många men bakom den hårda retoriken finns samsyn mellan de två partierna i flera tunga frågor.</p></div>
+  <div class="stycke"><p>När de sista rösterna räknats på torsdagen bekräftades att Magdalena Anderssons sida har ett ointagligt övertag på det nuvarande regeringsunderlaget. S-ledaren bjöd direkt in C, V och MP till ett första möte. Nu väntar det svåra jobbet att få ihop en ny regering.</p></div>
+  <div class="stycke"><p>När parterna slår sig ner vid förhandlingsbordet finns en rad röda linjer som måste passeras för att S-ledaren ska kunna tillträda som statsminister. Den hårdaste konflikten finns mellan Centerpartiet och Vänsterpartiet och gäller både fördelningen av ministerposter och sakpolitik.</p></div>
+  <div class="stycke"><p>Särskilt C har varit oförsonliga mot V i valrörelsen och har sagt nej till alla former av vänsterpartistisk regeringsmedverkan. Det är så C ser på samarbetet på riksplanet, samtidigt som partierna lokalt har fungerande samarbeten i ett 30-tal kommuner.</p></div>
+  <div class="stycke"><p>Motståndet mellan partierna är i första hand ideologiskt men det finns också stora sakpolitiska skillnader. Samtidigt finns det en samsyn i flera frågor som ligger båda partierna varmt om hjärtat.</p></div>
+  <div class="stycke"><p><strong>SAMSYN</strong></p></div>
+  <div class="stycke"><p><strong>Hela landet ska leva</strong></p></div>
+  <div class="stycke"><p>Landsbygdsfrågorna sitter djupt rotade i Centerpartiets dna. Företagande, infrastruktur och välfärd är några frågor som C driver för att skapa bättre förutsättningar att leva utanför storstadsområdena. C vill också att mer pengar ska stanna i glesbygdskommunerna genom att de värden som skapas på landsbygden, till exempel från naturresurser, i större utsträckning ska komma lokalsamhället till del.</p></div>
+  <div class="stycke"><p>Här finns en samsyn med Vänsterpartiet. V vill bland annat att områden med gruvbrytning, vattenkraft och vindkraft ska få behålla mer pengar än vad de gör i dag. V förordar en aktiv, långsiktig regional politik som ger kommunerna likvärdiga möjligheter och garanterar service, utbildning och infrastruktur i hela landet.</p></div>
+  <div class="stycke"><p><strong>Småföretagen</strong></p></div>
+  <div class="stycke"><p>V har en kritisk syn på storföretagens makt i samhället men synen på små företag är betydligt mer positiv. De beskrivs som jobbskapare och innovatörer, ord som skulle kunna komma från C. Här finns alltså gemensam mark.</p></div>
+  <div class="stycke"><p>För det gamla bondepartiet är det helt centralt att skapa gynnsamma villkor för småföretagarna. Det vill man åstadkomma med sänkta arbetsgivaravgifter och mindre regelkrångel. Vänsterpartiets erbjudande till de mindre företagen är minskade kostnader för sjukskrivningar och bättre möjligheter till finansiering.</p></div>
+  <div class="stycke"><p>Båda partierna är särskilt intresserade av att det ska bli lättare att driva företag på landsbygden.</p></div>
+  <div class="stycke"><p><strong>Klimatet</strong></p></div>
+  <div class="stycke"><p>C och V har unisont sågat Tidöregeringens klimatpolitik och bägge partierna är angelägna om att få till en kursändring som sänker utsläppen, i första hand från biltrafiken. Ingen av dem är lika mycket som MP inne på att höja skatterna på bensin och diesel utan tar hellre till andra åtgärder. Att omställningen inte ska slå för hårt mot bilberoende landsbygdsbor är en gemensam ambition.</p></div>
+  <div class="stycke"><p>Både C och V är kritiska till Tidöregeringens subventioner till ny kärnkraft. De vill gynna havsbaserad vindkraft genom att staten står för anslutningen till elnätet.</p></div>
+  <div class="stycke"><p>Att investeringarna i grön omställning och energi behöver öka är en gemensam uppfattning, men V betonar statens roll medan C tror mer på marknaden. De är överens om en utvidgad elbilsbonus, något som även MP och S är med på.</p></div>
+  <div class="stycke"><p><strong>KONFLIKTERNA</strong></p></div>
+  <div class="stycke"><p><strong>Jobben</strong></p></div>
+  <div class="stycke"><p>Att jobben ska bli fler kan både Centerpartiet och Vänsterpartiet skriva under på. Båda partierna har i valrörelsen varit mycket kritiska mot att regeringen inte gjort mer åt arbetslösheten.</p></div>
+  <div class="stycke"><p>Men när det kommer till hur jobbskapandet ska gå till är klyftan mellan C och V avgrundsdjup. För C är lägre kostnader för företagen en av partiets högst prioriterade frågor där sänkta arbetsgivaravgifter står högst upp på kravlistan. V vill å sin sida höja arbetsgivaravgifterna och dessutom höja skatten på företagsvinster.</p></div>
+  <div class="stycke"><p>Att C vill spara in rejält på a-kassan medan V i stället vill höja den är ytterligare ett exempel på att partierna har helt olika syn på vad som kan skapa jobb.</p></div>
+  <div class="stycke"><p><strong>Skatterna</strong></p></div>
+  <div class="stycke"><p>C vill sänka skatterna rejält medan V vill höja dem. Det är utgångspunkten när partierna ska sätta sig vid förhandlingsbordet. Här handlar det i grunden om en ideologisk syn på vilken roll skatterna ska spela i samhällsekonomin. C slåss för egenmakten där människor och företag ska ges största möjliga frihet att använda sina pengar på bästa sätt. V har ett mer kollektivistiskt synsätt och anser att skatternas huvudsakliga uppgift är att finansiera välfärden och övriga delar av det offentliga åtagandet, samt jämna ut inkomster, konsumtion och sparande mellan olika inkomstgrupper.</p></div>
+  <div class="stycke"><p>V är med på skattesänkningar för låg- och medelinkomsttagare men vill ha höjningar på månadslöner över 70 000 kronor.</p></div>
+  <div class="stycke"><p><strong>Vinster i välfärden</strong></p></div>
+  <div class="stycke"><p>Vänsterpartiet är övertygade motståndare till vinstintressen inom välfärden. Inställningen är att vinstjakten i välfärden måste stoppas, och att ett förbud mot vinster i välfärden bör utredas och införas.</p></div>
+  <div class="stycke"><p>Centerpartiet tycker precis tvärtom och vill i stället uppmuntra en mångfald av vårdgivare och omsorgsaktörer för att öka tillgängligheten och innovationskraften i vården. När det gäller skolan kan C tänka sig ett vinstförbud för skolor som har kvalitetsbrister. Samtidigt menar partiet att ett förbud mot aktiebolag i skolan skulle skapa kaos. C:s grundinställning är att elever och föräldrar ska kunna välja skola, och att friskolor ska få finnas.</p></div>
+</article>
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Skrivhjälp till frågorna i appen. Börja meningarna så här, och skriv klart med egna ord.</li><li><strong>Frågan om regeringsunderlaget:</strong> C vill inte att V får ... Det kallas ... Men V kan ändå vara med i regeringsunderlaget, eftersom ... Andersson kan bli statsminister så länge inte ...</li><li><strong>Frågan om kommunerna:</strong> C och V samarbetar i ... Det kan fungera där men inte i regeringen, eftersom ... I texten står det att ...</li><li><strong>Frågan om var konflikten finns:</strong> Om jobben vill C ... men V vill ... Om skatterna vill C ... men V vill ... Om vinster i välfärden vill C ... men V vill ...</li><li><strong>Frågan om skatterna:</strong> C vill ha låga skatter eftersom C tycker att ... V vill ha högre skatter eftersom V tycker att skatten ska ...</li><li><strong>Frågan om ett annat exempel:</strong> Jag väljer ... C vill ... V vill ... Det beror på att C tycker att ... och V tycker att ...</li><li><strong>Frågan om röda linjer:</strong> En röd linje är ... Lättast att lösa är ..., eftersom ... Svårast att lösa är ..., eftersom ...</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-09-18, text Hans Rosén, Hans Olsson · <a href="https://www.dn.se/sverige/sa-kan-magdalena-andersson-makla-fred-mellan-c-och-v/">Originalartikeln</a> är oförändrad och nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Orsakssambanden är utskrivna och begreppen förklarade.'
+      : 'Artikeln som den publicerades. Klarar du den behöver du inte stödversionen.';
+    if(byl) byl.textContent = medStod ? 'Bearbetad version med stöd' : 'Originalversionen';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
