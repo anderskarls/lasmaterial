@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fyra röster ur Aten - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Historia 1b</span>
+    <span class="etikett">Antiken - framsteg för vem? · lektion 3</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Fyra röster ur Aten</h1>
+  <p class="ingress">Medborgaren, kvinnan, slaven och invandraren - vad antikens egna texter säger om vilken frihet de hade, med lärarens omskrivning bredvid och vad läroboken säger.</p>
+  <p class="byline"><span class="avsandare">Rösterna är översatta ur kursens källbank. Omskrivningarna och referatet är skrivna av din lärare och är inte källor.</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Vid varje station i dag ligger en text från antiken: någon som levde då och skrev ner vad han tyckte. Det är <strong>rösterna</strong> - orden är deras, i svensk översättning. Under varje röst har jag, din lärare, skrivit <strong>samma sak en gång till med mina ord</strong>, i kortare meningar och med orden förklarade.</p><p>Min omskrivning är inte källan. Den är en hjälp att komma in i källan. Säger min text och rösten emot varandra är det rösten som gäller, och säger min text och boken emot varandra är det boken som gäller.</p><p>Sist vid varje station står vad <strong>läroboken</strong> säger om samma grupp, med sidnummer, så att du kan slå upp det.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>Medborgare</dt><dd>Den som får rösta i folkförsamlingen och kan få uppdrag i staten.</dd><dt>Folkförsamlingen</dt><dd>Mötet där alla medborgare röstade om lagar.</dd><dt>Offentligt uppdrag</dt><dd>Ett arbete för staten, som rådsmedlem eller domare.</dd><dt>Hushållet</dt><dd>Hemmet med familj, slavar, förråd och arbete; i Aten var det kvinnan som ledde det inomhus.</dd><dt>Överlägga</dt><dd>Tänka igenom och välja.</dd><dt>Auktoritet</dt><dd>Rätten att få sitt beslut att gälla.</dd><dt>Av naturen</dt><dd>Så som något är fött att vara, inte något människor bestämt.</dd><dt>Metoik</dt><dd>Fri invånare i Aten utan medborgarskap; ordet betyder ungefär "den som bor med".</dd><dt>Militärtjänst</dt><dd>Skyldigheten att delta i krig när staden kallade.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p><strong>Leta efter två saker vid varje station</strong> - samma två som står på tavlan. <strong>Vilken frihet hade den här personen?</strong> Vad fick hen göra, äga, bestämma över? <strong>Vilken frihet saknade hen?</strong> Vad fick hen inte göra - och vem bestämde i stället?</p><p><strong>Skriv ett svar på varje fråga per station, en mening var.</strong> Det är precis vad exit ticketen frågar efter i slutet av lektionen, och det är ditt råmaterial till rådslaget i lektion 5.</p><p><strong>I dag tar vi inte ställning i momentfrågan.</strong> I dag samlar vi. Om du redan vet vad du tycker: skriv upp det och spara det till lektion 5.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <h4>Station 1 · Medborgaren</h4>
+  <div class="stycke"><p><strong>Rösten: Perikles talar till Aten</strong> (Thukydides, bok 2)</p></div>
+  <div class="stycke"><p>Perikles var Atens ledande politiker. År 430 f.v.t., mitt under kriget mot Sparta, höll han ett tal vid begravningen av årets stupade soldater. Historikern Thukydides skrev ner talet ur minnet. Perikles beskriver Aten så här:</p></div>
+  <blockquote>"Ser vi till lagarna ger de alla lika rätt i privata tvister; ser vi till anseende ligger vägen till offentliga uppdrag öppen efter duglighet, utan att klasstillhörighet får gå före förtjänst; inte heller stänger fattigdomen vägen - kan en man tjäna staten hindras han inte av sina enkla förhållanden. [...] Medan våra rivaler redan från vaggan jagar manlighet genom hård disciplin, lever vi i Aten precis som vi själva vill - och är ändå lika beredda att möta varje fara som krävs. [...] Kort sagt: som stad är vi Hellas skola."<cite>Thukydides, bok 2. Svensk översättning från den engelska utgåvan i kursens källbank. "Hellas" är grekernas eget namn på Grekland.</cite></blockquote>
+  <div class="stycke"><p><strong>Samma sak, utskrivet</strong></p></div>
+  <div class="stycke"><p>Perikles säger tre saker om hur det är att vara <span class="begrepp" title="Den som får rösta i folkförsamlingen och kan få uppdrag i staten.">medborgare</span> i Aten.</p><aside class="gloss"><b>Medborgare</b>Den som får rösta i folkförsamlingen och kan få uppdrag i staten.</aside></div>
+  <div class="stycke"><p><strong>För det första:</strong> lagen är lika för alla. Har två medborgare en tvist, till exempel om pengar eller mark, dömer domstolen inte efter vem som är rikast eller finast. Den dömer efter lagen.</p></div>
+  <div class="stycke"><p><strong>För det andra:</strong> vem som helst kan få ett <span class="begrepp" title="Ett arbete för staten, som rådsmedlem eller domare.">offentligt uppdrag</span>, alltså ett jobb i staten, till exempel i rådet eller som domare. Man får det för att man är duktig, inte för att man kommer från en fin släkt. Och är man fattig spelar det ingen roll - <strong>så länge</strong> man kan göra nytta för staten.</p><aside class="gloss"><b>Offentligt uppdrag</b>Ett arbete för staten, som rådsmedlem eller domare.</aside></div>
+  <div class="stycke"><p><strong>För det tredje:</strong> i Aten lever man som man själv vill. Perikles jämför med rivalerna, och han menar Sparta: där tränas pojkar från barnsben med hård disciplin för att bli krigare (boken s. 75). I Aten, säger han, behövs inte det. Atenarna är lika modiga i krig ändå.</p></div>
+  <div class="stycke"><p><strong>Lägg märke till ordet "alla".</strong> Perikles talar vid en begravning, till dem som är kvar: medborgarna. När han säger att lagen ger <em>alla</em> lika rätt menar han alla <em>medborgare</em>. Vilka som räknades som medborgare står i boken, s. 77: män som fyllt 21 år och hade athenska föräldrar.</p></div>
+  <div class="stycke"><p><strong>Vad boken säger</strong> (s. 77-78)</p></div>
+  <div class="stycke"><p>Medborgaren röstade i <span class="begrepp" title="Mötet där alla medborgare röstade om lagar.">folkförsamlingen</span> genom handuppräckning. Han kunde också lottas in i rådet med 500 medlemmar - och då var han <strong>skyldig</strong> att ställa upp, inte bara berättigad. Boken kallar demokratin "för sin tid något enastående", eftersom både rika och fattiga hade del i det politiska livet (s. 78). Men den skriver också, på samma sida, att det var "en demokrati för en begränsad del av befolkningen".</p><aside class="gloss"><b>Folkförsamlingen</b>Mötet där alla medborgare röstade om lagar.</aside></div>
+  <h4>Station 2 · Kvinnan</h4>
+  <div class="stycke"><p>Här finns två röster. Båda är män som talar om kvinnor. Ingen atensk kvinna har lämnat en egen text om sitt liv till oss.</p></div>
+  <div class="stycke"><p><strong>Röst A: Perikles vänder sig till änkorna</strong> (Thukydides, bok 2)</p></div>
+  <div class="stycke"><p>I slutet av samma gravtal som vid station 1 säger Perikles några ord till de stupade soldaternas änkor:</p></div>
+  <blockquote>"Stor blir er ära om ni inte faller under er naturs mått; och störst blir hennes ära som minst omtalas bland männen - vare sig för gott eller ont."<cite>Thukydides, bok 2. Svensk översättning från den engelska utgåvan i kursens källbank.</cite></blockquote>
+  <div class="stycke"><p><strong>Samma sak, utskrivet</strong></p></div>
+  <div class="stycke"><p>Perikles säger till änkorna: ni får ära, alltså gott anseende, om ni lever upp till er "natur" - det han menar att en kvinna <span class="begrepp" title="Så som något är fött att vara, inte något människor bestämt.">av naturen</span> ska vara. Och den kvinna som får <strong>mest</strong> ära är den som männen <strong>pratar minst om</strong>. Det spelar ingen roll om de skulle prata gott eller illa om henne. Bäst är att inte bli omtalad alls.</p><aside class="gloss"><b>Av naturen</b>Så som något är fött att vara, inte något människor bestämt.</aside></div>
+  <div class="stycke"><p>Vänd på det, så ser du vad han säger om kvinnans plats: en medborgare skulle synas och tala i folkförsamlingen (station 1). En kvinna skulle inte synas alls.</p></div>
+  <div class="stycke"><p><strong>Röst B: Xenofon om hustruns plats</strong> (Hushållningskonsten, kapitel 7)</p></div>
+  <div class="stycke"><p>Xenofon var atensk soldat och författare. Omkring 360 f.v.t. skrev han en bok om hur man sköter ett <span class="begrepp" title="Hemmet med familj, slavar, förråd och arbete; i Aten var det kvinnan som ledde det inomhus.">hushåll</span>. I den låter han en rik atenare, Ischomachos, förklara för sin unga hustru varför hon ska vara inomhus och han utomhus:</p></div>
+  <blockquote>"Gud har, tycks det mig, från början format kvinnans natur för sysslorna inomhus och mannens för sysslorna utomhus. [...] Eftersom han lade vården av de nyfödda barnen på kvinnan gav han henne en större kärlek till det nyfödda barnet än mannen fick. Och eftersom han gav kvinnan ansvaret att vakta det som förs in i huset, och insåg att ett rädslosamt sinne inte skadar den som ska vakta, gav han kvinnan en större del av rädslan än mannen. Mannen, som ska försvara det som finns utomhus mot angrepp, gav han i stället en större del av modet. [...] Därför är det ingen skam för en kvinna att stanna stilla hemma i stället för att röra sig ute. Men för en man är det skamligt att stanna inomhus i stället för att ägna sig åt det som ska göras ute."<cite>Xenofon, Hushållningskonsten, kapitel 7. Svensk översättning från den engelska utgåvan i kursens källbank. Texten är förkortad, markerat med [...].</cite></blockquote>
+  <div class="stycke"><p><strong>Samma sak, utskrivet</strong></p></div>
+  <div class="stycke"><p>Ischomachos säger att gud har gjort män och kvinnor olika med flit, <strong>för att</strong> de ska göra olika saker.</p></div><ul><li>Kvinnan fick mer kärlek till små barn, <strong>eftersom</strong> hon ska ta hand om barnen.</li><li>Kvinnan fick mer rädsla, <strong>eftersom</strong> hon ska vakta förråden i huset - och den som är lite rädd vaktar bättre.</li><li>Mannen fick mer mod, <strong>eftersom</strong> han ska försvara det som finns utanför huset.</li></ul>
+    <div class="stycke"><p><strong>Alltså</strong>, säger han, är det rätt att kvinnan är hemma och mannen ute. Det är inte bara vad lagen säger, utan vad gud har bestämt. En kvinna som stannar hemma gör inget fel. En man som stannar hemma skämmer ut sig.</p></div>
+  <div class="stycke"><p>Lägg märke till hur Ischomachos argumenterar: han säger inte "så här gör vi i Aten". Han säger "så här har gud gjort kvinnan". <strong>Därför</strong> går det inte att diskutera. Man kan inte ändra på naturen.</p></div>
+  <div class="stycke"><p><strong>Vad boken säger</strong> (s. 78-79)</p></div>
+  <div class="stycke"><p>Boken ger bilden fler sidor. Den atenska kvinnan hade <strong>ett gott skydd i lagen</strong>: hemgiften hon hade med sig från sin familj var i princip hennes egen, och hon kunde ganska lätt få skilsmässa och då ta hemgiften med sig. Men lagen såg oftast främst till mannens intressen (s. 78). I rika hem fanns en särskild kvinnodel, <strong>gynaikeion</strong>, där bara kvinnorna var. Kvinnan ledde hushållet och dess slavar, spann och vävde, och kunde bli prästinna - det var den enda offentliga tjänst en kvinna kunde ha (s. 79). Blek hy var vackert, <strong>eftersom</strong> den visade att man inte behövde arbeta ute, som fattigare kvinnor gjorde. I Sparta var det annorlunda: flickorna fick hård fysisk fostran, och kvinnorna fick en starkare ställning <strong>eftersom</strong> männen så ofta var borta i krig (s. 75).</p></div>
+  <h4>Station 3 · Slaven</h4>
+  <div class="stycke"><p>Ingen slav talar här heller. Den som talar om slaven är en filosof som själv ägde slavar.</p></div>
+  <div class="stycke"><p><strong>Rösten: Aristoteles om vem som ska styra vem</strong> (Politiken, bok 1)</p></div>
+  <div class="stycke"><p>Aristoteles var Greklands mest kända filosof. Han levde i Aten på 300-talet f.v.t. och skrev om hur en stat ska styras. Han börjar med hushållet: vem bestämmer över vem, och varför?</p></div>
+  <blockquote>"Det är tydligt att själens styre över kroppen, och förnuftets styre över känslorna, är naturligt och nyttigt, medan jämlikhet mellan de två, eller att den lägre styr, alltid är skadligt. Detsamma gäller djuren i förhållande till människan: alla tama djur har det bättre när de styrs av människan, <strong>för då bevaras de</strong>. Likaså är mannen av naturen den överlägsne och kvinnan den underlägsna; den ene styr och den andra styrs. [...] Slaven saknar helt förmågan att överlägga; kvinnan har den, men utan auktoritet; barnet har den, men outvecklad."<cite>Aristoteles, Politiken, bok 1. Svensk översättning från den engelska utgåvan i kursens källbank. Texten är förkortad, markerat med [...].</cite></blockquote>
+  <div class="stycke"><p><strong>Samma sak, utskrivet</strong></p></div>
+  <div class="stycke"><p>Aristoteles vill förklara varför vissa styr och andra styrs. Han gör det genom att jämföra.</p></div><ul><li>Själen styr kroppen. Förnuftet styr känslorna. Det är naturligt, säger han, och det är <strong>bra</strong> - det motsatta skulle vara skadligt.</li><li>Människan styr de tama djuren. Det är bra för djuren, <strong>eftersom</strong> de tas om hand och överlever.</li><li><strong>På samma sätt</strong>, menar han, styr mannen kvinnan. Och <strong>på samma sätt</strong> styr den fria mannen slaven.</li></ul>
+    <div class="stycke"><p>Varför? Aristoteles svar är: <strong>därför att</strong> slaven saknar det som krävs för att bestämma själv. Att "<span class="begrepp" title="Tänka igenom och välja.">överlägga</span>" betyder att tänka igenom ett beslut och välja. Slaven kan inte det alls, säger Aristoteles. Kvinnan kan, men hennes beslut gäller inte. Barnet kan, men inte färdigt än.</p></div>
+  <div class="stycke"><p><strong>Alltså</strong>, enligt Aristoteles: det är naturligt att slaven styrs, precis som det är naturligt att kroppen styrs av själen. Och det är bra för slaven, precis som det är bra för hästen att ha en ägare.</p></div>
+  <div class="stycke"><p>Boken säger något som är värt att hålla bredvid det här: "ingen verkar ha protesterat mot slaveriet i sig" (s. 101). Aristoteles text är ett exempel på hur man i stället förklarade det.</p></div>
+  <div class="stycke"><p><strong>Vad boken säger</strong> (s. 76 och 78)</p></div>
+  <div class="stycke"><p>Hur många slavarna var i Aten <strong>vet vi inte</strong> - boken skriver "kanske så många som en tredjedel av befolkningen" (s. 78). En slav var "någon fri mans egendom". Han eller hon kunde göra samma arbete som en fri daglönare i ett hantverk och fick då samma lön, men de flesta slavar var tjänstefolk i ägarens hushåll. Ägaren fick straffa och slå sin slav, men inte döda honom. Boken kallar tillvaron "i regel dräglig" (s. 78) - fundera på vad ordet <em>dräglig</em> betyder, och för vem.</p></div>
+  <div class="stycke"><p>Boken visar också att gränsen mellan fri och slav kunde flyttas: före Solon kunde en fri atensk bonde bli slav <strong>om</strong> han inte kunde betala sin skuld, och Solon frigav alla som blivit slavar på det sättet (s. 76).</p></div>
+  <h4>Station 4 · Metoiken - invandraren</h4>
+  <div class="stycke"><p><strong>Rösten saknas</strong></p></div>
+  <div class="stycke"><p>Vid den här stationen finns ingen text från antiken. <span class="begrepp" title="Fri invånare i Aten utan medborgarskap; ordet betyder ungefär &quot;den som bor med&quot;.">Metoikerna</span> - de fria invandrarna i Aten - skrev sällan om sig själva, och det lilla som finns kvar ligger inte i vårt material. Det är i sig ett svar på frågan om vems röst som bevarats.</p></div>
+  <div class="stycke"><p>Det närmaste vi kommer är en lag. År 451 f.v.t. föreslog Perikles, samme man som vid station 1, att folkförsamlingen skulle <strong>begränsa</strong> vem som fick vara medborgare: bara den vars <strong>båda</strong> föräldrar var athenare. Förslaget gick igenom (boken s. 80). Lagens ord är inte bevarade ordagrant i vårt material, men det historikerna beskriver är att den som var född av en atensk far och en utländsk mor från och med nu inte längre räknades som atenare.</p></div>
+  <div class="stycke"><p><strong>Referat: vad vi vet om metoikerna</strong></p></div>
+  <div class="stycke"><p><em>Det här är inte en källa. Det är en sammanfattning av vad kursens källbank säger om metoikerna. Sådant som står här men inte i läroboken är märkt med ett kors (†).</em></p></div>
+  <div class="stycke"><p>En metoik var en fri person som bodde och arbetade i Aten men inte var medborgare: en grek från en annan stadsstat, eller en icke-grek. Många familjer hade bott i staden i generationer.†</p></div>
+  <div class="stycke"><p>Metoiken betalade skatt och gjorde <span class="begrepp" title="Skyldigheten att delta i krig när staden kallade.">militärtjänst</span>, precis som medborgarna.† Men han fick inte rösta i folkförsamlingen, inte ha offentliga uppdrag, och normalt inte äga mark eller hus.† Han var fri - ingen ägde honom - men han bestämde inte över staden han bodde i.</p></div>
+  <div class="stycke"><p><strong>Ändå</strong> var det metoikerna som drev en stor del av Atens ekonomi: handel, hantverk och bankverksamhet.† Det var yrken som många medborgare såg ner på.†</p></div>
+  <div class="stycke"><p>Metoikens barn blev också metoiker. <strong>Efter</strong> Perikles lag 451 f.v.t. gällde det även om ena föräldern var atensk medborgare, <strong>eftersom</strong> lagen krävde två atenska föräldrar.</p></div>
+  <div class="stycke"><p><strong>Vad boken säger</strong> (s. 77 och 80)</p></div>
+  <div class="stycke"><p>Boken använder inte ordet metoik. Den skriver att folkförsamlingen bestod av män födda av athenska föräldrar, "alltså inga kvinnor och inte heller slavar eller invandrare" (s. 77). Och den berättar om Perikles förslag att begränsa medborgarskapet till dem vars båda föräldrar var athenska medborgare (s. 80). Du mötte den meningen på lektion 2, på frihetskortet om Perikles.</p></div>
+  <h4>Om texterna</h4>
+  <div class="stycke"><p><em>Rösterna vid station 1-3 är översatta från de källutdrag som ingår i kursens källbank (Thukydides, Peloponnesiska kriget, bok 2; Xenofon, Oikonomikos 7; Aristoteles, Politiken, bok 1), återgivna i A History of World Societies. Referatet vid station 4 bygger på samma källbank och på Josiah Ober, The Rise and Fall of Classical Greece, kap. 8. Boken är Ericsson &amp; Hansson, Samband Historia 1b (Sanoma), s. 75-80. Omskrivningarna är lärarens egna och är inte källor.</em></p></div>
+</article>
+
+
+
+
+
+
+
+</main>
+
+<footer>
+  <p><em>Rösterna är översatta ur kursens källbank. Omskrivningarna och referatet är skrivna av din lärare och är inte källor.</em></p>
+  
+  
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
