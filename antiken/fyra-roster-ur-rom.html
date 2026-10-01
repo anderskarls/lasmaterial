@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fyra röster ur Rom - stationsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+
+/* ---- stationshäfte ---------------------------------------------------- */
+.stationer-nav{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 0}
+.stationer-nav a{font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--black);
+  border:1.5px solid var(--linje);padding:8px 14px;border-radius:2px}
+.stationer-nav a:hover,.stationer-nav a:focus-visible{background:var(--papper2)}
+.stationer-nav a span{color:var(--bordeaux);margin-right:6px}
+section.station{border-top:3px solid var(--linje);padding-top:28px;margin-top:56px}
+section.station > h2 .nr{display:block;font-family:'JetBrains Mono',monospace;font-size:13px;
+  font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:var(--bordeaux);margin-bottom:6px}
+.lager{margin:30px 0 0;padding:20px 24px 18px;border-left:4px solid var(--linje);background:var(--papper2)}
+.lager > .lagernamn{font-family:'Inter Tight',sans-serif;font-size:12.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;margin:0 0 4px}
+.lager > h4{margin-top:0}
+.lager .stycke,.lager blockquote,.lager h4{max-width:none}
+.lager p{margin:.5em 0}
+.lager.rost{background:transparent;border-left-color:var(--bordeaux);padding-left:22px}
+.lager.rost > .lagernamn{color:var(--bordeaux)}
+.lager.omskrivning{border-left-color:var(--marin)}
+.lager.omskrivning > .lagernamn{color:var(--marin)}
+.lager.referat{border-left-color:var(--tegel);border-left-style:dashed}
+.lager.referat > .lagernamn{color:var(--tegel)}
+.lager.lucka{border-left-color:var(--black2);border-left-style:dotted;background:transparent}
+.lager.lucka > .lagernamn{color:var(--black2)}
+.lager.boken{border-left-color:var(--oliv)}
+.lager.boken > .lagernamn{color:var(--oliv)}
+.lager .forklaring{font-size:15px;color:var(--black2);margin:0 0 10px;font-style:italic}
+.karta{margin:30px 0 0;border:1.5px solid var(--linje);padding:20px 24px 16px}
+.karta > .lagernamn{font-family:'Inter Tight',sans-serif;font-size:12.5px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ocker);margin:0 0 4px}
+.karta > h4{margin-top:0}
+.karta .forklaring{font-size:15px;color:var(--black2);font-style:italic;margin:0 0 14px}
+.karta .kolumner{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px 26px}
+.karta .kort{border-top:2px solid var(--linje);padding-top:8px}
+.karta .kort.fick{border-top-color:var(--moss)}
+.karta .kort.fick-inte{border-top-color:var(--bordeaux)}
+.karta .kort h5{font-family:'Inter Tight',sans-serif;font-size:15px;font-weight:700;margin:0 0 6px}
+.karta ul{margin:0;padding-left:1.1em}
+.karta li{margin:.3em 0;font-size:16.5px;line-height:1.5}
+.karta .fri p{margin:.6em 0;font-size:16.5px}
+.karta .kolumner + .fri,.karta .fri + .kolumner{margin-top:14px}
+.stjarna{color:var(--tegel);font-weight:700}
+@media print{
+  .stationer-nav,.vaxel{display:none}
+  section.station{break-before:page;margin-top:0}
+  .lager,.karta{break-inside:avoid}
+}
+</style>
+<script>
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Historia 1b</span>
+    <span class="etikett">Antiken - framsteg för vem? · lektion 4</span>
+    <span class="etikett">Stationsmaterial</span>
+  </div>
+  <h1>Fyra röster ur Rom</h1>
+  <p class="ingress">4 stationer. Vid varje station: rösten, samma sak med lärarens ord, vad boken säger - och en karta som visar var du ska leta.</p>
+  <p class="byline">Bearbetad version med stöd</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Om den här texten</h3><p>Den är byggd precis som häftet från lektion 3. Vid varje station ligger en text från antiken: någon som levde då och skrev ner något. Det är <strong>rösterna</strong>, och orden är deras, i svensk översättning. Under varje röst har jag, din lärare, skrivit <strong>samma sak en gång till med mina ord</strong>. Min omskrivning är inte källan, den är en hjälp att komma in i källan. Säger min text och rösten emot varandra är det rösten som gäller, och säger min text och boken emot varandra är det boken som gäller.</p><p>Sist vid varje station står vad <strong>läroboken</strong> säger, med sidnummer. Det är samma sidor som vi gick igenom tillsammans i början av lektionen.</p><p>Sist av allt, vid varje station, finns en <strong>karta</strong>: min sortering av vad personen fick och inte fick, med pilar till var det står. Kartan är inget belägg. Den visar var du ska leta.</p></div>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">Vid varje station</h3><p><strong>Leta efter två saker vid varje station</strong> - samma två som på lektion 3:</p><ol><li><strong>Vilken frihet hade den här personen?</strong> Vad fick hen göra, äga, bestämma över?</li><li><strong>Vilken frihet saknade hen?</strong> Vad fick hen inte göra - och vem bestämde i stället?</li></ol><p><strong>Och en sak till, som är ny i dag:</strong> i Rom räcker det inte att fråga <em>vem</em> som räknades som fri eller som medborgare. Fråga också <strong>vad det var värt</strong>. Att vara medborgare kunde betyda mycket, och det kunde betyda nästan ingenting.</p><p><strong>I dag tar vi inte ställning i momentfrågan.</strong> I dag samlar vi, och i lektion 5 väger vi.</p></div>
+  <h3 class="rubrik" style="margin-top:30px">Stationerna</h3>
+  <nav class="stationer-nav" aria-label="Stationerna"><a href="#station-1"><span>1</span>Medborgaren</a><a href="#station-2"><span>2</span>Kvinnan</a><a href="#station-3"><span>3</span>Slaven</a><a href="#station-4"><span>4</span>Provinsbon</a></nav>
+</section>
+
+<div class="vaxel">
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+</div>
+
+<section class="station" id="station-1">
+<h2><span class="nr">Station 1</span>Medborgaren</h2>
+<div class="stycke"><p>Den här stationen följer den fria romerska mannen genom tre tider. Först en medborgare som ropar på sin rätt, under republiken. Sedan kejsaren, som säger att han gav Rom friheten tillbaka. Sist den fattige medborgaren i det sena riket.</p></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst A: tre ord från en man som piskades (Sicilien, omkring 70 f.v.t.)</h4><div class="stycke"><p>Publius Gavius var romersk medborgare och bodde på Sicilien. Roms ståthållare på ön, Verres, lät gripa honom och anklagade honom för att vara spion. Gavius piskades och korsfästes. Medan han piskades ropade han om och om igen:</p></div>
+  <blockquote>"Civis Romanus sum." - <em>"Jag är romersk medborgare."</em></blockquote>
+  <div class="stycke"><p>Vi känner till det för att politikern och advokaten Cicero berättade om det, när han åtalade Verres i rätten. Ciceros egna ord finns inte i vårt material. Det som finns kvar är Gavius tre ord.</p></div>
+  <div class="stycke"><p><em>Latin. Händelsen återges i Mary Beard, SPQR, i kursens källbank.</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Varför ropade Gavius just det? <strong>Därför att</strong> en romersk medborgare inte fick piskas, torteras eller korsfästas. Sådana straff fick slavar, och de som inte var medborgare. Lägg märke till att Gavius inte ropar "jag är oskyldig". Han ropar <strong>vem han är</strong>, eftersom det borde ha räckt för att skydda honom.</p></div>
+  <div class="stycke"><p>Det räckte inte. Ståthållaren struntade i det. Men Cicero kunde använda det i rätten <strong>just därför att</strong> alla visste att det var fel. Rättigheten fanns. Den här gången bröts den.</p></div>
+  <div class="stycke"><p><strong>Ord att kunna:</strong> <em>ståthållare</em> - den som styrde en provins åt Rom. <em>Medborgare</em> - en som hör till staten och har rättigheter där, till skillnad från en slav eller en utlänning.</p></div></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst B: Augustus om vad han gjorde (<em>Mina gärningar</em>, kapitel 1)</h4><div class="stycke"><p>Augustus var Roms förste kejsare. Mot slutet av sitt liv skrev han en redogörelse för allt han hade gjort, och den sattes upp i Rom där alla kunde läsa den. Den börjar med hur han tog makten efter inbördeskrigen:</p></div>
+  <blockquote>"Jag befriade staten, som var förtryckt av en fraktions makt."</blockquote>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank.</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Augustus säger att han <strong>befriade</strong> Rom. En <em>fraktion</em> är en liten grupp som tar makten för egen del - han menar sina motståndare i inbördeskriget, bland dem de som mördade Caesar.</p></div>
+  <div class="stycke"><p>Lägg märke till ordet <strong>befriade</strong>. Augustus säger inte att han tog makten. Han säger att han gav Rom friheten tillbaka. Frihet betyder alltså här: <strong>frihet från</strong> att en liten grupp styr. Det betyder inte att medborgarna själva fick bestämma.</p></div>
+  <div class="stycke"><p><strong>Ord att kunna:</strong> <em>fraktion</em> - en liten grupp som driver sina egna intressen. <em>Kejsare</em> - ensam härskare över riket; ordet kommer från namnet Caesar.</p></div></div>
+<div class="lager lucka"><p class="lagernamn">Rösten saknas</p><h4>Den livegne</h4><div class="stycke"><p>Från de livegna bönderna i det sena romarriket finns ingen text i vårt material. Det finns kejsarlagar som band bönderna vid jorden, men lagarnas ord finns inte ordagrant hos oss. Det vi vet står i boken, nedan.</p></div></div>
+<div class="lager referat"><p class="lagernamn">Referat · en sammanfattning, inte en källa</p><h4>Vad medborgarskapet var värt, i tre tider</h4><p class="forklaring">Det här är inte en källa. Det är en sammanfattning av vad kursens källbank säger. Sådant som inte står i läroboken är märkt med en stjärna (<span class="stjarna">*</span>).</p><div class="stycke"><p><strong>Republiken.</strong> Medborgarskapet gav rättigheter i romersk lag, alltifrån avtal till straff.<span class="stjarna">*</span> En medborgare fick inte piskas eller korsfästas - det är det Gavius ropar om.<span class="stjarna">*</span> Medborgarna röstade i folkförsamlingar om lagar och om vilka som skulle bli konsuler. Men Rom var <strong>ingen demokrati</strong> som Aten: röstningen var ordnad så att de rikas röster vägde tyngre än de fattigas.<span class="stjarna">*</span></p></div>
+  <div class="stycke"><p><strong>Kejsartiden.</strong> De riktiga valen <strong>upphörde</strong>. Kejsaren bestämde, och han höll folket nöjt med gratis bröd och gladiatorspel.<span class="stjarna">*</span> Men skyddet i lagen fanns kvar. När aposteln Petrus korsfästes på 60-talet v.t. blev aposteln Paulus i stället halshuggen, och skälet var att Paulus var romersk medborgare.<span class="stjarna">*</span></p></div>
+  <div class="stycke"><p><strong>Det sena riket.</strong> På 200-talet fick alla fria män i riket medborgarskap (boken s. 92). Ungefär samtidigt började lagen dela in medborgarna i två grupper: <strong>de ansedda</strong> - de rika, och soldater som tjänat ut - och <strong>de ringa</strong>, alla andra.<span class="stjarna">*</span> Nu var det bara de ansedda som slapp piskning och korsfästelse, som alla medborgare hade gjort förut. De ringa kunde straffas som slavar.<span class="stjarna">*</span></p></div></div>
+<div class="lager boken"><p class="lagernamn">Vad boken säger</p><h4>s. 89-90, 92, 94 och 103</h4><div class="stycke"><p><strong>Republiken.</strong> Först fick bara patricierna, de rika jordägande släkterna, sitta i senaten. Plebejerna, det vanliga folket, fick med tiden egna ledare, <strong>folktribuner</strong>, med rätt att stoppa beslut (s. 89). Många fria plebejer var <strong>klienter</strong>: de gav sina röster till en mäktig patricier, en <strong>patron</strong>, och fick beskydd och hjälp i gengäld (s. 90).</p></div>
+  <div class="stycke"><p><strong>Kejsaren.</strong> Augustus samlade all makt kring sin person: han var ständig konsul, han var folktribun och kunde stoppa alla beslut han ogillade, och han styrde armén. "Han menade själv att han hade återupprättat republiken, men istället hade han skapat en ärftlig kejserlig monarki" (s. 94).</p></div>
+  <div class="stycke"><p><strong>Det sena riket.</strong> När ekonomin försämrades gjorde de stora jordägarna bönderna till <strong>livegna</strong>. En livegen var inte en slav - ingen ägde honom - men han fick inte flytta, han brukade jorden utan att äga den, han måste arbeta åt sin herre, och barnen ärvde hans ställning (s. 103). Boken frågar själv: <em>"Skulle du föredra att vara en slav med bra arbetsuppgifter eller en fattig livegen?"</em> (s. 103).</p></div></div>
+<div class="karta"><p class="lagernamn">Karta · en vägvisare, inte ett belägg</p><h4>Vad medborgaren fick - och inte fick</h4><p class="forklaring">Det här är min sortering, inte ett belägg. Den säger <strong>var du ska leta</strong>. Slå upp stället innan du skriver.</p><div class="kolumner"><div class="kort fick"><h5>Under republiken fick han</h5><ul><li>rösta i folkförsamlingen → <em>referatet</em></li><li>slippa piskning och korsfästelse → <em>röst A och referatet</em></li><li>ha folktribuner, som kunde stoppa beslut → <em>boken s. 89</em></li></ul></div><div class="kort fick-inte"><h5>Under republiken fick han inte</h5><ul><li>sitta i senaten, om han var plebej → <em>boken s. 89</em></li><li>ha en lika tung röst som en rik → <em>referatet</em></li><li>alltid rösta som han själv ville - klienten röstade åt sin patron → <em>boken s. 90</em></li></ul></div></div><div class="fri"><p><strong>Under kejsaren:</strong> skyddet i lagen fanns kvar (<em>referatet</em>), men han fick inte längre vara med och bestämma - kejsaren bestämde (<em>boken s. 94 och referatet</em>).</p></div><div class="fri"><p><strong>I det sena riket:</strong> fler kom innanför - alla fria män blev medborgare (<em>boken s. 92</em>). Men den fattige medborgaren förlorade skyddet mot piskning (<em>referatet</em>), och den livegne fick inte flytta eller äga jorden han brukade (<em>boken s. 103</em>).</p></div></div>
+</section>
+<section class="station" id="station-2">
+<h2><span class="nr">Station 2</span>Kvinnan</h2>
+<div class="stycke"><p>Här finns två röster, och båda är gravskrifter. Ingen av dem är skriven av kvinnan själv.</p></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst A: en gravsten i Rom över en kvinna som hette Claudia</h4><div class="stycke"><p>Stenen restes i Rom i mitten av 100-talet f.v.t. Vi vet inte vem som lät hugga den, men troligen var det någon i hennes familj.</p></div>
+  <blockquote>"Här är en oskön grav över en skön kvinna. [...] Hon älskade sin make av hela sitt hjärta. Hon födde två söner. Den ene lämnar hon kvar på jorden, den andre under jorden. Hon var behaglig i sitt tal och elegant i sin gång. Hon skötte hemmet. Hon spann ull. Det var vad som fanns att säga."</blockquote>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank. Texten är förkortad, markerat med [...].</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Gravstenen berättar vad som var <strong>värt att minnas</strong> om Claudia. Det är sex saker: hon älskade sin man, hon fick två söner, varav en dog före henne, hon talade vackert, hon rörde sig vackert, hon skötte hemmet och hon spann ull.</p></div>
+  <div class="stycke"><p>Lägg märke till vad som <strong>inte</strong> står där. Inget om vad hon tyckte, vad hon ägde eller vad hon bestämde. Den sista meningen, "det var vad som fanns att säga", betyder: mer än så behövs inte om en god kvinna.</p></div>
+  <div class="stycke"><p>Att spinna ull var det klassiska tecknet på en dygdig romersk hustru. Det betyder alltså inte bara att hon arbetade - det betyder att hon var <strong>en sådan kvinna man skulle vara</strong>.</p></div></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst B: bokens exempel på en gravinskription (s. 100)</h4><div class="stycke"><p>Boken skriver att det "inte var ovanligt med gravinskriptioner på följande sätt":</p></div>
+  <blockquote>"Hon gifte sig 11 år gammal, födde sex barn och dog när hon var 27."</blockquote></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Det här är inte en enda kvinnas sten, utan bokens exempel på <strong>hur</strong> många gravstenar lät. Tre saker räknas upp: giftermål, barn, död. Hon gifte sig som barn. Hon var gift i sexton år och fick ett barn ungefär vart tredje år.</p></div>
+  <div class="stycke"><p><strong>Ord att kunna:</strong> <em>gravinskription</em> - text inhuggen på en gravsten. <em>Dygdig</em> - som man ska vara, enligt samhällets ideal.</p></div></div>
+<div class="lager boken"><p class="lagernamn">Vad boken säger</p><h4>s. 100</h4><div class="stycke"><p>I den romerska familjen styrde familjens manliga överhuvud, <strong>pater familias</strong>. Han "ägde allt och hade rätt att bestämma över sina barn (även när de blivit vuxna), sin hustru och sina slavar". Staten lade sig inte i familjen.</p></div>
+  <div class="stycke"><p><strong>Men</strong> under kejsartiden kunde kvinnor få större inflytande än tidigare. Det var enkelt att skilja sig. Kvinnor <strong>ärvde lika mycket som män</strong> efter sina fäder, och därför kunde de kontrollera stora förmögenheter och få både ekonomiskt och ett visst politiskt inflytande - "så länge de inte själva deltog offentligt". Boken konstaterar också att de romerska kvinnorna är <strong>anonyma</strong>: när de syns i historien är det oftast som hustrur och mödrar i de högsta klasserna.</p></div></div>
+<div class="karta"><p class="lagernamn">Karta · en vägvisare, inte ett belägg</p><h4>Vad kvinnan fick - och inte fick</h4><p class="forklaring">Det här är min sortering, inte ett belägg. Den säger <strong>var du ska leta</strong>. Slå upp stället innan du skriver.</p><div class="kolumner"><div class="kort fick"><h5>Hon fick</h5><ul><li>ärva lika mycket som sina bröder efter fadern, och då styra en egen förmögenhet → <em>boken s. 100</em></li><li>skilja sig - det var enkelt → <em>boken s. 100</em></li><li>ett visst inflytande, genom pengarna och familjen → <em>boken s. 100</em></li></ul></div><div class="kort fick-inte"><h5>Hon fick inte</h5><ul><li>bestämma över sig själv - pater familias bestämde över hustru och barn, också när barnen var vuxna → <em>boken s. 100</em></li><li>själv delta i det offentliga livet → <em>boken s. 100</em></li><li>bli ihågkommen för något annat än att vara hustru och mor → <em>röst A och röst B</em></li></ul></div></div><div class="fri"><p><strong>Tänk själv:</strong> gifte sig flickan i röst B när hon själv ville? Rösten säger inte vem som bestämde. En elvaåring bestämde knappast själv - men det är <strong>din slutsats</strong>, och då ska du skriva att det är det.</p></div><div class="fri"><p><strong>Och fråga dig: vilken kvinna?</strong> Arvet och förmögenheten hjälpte bara den som hade en rik far. Boken påpekar att de kvinnor vi ser är de rika.</p></div></div>
+</section>
+<section class="station" id="station-3">
+<h2><span class="nr">Station 3</span>Slaven</h2>
+<div class="stycke"><p>Här finns två röster. Den ena är en lag, den andra är ett halsband. Ingen av dem är skriven av en slav.</p></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst A: romersk lag om frihet och slaveri (Justinianus lagsamling)</h4><div class="stycke"><p>Lagsamlingen sammanställdes på 500-talet under kejsar Justinianus, men texterna i den är skrivna av romerska jurister flera hundra år tidigare. Så här definierar lagen frihet och slaveri:</p></div>
+  <blockquote>"Frihet är den naturliga förmågan att göra vad man vill, om man inte hindras av våld eller lag. Slaveri är en inrättning i folkrätten, genom vilken någon i strid med naturen underkastas en annans makt. [...] Slavar blir vår egendom antingen genom att tas från fienden eller genom att födas av våra slavinnor. [...] Om en förrymd slav tar sin tillflykt till arenan [som gladiator] kommer han inte undan sin herres makt genom att utsätta sig för den faran. En sådan slav ska under alla omständigheter återlämnas till sin herre, före eller efter kampen mot vilddjuren."</blockquote>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank. Texten är förkortad, markerat med [...].</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Lagen säger tre saker.</p></div>
+  <div class="stycke"><p><strong>Först: vad frihet är.</strong> Frihet är att få göra vad man vill - <strong>så länge</strong> ingen tvingar en med våld, och så länge lagen inte förbjuder det.</p></div>
+  <div class="stycke"><p><strong>Sedan: vad slaveri är.</strong> Slaveri är något människor har bestämt, inte något naturen har bestämt. Lagen säger det rakt ut: slaveriet är <strong>i strid med naturen</strong>. Ändå är det lag. Man blir slav <strong>om</strong> man tas som fånge i krig, eller <strong>om</strong> ens mamma är slav.</p></div>
+  <div class="stycke"><p><strong>Sist: slaven kommer inte undan.</strong> Även om en slav rymmer och blir gladiator, och riskerar livet på arenan, äger herren honom fortfarande. Han ska lämnas tillbaka, levande eller död.</p></div>
+  <div class="stycke"><p>Jämför med Aristoteles från lektion 3. Han sa att det är <strong>naturligt</strong> att slaven styrs. Den romerska lagen säger att slaveriet är <strong>onaturligt</strong>. Båda samhällena hade slavar ändå.</p></div></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst B: ett halsband av brons</h4><div class="stycke"><p>Det här är en metallbricka som satt på ett halsband runt en slavs hals. Den är från det sena romarriket, 300-talet v.t. Texten är skriven som om slaven själv talar:</p></div>
+  <blockquote>"Jag har rymt. Fånga mig. För mig tillbaka till min herre Zoninus, så får du en belöning."</blockquote>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank.</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Brickan säger "jag", men det är <strong>inte</strong> slaven som har skrivit den. Det är ägaren. Halsbandet sattes på en slav som hade rymt en gång, <strong>för att</strong> den som hittade hen nästa gång skulle veta vart hen skulle lämnas.</p></div></div>
+<div class="lager referat"><p class="lagernamn">Referat · en sammanfattning, inte en källa</p><h4>Frigivningen, det som var annorlunda i Rom</h4><p class="forklaring">Det här är inte en källa. Det är en sammanfattning av vad kursens källbank säger. Sådant som inte står i läroboken är märkt med en stjärna (<span class="stjarna">*</span>).</p><div class="stycke"><p>En slav i Rom kunde bli <strong>frigiven</strong> av sin ägare, och det var vanligt.<span class="stjarna">*</span> Den frigivne blev då <strong>romersk medborgare</strong> - något som aldrig hände i Aten, där en frigiven slav blev metoik.<span class="stjarna">*</span> Men den frigivne var inte helt fri från sin gamla ägare: han blev hans <strong>klient</strong> och hade plikter mot honom, och han kunde inte bli senator.<span class="stjarna">*</span> Hans barn föddes däremot som helt fria medborgare.<span class="stjarna">*</span> En stor del av Roms fria befolkning hade slavar bland sina förfäder.<span class="stjarna">*</span></p></div>
+  <div class="stycke"><p><strong>Ord att kunna:</strong> <em>frigiven</em> - en före detta slav som fått sin frihet. <em>Folkrätt</em> - regler som man ansåg gällde mellan alla folk, inte bara i Rom.</p></div></div>
+<div class="lager boken"><p class="lagernamn">Vad boken säger</p><h4>s. 100-101</h4><div class="stycke"><p>Hos romarna, liksom hos grekerna, "drabbade slaveriet inte någon särskild grupp av människor" - man blev slav om man togs som krigsfånge eller hamnade i skuld (s. 100). Slaveriet blev viktigt med de stora jordbruksgodsen, <strong>latifundierna</strong>, <strong>eftersom</strong> slavarna var billig arbetskraft. Slavar arbetade på gårdarna, i hushållen, som roddare på galärerna, som barnskötare och lärare, och med handel, som den romerska överklassen såg ner på. Slavar uppmuntrades att bilda familj, och så föddes nya generationer slavar (s. 101).</p></div>
+  <div class="stycke"><p>Det fanns exempel på nära och förtroendefulla förhållanden mellan herre och slav, men det vanliga var att slavar ansågs sakna både heder och egna behov. Slavägare utnyttjade barn, kvinnor och män som var deras slavar sexuellt. "Ingen verkar ha protesterat mot slaveriet i sig, men det finns källor som innehåller uppmaningar om att behandla slavar väl" (s. 101).</p></div></div>
+<div class="karta"><p class="lagernamn">Karta · en vägvisare, inte ett belägg</p><h4>Vad slaven fick - och inte fick</h4><p class="forklaring">Det här är min sortering, inte ett belägg. Den säger <strong>var du ska leta</strong>. Slå upp stället innan du skriver.</p><div class="fri"><p><strong>Nästan ingen frihet var slavens egen.</strong> Det som fanns var sådant som ägaren kunde ge - och ta tillbaka. Därför frågar protokollet också: <strong>vilken väg mot frihet fanns?</strong></p></div><div class="kolumner"><div class="kort fick"><h5>Det som fanns</h5><ul><li>att bli frigiven, och då bli romersk medborgare → <em>referatet</em></li><li>att bilda familj - men barnen blev också slavar, och det var ägaren som tjänade på det → <em>boken s. 101</em></li><li>ibland arbete med förtroende, som lärare eller i handel → <em>boken s. 101</em></li></ul></div><div class="kort fick-inte"><h5>Slaven fick inte</h5><ul><li>äga sig själv - hen var någon annans egendom → <em>röst A</em></li><li>ta sig undan, inte ens genom att bli gladiator → <em>röst A och röst B</em></li><li>bestämma över sin egen kropp → <em>boken s. 101</em></li><li>välja sin ställning - den som föddes av en slavinna blev slav → <em>röst A</em></li></ul></div></div><div class="fri"><p><strong>Vem bestämde i stället?</strong> Herren. Titta på vem som har skrivit båda rösterna.</p></div></div>
+</section>
+<section class="station" id="station-4">
+<h2><span class="nr">Station 4</span>Provinsbon</h2>
+<div class="stycke"><p>Här finns två röster. Den ena är en gravsten vid imperiets nordligaste gräns. Den andra är en romersk senator som skriver om britterna.</p></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst A: Reginas gravsten (South Shields, norra England, 100-talet v.t.)</h4><div class="stycke"><p>Stenen står vid ett romerskt fort nära Hadrianus mur, den mur romarna byggde tvärs över norra England. Den visar Regina sittande, med handarbete i knät, en ullkorg vid ena foten och ett smyckeskrin vid den andra. Texten är på latin:</p></div>
+  <blockquote>"Barates från Palmyra satte upp denna åt Regina, frigiven slavinna och hustru, trettio år gammal, av catuvellaunernas stam."</blockquote>
+  <div class="stycke"><p>Under den latinska texten finns en rad till, på Barates eget språk, arameiska: <em>"Regina, Barates frigivna. Ack!"</em></p></div>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank.</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Här möts två människor från imperiets motsatta ändar.</p></div>
+  <div class="stycke"><p><strong>Barates</strong> kom från Palmyra, en handelsstad i Syrien, omkring 400 mil från norra England. <strong>Regina</strong> var britt, från catuvellaunerna, en stam norr om dagens London. Hon hade varit <strong>slav</strong> - troligen Barates egen slav. Han <strong>frigav</strong> henne och <strong>gifte sig</strong> med henne. Hon dog när hon var trettio.</p></div>
+  <div class="stycke"><p>Lägg märke till att stenen är skriven på <strong>två språk</strong>. Latinet är rikets språk, som alla kunde läsa. Arameiskan är Barates eget språk, och den raden är den enda där man hör honom sörja: <em>ack</em>.</p></div></div>
+<div class="lager rost"><p class="lagernamn">Rösten · källan</p><h4>Röst B: Tacitus om britterna (<em>Agricola</em>, kapitel 21)</h4><div class="stycke"><p>Tacitus var en romersk senator och historiker. Omkring år 98 v.t. skrev han om sin svärfar Agricola, som hade varit romersk ståthållare i Britannien. Tacitus berättar hur britterna började lära sig latin, bära toga, bygga pelargångar, bada i badhus och hålla stora bjudningar. Sedan skriver han:</p></div>
+  <blockquote>"Det kallade de i sin okunnighet för civilisation, fast det i själva verket var en del av deras förslavning."</blockquote>
+  <div class="stycke"><p><em>Svensk översättning från den engelska utgåvan i kursens källbank.</em></p></div></div>
+<div class="lager omskrivning"><p class="lagernamn">Samma sak, utskrivet · lärarens ord, inte källan</p><div class="stycke"><p>Britterna tyckte att de blev <strong>civiliserade</strong> när de levde som romare: badhusen, togan, bjudningarna. Tacitus säger att de hade fel. Det var just så romarna fick makten över dem - de blev nöjda och slutade göra motstånd.</p></div>
+  <div class="stycke"><p>Lägg märke till <strong>vem som talar</strong>. Det är inte en britt. Det är en romersk senator, som skriver om britterna. Han kallar romarnas eget sätt att leva för <strong>förslavning</strong>, när britterna tar det till sig.</p></div>
+  <div class="stycke"><p><strong>Ord att kunna:</strong> <em>provins</em> - ett erövrat område utanför Italien, som styrdes av Rom. <em>Ståthållare</em> - den som styrde en provins åt Rom. <em>Stam</em> - ett folk med gemensamt ursprung.</p></div></div>
+<div class="lager boken"><p class="lagernamn">Vad boken säger</p><h4>s. 92</h4><div class="stycke"><p>Romarna knöt de besegrade folken till sig genom <strong>allianser och förbund</strong>, och lät dem sköta sina egna lokala angelägenheter <strong>så länge</strong> de betalade skatt och ställde upp med soldater. I öster behöll man grekiskan, och i städerna talades också arameiska. I väster var keltiska och gotiska språk vanliga. "Alla tog inte över romarnas latin."</p></div>
+  <div class="stycke"><p>"Romarna delade med sig av medborgarskapet, även om inte alla blev fullvärdiga medborgare med rösträtt. <strong>På 200-talet e.Kr. fick dock alla fria män i riket romerskt medborgarskap.</strong>"</p></div></div>
+<div class="karta"><p class="lagernamn">Karta · en vägvisare, inte ett belägg</p><h4>Vad provinsbon fick - och inte fick</h4><p class="forklaring">Det här är min sortering, inte ett belägg. Den säger <strong>var du ska leta</strong>. Slå upp stället innan du skriver.</p><div class="kolumner"><div class="kort fick"><h5>Provinsbon fick</h5><ul><li>sköta sina egna lokala angelägenheter → <em>boken s. 92</em></li><li>behålla sitt språk → <em>boken s. 92, och Barates arameiska rad i röst A</em></li><li>på 200-talet bli romersk medborgare, som alla fria män → <em>boken s. 92</em></li><li>flytta långt, gifta sig och frige - Barates reste från Syrien till England → <em>röst A</em></li></ul></div><div class="kort fick-inte"><h5>Provinsbon fick inte</h5><ul><li>slippa skatt och soldattjänst - Rom krävde båda → <em>boken s. 92</em></li><li>rösta som fullvärdig medborgare, i alla fall inte före 200-talet → <em>boken s. 92</em></li><li>bestämma över sitt land - det gjorde Rom, genom ståthållaren → <em>röst B</em></li></ul></div></div><div class="fri"><p><strong>Tacitus vänder på det:</strong> det som britterna själva trodde var något de hade vunnit - badhusen, togan, latinet - kallar han en del av deras förslavning (<em>röst B</em>). Vems ord är det?</p></div></div>
+</section>
+
+</main>
+
+<footer>
+  <p class="kalla">Bearbetning inför lektion 4 i momentet Antiken - framsteg för vem? Rösterna är översatta från de källutdrag som återges i kursens källbank: Gavius ord och händelsen i Ciceros tal mot Verres, som Beard återger; Augustus, Res Gestae 1; Claudias gravskrift (CIL VI 15346); slavhalsbandet; Reginas gravsten (RIB 1065); Tacitus, Agricola 21 - samtliga i Mary Beard, SPQR - samt Justinianus lagsamling i A History of World Societies. Referaten bygger på samma källbank; medborgarskapets skydd, Paulus och Petrus samt de ansedda och de ringa står i Beard, SPQR. Boken är Ericsson &amp; Hansson, Samband Historia 1b (Sanoma), s. 89-104. Omskrivningarna och kartorna är lärarens egna och är inte källor.</p>
+</footer>
+
+<script>
+(function(){
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

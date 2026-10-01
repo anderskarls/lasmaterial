@@ -34,3 +34,4 @@ Filerna genereras i vaultet (`C:\Brain`) och kopieras hit. **Vaultet självt ska
 | `israel-palestina/dodlaget-i-gaza.html` | `output/lasmaterial/2026-09-24-expert-dodlage-i-gaza-riskerar-att-vara-i-tio-ar.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` |
 | `israel-palestina/trump-och-iran.html` | `output/lasmaterial/2026-09-24-trump-och-iran-fast-i-ett-lagintensivt-krig.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` |
 | `antiken/fyra-roster-ur-aten.html` | `output/lessons/Historia/Antiken - framsteg för vem/lasmaterial-fyra-roster-ur-aten.md` | `.claude/skills/hamta-dn-artikel-win/bygg-html.py` (genre: forfattad) |
+| `antiken/fyra-roster-ur-rom.html` | `output/lessons/Historia/Antiken - framsteg för vem/kallmaterial-lektion-4-bearbetad.md` | `resources/lasmaterial-stationer/bygg-stationshafte.py` |
