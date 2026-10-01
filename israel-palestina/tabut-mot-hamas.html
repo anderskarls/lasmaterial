@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>USA:s tabu mot Hamas-kontakter brutet - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-08-22</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>USA:s tabu mot Hamas-kontakter brutet</h1>
+  
+  <p class="byline">Text Nathan Shachar · <span id="bylineversion">Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Hamas är den islamistiska rörelse som styr Gazaremsan sedan 2007. USA och EU klassar Hamas som en terroristorganisation. Hamas attack mot Israel den 7 oktober 2023, då israeler också fördes bort som gisslan till Gaza, ledde till ett krig som pågick i två år. I oktober 2025 kom Israel och Hamas överens om en vapenvila, som USA hade medlat fram. Därefter har Trumps fredsråd fått ansvar för Gazas framtid, och bulgaren Nickolay Mladenov leder det arbetet. Länge talade USA bara med Hamas genom mellanhänder, framför allt Qatar och Egypten. Texten är en kommentar av DN:s Mellanösternkorrespondent Nathan Shachar, som bor i Jerusalem. Han redovisar vad som har hänt, men gör också egna bedömningar.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>tabu</dt><dd>Något som man inte gör eller talar om, eftersom det anses förbjudet eller skamligt. Här: att USA inte talar direkt med Hamas.</dd><dt>paria</dt><dd>Någon som stängs ute och som andra vägrar ha att göra med.</dd><dt>terroristklassad</dt><dd>Att en stat eller en organisation som EU officiellt har förklarat att en grupp är en terroristorganisation. Det får följder, till exempel förbud mot att ge den pengar.</dd><dt>islamiströrelse</dt><dd>En politisk rörelse som vill att samhället ska styras efter islams lagar och regler. Shachar använder ordet om Hamas.</dd><dt>förhandla direkt</dt><dd>Att parterna sitter i samma rum och talar med varandra, i stället för att skicka budskap via en mellanhand.</dd><dt>gisslan</dt><dd>Människor som hålls fångna för att den som håller dem ska kunna ställa krav.</dd><dt>administrationen</dt><dd>Här: den amerikanska regeringen under en viss president. <em>Den republikanska administrationen</em> är Trumps regering.</dd><dt>sändebud</dt><dd>En person som en regering skickar för att förhandla eller föra fram dess budskap.</dd><dt>inflytande</dt><dd>Förmågan att påverka vad någon annan gör eller bestämmer.</dd><dt>nationalistväljare</dt><dd>Väljare som sätter den egna nationens intressen främst. Här: israeliska väljare som är emot eftergifter till palestinierna.</dd><dt>diplomatisk motgång</dt><dd>När ett land förlorar inflytande eller stöd i sina relationer med andra länder.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Skilj på två saker: vad som har hänt och vad Shachar bedömer. Raden <em>Detta är en kommenterande text</em> talar om att han får göra egna bedömningar.</p><p>Gör en tidslinje. Texten hoppar mellan 1994, 1995, våren 2025, oktober 2025 och <em>häromdagen</em>. Sätt in vad som händer vid varje tidpunkt.</p><p>Leta efter vem som sitter vid bordet, och vem som inte gör det. Det är textens viktigaste fråga.</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  <div class="knappar" role="group" aria-label="Välj version av artikeln">
+    <button type="button" id="btn-stod" aria-pressed="true">Med stöd</button>
+    <button type="button" id="btn-orig" aria-pressed="false">Originalet</button>
+  </div>
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  <p class="vaxelnot" id="vaxelnot">Orsakssambanden är utskrivna och begreppen förklarade.</p>
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>JERUSALEM. Shachar börjar med en bedömning: av alla diplomatiska motgångar som Israel har haft de senaste fyra åren, är det här den som gör mest ont för Benjamin Netanyahus regering.</p></div>
+  <div class="stycke"><p><span class="def">USA och Hamas-rörelsen förhandlar öppet och på högsta nivå. Ibland informerar USA inte ens Israel om vad de har talat om.</span></p></div>
+  <div class="stycke"><p><em>Detta är en kommenterande text. Skribenten svarar för analys och ställningstaganden i texten.</em></p><aside class="gloss"><b>Kommentar, inte nyhet</b>Raden ovan betyder att Shachar gör egna bedömningar i texten. Att detta är den mest smärtsamma motgången är hans slutsats, inte ett faktum.</aside></div>
+  <div class="stycke"><p>Det är inte bara extremnationalister i Israel som har svårt att vänja sig vid nyheterna. En bred israelisk allmänhet tycker att det är svårt att höra, gång på gång, att Trumps regering förhandlar med en rörelse som är <span class="begrepp" title="Att en stat eller en organisation som EU officiellt har förklarat att en grupp är en terroristorganisation. Det får följder, till exempel förbud mot att ge den pengar.">terroristklassad</span>.</p><aside class="gloss"><b>terroristklassad</b>Att en stat eller en organisation som EU officiellt har förklarat att en grupp är en terroristorganisation. Det får följder, till exempel förbud mot att ge den pengar.</aside></div>
+  <h4>Ett tabu sedan Oslo</h4>
+  <div class="stycke"><p>Bakgrunden går tillbaka till Osloavtalet. År <strong>1994</strong> inledde Hamas en lång serie terrordåd. Syftet var att sabotera Osloavtalet mellan Israel och palestinierna. <mark>Därför</mark> har det officiella USA sedan dess behandlat Hamas som en <span class="begrepp" title="Någon som stängs ute och som andra vägrar ha att göra med.">paria</span>, alltså som någon man inte har med att göra. Det har inte spelat någon roll vilket parti som har suttit i Vita huset. År <strong>1995</strong> förbjöd president <strong>Bill Clinton</strong> alla ekonomiska och diplomatiska kontakter med Hamas.</p><aside class="gloss"><b>Kopplingen till Oslo</b>Det här är samma avtal som ni läste i lektion 4b. Hamas var emot avtalet, och <mark>det var därför</mark> USA vägrade tala med rörelsen i trettio år.</aside></div>
+  <h4>Våren 2025: det första direkta mötet</h4>
+  <div class="stycke"><p>Våren <strong>2025</strong> ville Donald Trump allt mer få ett slut på kriget i Gaza. <mark>Därför</mark> skickade han USA:s särskilda gisslanförhandlare <strong>Adam Boehler</strong> till Doha, Qatars huvudstad. Där förhandlade Boehler direkt med Hamas-ledaren <strong>Khalil al-Haya</strong> om att byta ut de israeler som Hamas höll som <span class="begrepp" title="Människor som hålls fångna för att den som håller dem ska kunna ställa krav.">gisslan</span> i Gaza. <span class="def">Fram till dess hade alla USA:s kontakter med Hamas gått via Qatar och Egypten.</span></p><aside class="gloss"><b>gisslan</b>Människor som hålls fångna för att den som håller dem ska kunna ställa krav.</aside></div>
+  <div class="stycke"><p>Reaktionen i Israel blev häftig. Boehler försvarade sig så här:</p></div>
+  <p class="talstreck">– Mitt jobb är inte att tala med de goda. Goda människor rövar inte bort civila. Men att vägra tala med någon är en femårings attityd. Vi har problem att lösa och då kan man inte välja vem man talar med.</p>
+  <div class="stycke"><p>Boehlers ord gjorde inte stämningen bättre. Netanyahu undvek, som han alltid gör, att säga hårda ord om Trump. <mark>Men</mark> Netanyahus närmaste man, <strong>Ron Dermer</strong>, skällde ut Boehler i ett telefonsamtal.</p></div>
+  <h4>Oktober 2025: förhandlingarna inför vapenvilan</h4>
+  <div class="stycke"><p><span class="begrepp" title="Något som man inte gör eller talar om, eftersom det anses förbjudet eller skamligt. Här: att USA inte talar direkt med Hamas.">Tabut</span> var alltså brutet. <mark>Och därför</mark> kunde USA gå längre nästa gång. I oktober förra året förhandlade parterna intensivt i Egypten inför vapenvilan mellan Israel och Hamas. Då lät Trump sina närmaste förtrogna, <strong>Steve Witkoff</strong> och svärsonen <strong>Jared Kushner</strong>, <span class="begrepp" title="Att parterna sitter i samma rum och talar med varandra, i stället för att skicka budskap via en mellanhand.">förhandla direkt</span> med Khalil al-Haya. Shachar kallar Witkoff för <em>fastighetsmäklaren</em>. Shachar beskriver al-Haya som Hamas viktigaste makthavare av dem som fortfarande lever.</p><aside class="gloss"><b>tabu</b>Något som man inte gör eller talar om, eftersom det anses förbjudet eller skamligt. Här: att USA inte talar direkt med Hamas.</aside></div>
+  <div class="stycke"><p>Det föll inte i god jord i Israel. Särskilt illa togs uppgifterna om att Witkoff och al-Haya hade funnit varandra i sorgen över varsin förlorad son. Witkoffs son dog av en drogöverdos. Al-Hayas son dödades i en israelisk bombning.</p></div>
+  <h4>I dag: Israel tiger</h4>
+  <div class="stycke"><p>Sådana möten blir inte längre rubriker, och Israels regering har slutat att protestera. <mark>Skälet är enligt Shachar att</mark> mötena väcker ont blod hos de israeliska nationalistväljarna, <mark>och att</mark> de visar hur mycket mindre <span class="begrepp" title="Förmågan att påverka vad någon annan gör eller bestämmer.">inflytande</span> Netanyahu har hos Trump nu. Regeringen föredrar <mark>därför</mark> att låtsas som att mötena inte händer.</p><aside class="gloss"><b>Mellanledet</b>Shachar skriver att protester skulle <em>sätta i relief</em> Netanyahus minskade inflytande, alltså göra det tydligt. Varför det är ett skäl att tiga är tillagt här: protesterar Netanyahu utan att Trump lyssnar, syns det för alla att han inte kan påverka Trump.</aside></div>
+  <div class="stycke"><p><span class="def">Häromdagen träffades parterna i Egypten igen.</span> Kushner och Witkoff överlade med al-Haya, och med <strong>Nickolay Mladenov</strong>, som ansvarar för Gaza-fredsplanen. Både <strong>Turkiet</strong> och <strong>Qatar</strong> var representerade på hög nivå. <mark>Men</mark> Israel var inte där, trots att Israel är den part som, tillsammans med Hamas, berörs mest.</p><aside class="gloss"><b>Vem som sitter vid bordet</b>Räkna parterna i det sista mötet: USA, Hamas, fredsrådet, Turkiet och Qatar. Israel saknas. Det är textens poäng, och Shachar säger den utan att kommentera den.</aside></div>
+</article>
+
+<article class="artikel" id="version-orig" aria-label="Artikeln i original" hidden>
+  <div class="stycke"><p># Nathan Shachar: USA:s tabu mot Hamas-kontakter brutet</p></div>
+  <div class="stycke"><p>JERUSALEM. Av alla Israels diplomatiska motgångar de senaste fyra åren är detta den mest smärtsamma för Benjamin Netanyahus regering:</p></div>
+  <div class="stycke"><p>USA och Hamas-rörelsen förhandlar öppet och på högsta nivå, ibland utan att informera Israel om vad som avhandlats.</p></div>
+  <div class="stycke"><p>Detta är en kommenterande text. Skribenten svarar för analys och ställningstaganden i texten.</p></div>
+  <div class="stycke"><p>En bred israelisk allmänhet, inte bara extremnationalister, har svårt att vänja sig vid de återkommande nyhetsbulletinerna om förhandlingar mellan den terroristklassade rörelsen och den republikanska administrationen i USA.</p></div>
+  <div class="stycke"><p>Sedan 1994, då Hamas inledde en lång serie terrordåd för att sabotera Oslo-avtalet mellan Israel och palestinierna, har det officiella USA behandlat Hamas som paria, oavsett vilket parti som sitter i Vita huset. 1995 förbjöd president Bill Clinton alla ekonomiska och diplomatiska kontakter med islamiströrelsen.</p></div>
+  <div class="stycke"><p><strong>Men våren 2025,</strong> då Donald Trump blev allt ivrigare att sätta stopp för Gazakriget, skickade han USA:s specielle gisslanförhandlare Adam Boehler till Doha för att förhandla direkt med Hamas-ledaren Khalil al-Haya om utväxling av de israeler Hamas höll i Gaza. Dittills hade alla USA:s kontakter med Hamas skett via Qatar och Egypten.</p></div>
+  <div class="stycke"><p>Reaktionen i Israel blev häftig. Boehler försvarade sig:</p></div>
+  <p class="talstreck">– Mitt jobb är inte att tala med de goda. Goda människor rövar inte bort civila. Men att vägra tala med någon är en femårings attityd. Vi har problem att lösa och då kan man inte välja vem man talar med.</p>
+  <div class="stycke"><p>Hans ord lättade inte upp stämningen. Netanyahu undvek, som alltid, hårda ord mot Trump, men hans närmaste man Ron Dermer skällde ut Boehler i ett telefonsamtal.</p></div>
+  <div class="stycke"><p><strong>Tabut var brutet,</strong> och under de febrila kontakterna i Egypten inför vapenvilan mellan Israel och Hamas i oktober i fjol lät Trump sina närmaste förtrogna, fastighetsmäklaren Steve Witkoff och svärsonen Jared Kushner, förhandla direkt med Khalil al-Haya, Hamas viktigaste överlevande makthavare.</p></div>
+  <div class="stycke"><p>Detta föll inte i god jord i Israel, i synnerhet inte uppgifterna om hur Witkoff och al-Haya funnit varandra i sorgen över en förlorad son – Witkoffs efter en drogöverdos och al-Hayas i en israelisk bombning.</p></div>
+  <div class="stycke"><p>Sådana möten leder inte längre till rubriker, och Israels regering har slutat protestera. Man föredrar tvärtom att inte låtsas om dem, eftersom de vållar ont blod hos nationalistväljare och sätter i relief Netanyahus minskade inflytande hos Trump.</p></div>
+  <div class="stycke"><p>Häromdagen i Egypten, då Kushner och Witkoff överlade med al-Haya och med Gaza-fredsplanens ansvarige Nickolay Mladenov, var både Turkiet och Qatar representerade på hög nivå. Israel, som jämte Hamas är den närmast berörda parten, var inte närvarande.</p></div>
+</article>
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Varför vägrade USA tala med Hamas från 1990-talet och framåt? Följ orsakskedjan från Osloavtalet.</li><li>Boehler säger att det är <em>en femårings attityd</em> att vägra tala med någon. Förklara hans argument med egna ord. Betyder det att han tycker att Hamas är goda?</li><li>Varför har Israels regering slutat protestera mot mötena, enligt Shachar? Är det något regeringen har sagt, eller Shachars bedömning?</li><li>Vem satt vid bordet i Egypten <em>häromdagen</em>, och vem gjorde det inte? Vad säger det om Israels inflytande?</li><li>Välj en lins. Vad skulle en realist, en liberal eller en konstruktivist fästa sig vid i att USA bryter ett trettio år gammalt tabu?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-08-22, text Nathan Shachar · <a href="https://www.dn.se/varlden/nathan-shachar-usas-tabu-mot-hamaskontakter-brutet/">Originalartikeln</a> är oförändrad och nås via växeln ovan</p>
+</footer>
+
+<script>
+(function(){
+  var stod=document.getElementById('version-stod'), orig=document.getElementById('version-orig'),
+      bS=document.getElementById('btn-stod'), bO=document.getElementById('btn-orig'),
+      not=document.getElementById('vaxelnot'),
+      byl=document.getElementById('bylineversion');
+  function visa(medStod){
+    stod.hidden=!medStod; orig.hidden=medStod;
+    bS.setAttribute('aria-pressed',String(medStod));
+    bO.setAttribute('aria-pressed',String(!medStod));
+    not.textContent = medStod
+      ? 'Orsakssambanden är utskrivna och begreppen förklarade.'
+      : 'Artikeln som den publicerades. Klarar du den behöver du inte stödversionen.';
+    if(byl) byl.textContent = medStod ? 'Bearbetad version med stöd' : 'Originalversionen';
+  }
+  bS.addEventListener('click',function(){visa(true);});
+  bO.addEventListener('click',function(){visa(false);});
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
