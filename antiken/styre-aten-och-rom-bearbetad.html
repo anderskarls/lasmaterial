@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lektion 5: s. 77 och s. 89 i bearbetad version</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --harfin:rgba(42,34,26,.16); --skriv:#A89D8F;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter','Segoe UI',Arial,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --rad:7.5mm;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{background:#CFC6B8}
+body{margin:0;font-family:var(--sans);font-size:10.5pt;line-height:1.42;color:var(--black)}
+.ark{width:210mm;min-height:297mm;margin:10mm auto;background:#fff;padding:16mm 17mm 18mm;
+  box-shadow:0 2px 14px rgba(0,0,0,.22)}
+@page{size:A4;margin:14mm 16mm 16mm;
+  @bottom-left{content:"Historia Nivå 1b · Antiken - framsteg för vem?";font-family:'JetBrains Mono',Consolas,monospace;font-size:7.5pt;
+    letter-spacing:.08em;text-transform:uppercase;color:#4A3F33}
+  @bottom-right{content:counter(page) " / " counter(pages);font-family:'JetBrains Mono',Consolas,monospace;
+    font-size:7.5pt;color:#4A3F33}}
+@media print{
+  html{background:#fff}
+  .ark{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}
+  .skarm{display:none}
+}
+.skarm{max-width:210mm;margin:8mm auto 0;font-family:var(--mono);font-size:8.5pt;color:var(--black2);
+  letter-spacing:.04em}
+.topp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--black2);border-bottom:1.5px solid var(--linje);padding-bottom:2mm}
+h1{font-family:var(--serif);font-weight:600;font-size:25pt;line-height:1.08;margin:5mm 0 2mm;letter-spacing:-.005em}
+h2{font-family:var(--serif);font-weight:700;font-size:16pt;line-height:1.15;margin:7mm 0 2mm;
+  color:var(--black);break-after:avoid;page-break-after:avoid}
+h3{font-family:var(--sans);font-weight:700;font-size:10.5pt;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--bordeaux);margin:5mm 0 1.5mm;break-after:avoid;page-break-after:avoid}
+h4{font-family:var(--sans);font-weight:700;font-size:10.5pt;margin:4mm 0 1mm;break-after:avoid}
+p{margin:0 0 2.2mm;orphans:3;widows:3}
+strong{font-weight:700}
+em{font-style:italic}
+code{font-family:var(--mono);font-size:.9em}
+ul,ol{margin:0 0 2.5mm;padding-left:6.5mm}
+li{margin:0 0 1.2mm}
+ol li::marker{font-weight:700;color:var(--bordeaux)}
+ul li::marker{color:var(--bordeaux)}
+blockquote{margin:2.5mm 0 3mm;padding:2.2mm 4mm 1mm;border-left:3px solid var(--ocker);background:var(--papper);
+  break-inside:avoid;page-break-inside:avoid}
+blockquote p{margin-bottom:1.5mm}
+hr{border:0;border-top:1px solid var(--harfin);margin:5mm 0}
+.namn{display:flex;gap:6mm;margin:3mm 0 4mm;font-family:var(--mono);font-size:8pt;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--black2)}
+.namn span{flex:1;border-bottom:1px solid var(--skriv);padding-bottom:5mm}
+.namn span.kl{flex:0 0 38mm}
+.hall{break-inside:avoid;page-break-inside:avoid}
+.sidbrytning{break-after:page;page-break-after:always;height:0}
+table{width:100%;border-collapse:collapse;margin:1.5mm 0 3mm;table-layout:fixed;font-size:10pt}
+th{font-family:var(--mono);font-weight:700;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--bordeaux);text-align:left;padding:1.8mm 2.2mm;border-bottom:1.5px solid var(--linje);
+  vertical-align:bottom}
+td{padding:1.8mm 2.2mm;border:1px solid var(--harfin);vertical-align:top}
+tr{break-inside:avoid;page-break-inside:avoid}
+table.blankett td.etikett{background:var(--papper)}
+td.skriv{padding:0 2.2mm}
+td.skriv .r{height:var(--rad);border-bottom:.6pt solid var(--skriv)}
+.kort{border:1.5px solid var(--linje);margin:0 0 5mm;break-inside:avoid;page-break-inside:avoid}
+.kort > .kortnamn{font-family:var(--serif);font-weight:700;font-size:14pt;padding:2.5mm 4mm 1.5mm;
+  border-bottom:1px solid var(--linje);background:var(--papper)}
+.kort > .korttext{padding:3mm 4mm 2mm}
+.klippkort{border:1.2px dashed var(--black2);padding:2mm 2.5mm 0;margin:0 0 4mm;break-inside:avoid;
+  page-break-inside:avoid}
+.klippkort table{margin:0 0 1.5mm}
+.klippkort{--rad:5.8mm;margin-bottom:3mm}
+.klippkort td:first-child{font-size:8.5pt;line-height:1.3}
+.klippkort td{padding-top:1.2mm;padding-bottom:1.2mm}
+.klippkort td.skriv{padding:0 2.2mm}
+.klippkort th{border-bottom:1px solid var(--linje)}
+</style>
+</head>
+<body>
+<div class="skarm">Utskriftsversion · skriv ut med marginaler "Standard" och utan webbläsarens sidhuvud/sidfot</div>
+<main class="ark">
+<div class="topp"><span>Historia Nivå 1b</span><span>Antiken - framsteg för vem?</span></div>
+<h1>Lektion 5: s. 77 och s. 89 i bearbetad version</h1>
+<blockquote><p><strong>Om den här texten.</strong> Det här är inte din lärobok. Det är <strong>samma innehåll</strong> som s. 77 och s. 89 i <em>Samband Historia 1b</em>, omskrivet av mig, din lärare, så att det blir lättare att läsa. Ämnesorden står kvar och förklaras. Sidnumret står i varje rubrik, så att du kan slå upp och läsa samma sak i boken. <strong>Säger den här texten och boken emot varandra är det boken som gäller.</strong></p><p>Rubrikerna följer raderna i din spärrtabell, i samma ordning.</p></blockquote>
+<p><strong>Leta efter två saker för varje regel</strong> - samma två som i tabellen:</p>
+<ol><li><strong>Vilket problem skulle regeln lösa?</strong> Fråga dig: vad hade hänt utan den?</li><li><strong>Vem fick vara med - och vem inte?</strong> Det står ofta i en bisats.</li></ol>
+<hr>
+<h2>Aten (s. 77)</h2>
+<section class="hall"><h3>Folkförsamlingen</h3>
+<p>I Athen kom makten att ligga hos <strong>folkförsamlingen</strong>. Den bestod av alla fria atenska <strong>medborgare</strong>.</p>
+<p>Vem räknades som medborgare? Män som var födda av atenska föräldrar och som hade fyllt 21 år. <strong>Alltså inga kvinnor, inga slavar och inga invandrare.</strong></p>
+<p>I folkförsamlingen handlade det mest om att stifta lagar och att döma i rättsfall. Besluten fattades oftast genom handuppräckning, efter stormiga debatter.</p>
+<p>Lägg märke till en gräns som inte stod i någon lag: den som ville påverka måste vara <strong>bra på att tala</strong> inför den stora församlingen. Kunde man inte det var det bäst att tiga.</p>
+</section>
+<section class="hall"><h3>Rådet på 500 - medlemmarna lottas</h3>
+<p>Vid sidan av folkförsamlingen fanns ett <strong>råd</strong> med 500 medlemmar. Rådet förberedde ärendena innan folkförsamlingen tog upp dem, och såg sedan till att besluten blev genomförda.</p>
+<p>Från början <strong>valdes</strong> medlemmarna till rådet. Från början av 400-talet f.v.t. <strong>lottades</strong> de i stället.</p>
+<p>Det betydde något viktigt: atenaren hade inte bara <strong>rätt</strong> att vara med och rösta. Han hade också <strong>skyldighet</strong> att ställa upp och arbeta i rådet om lotten föll på honom.</p>
+<p>Boken förklarar också varför demokratin över huvud taget gick att genomföra: <strong>det berodde till stor del på att stadsstaten var liten.</strong></p>
+</section>
+<section class="hall"><h3>Ostracism (röstningen på krukskärvor)</h3>
+<p>För att <strong>inte en enskild politiker skulle bli för mäktig</strong> kunde folkförsamlingen rösta om att skicka bort en person ur landet i <strong>tio år</strong>. Det kallas landsförvisning.</p>
+<p>Man skrev namnet på den som skulle röstas ut på en krukskärva. På grekiska heter krukskärvor <em>ostraka</em>, och <strong>därför</strong> kallas röstningen <strong>ostracism</strong>. På skärvan i boken står namnet Themistokles.</p>
+</section>
+<section class="hall"><h3>Fem ord för hur man styr (faktarutan, s. 77)</h3>
+<p>Faktarutan finns redan på ditt blad, i Del 1. Orden skiljer sig åt i en sak: <strong>hur många som får vara med och styra.</strong> Monarki - en. Oligarki - få. Aristokrati - de bästa, adeln. Demokrati - folket, alla fria medborgare. Och tyranni: en person som har tagit makten olagligt.</p>
+</section>
+<hr>
+<h2>Rom (s. 89)</h2>
+<section class="hall"><h3>Rom blir republik</h3>
+<p>Från början styrdes Rom av kungar från folket etruskerna. År 509 f.v.t. avsattes den siste kungen. Rom blev en <strong>republik</strong> - ett land utan kung.</p>
+<p>I republiken fick <strong>aristokratin</strong> - de rika familjerna som ägde jorden - stort inflytande. I Rom kallades den här eliten för <strong>patricier</strong>. Det vanliga folket kallades <strong>plebejer</strong>.</p>
+</section>
+<section class="hall"><h3>Senatorer sitter på livstid</h3>
+<p>Den viktigaste politiska församlingen var <strong>senaten</strong>. Där fattades alla viktiga beslut.</p>
+<p>Lägg märke till vem som fick vara med: från början kunde <strong>bara patricier</strong> väljas in i senaten.</p>
+<p>Nästan alla andra uppdrag i staten varade <strong>ett år</strong> i taget. Senatorerna satt däremot <strong>på livstid</strong>. <strong>Därför</strong> kunde senaten planera långt fram i tiden och skapa <strong>kontinuitet</strong> - att saker fortsatte på samma sätt år efter år. Senaten valde själv in nya medlemmar vart femte år, om det fanns lediga platser.</p>
+</section>
+<section class="hall"><h3>Två konsuler, valda för ett år</h3>
+<p>Arbetet i senaten leddes av <strong>två</strong> ämbetsmän, <strong>konsuler</strong>. De valdes för <strong>ett år</strong> i taget och var högsta ledare både i krig och i fred.</p>
+<p>Det var konsulerna och senaten som styrde Rom.</p>
+</section>
+<section class="hall"><h3>Diktator i högst sex månader</h3>
+<p>Om det blev en akut kris kunde romarna välja en <strong>diktator</strong>. Han fick <strong>oinskränkt makt</strong> - han kunde bestämma allt. Men bara i <strong>sex månader</strong>. Sedan skulle han avgå.</p>
+</section>
+<section class="hall"><h3>Folktribuner med veto</h3>
+<p>De mäktiga släkterna, patricierna, dominerade politiken. Från början hade de all politisk makt. De var stora, rika jordägare.</p>
+<p>Men alla plebejer var inte maktlösa. De hade kanske inget direkt politiskt inflytande, men en del var så rika att de ändå kunde få igenom det de ville.</p>
+<p>Med tiden fick plebejerna egna ledare, <strong>folktribuner</strong>. De valdes varje år. De hade <strong>vetorätt</strong> - rätt att stoppa ett förslag - om de tyckte att folkets intressen var hotade. De kunde till och med låta fängsla konsulerna, de högsta ämbetsmännen, under vissa förutsättningar.</p>
+<p>Hur fick plebejerna det? År 494 f.v.t. kom den första öppna konflikten mellan patricier och plebejer. Plebejerna <strong>lämnade Rom</strong> och hotade att grunda en egen stad. Det fungerade: de fick igenom sina krav. Samma taktik användes fler gånger senare, och det blev sällan blodsutgjutelse.</p>
+</section>
+<hr>
+<p><em>Bearbetning av Ericsson &amp; Hansson, Samband Historia 1b (Sanoma), s. 77 och s. 89. Aten-delen bygger på den bearbetade lästexten till lektion 2. Ämnesorden är kvar och förklarade. Boken gäller vid skillnad.</em></p>
+</main>
+</body>
+</html>
