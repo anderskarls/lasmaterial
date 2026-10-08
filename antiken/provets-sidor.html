@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Provet i lektion 10: de här sidorna läser du</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter+Tight:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --harfin:rgba(42,34,26,.16); --skriv:#A89D8F;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter','Segoe UI',Arial,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --rad:7.5mm;
+  color-scheme:light;
+}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{background:#CFC6B8}
+body{margin:0;font-family:var(--sans);font-size:10.5pt;line-height:1.42;color:var(--black)}
+.ark{width:210mm;min-height:297mm;margin:10mm auto;background:#fff;padding:16mm 17mm 18mm;
+  box-shadow:0 2px 14px rgba(0,0,0,.22)}
+@page{size:A4;margin:14mm 16mm 16mm;
+  @bottom-left{content:"Historia Nivå 1b · Antiken - framsteg för vem?";font-family:'JetBrains Mono',Consolas,monospace;font-size:7.5pt;
+    letter-spacing:.08em;text-transform:uppercase;color:#4A3F33}
+  @bottom-right{content:counter(page) " / " counter(pages);font-family:'JetBrains Mono',Consolas,monospace;
+    font-size:7.5pt;color:#4A3F33}}
+@media print{
+  html{background:#fff}
+  .ark{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}
+  .skarm{display:none}
+}
+.skarm{max-width:210mm;margin:8mm auto 0;font-family:var(--mono);font-size:8.5pt;color:var(--black2);
+  letter-spacing:.04em}
+.topp{display:flex;justify-content:space-between;font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--black2);border-bottom:1.5px solid var(--linje);padding-bottom:2mm}
+h1{font-family:var(--serif);font-weight:600;font-size:25pt;line-height:1.08;margin:5mm 0 2mm;letter-spacing:-.005em}
+h2{font-family:var(--serif);font-weight:700;font-size:16pt;line-height:1.15;margin:7mm 0 2mm;
+  color:var(--black);break-after:avoid;page-break-after:avoid}
+h3{font-family:var(--sans);font-weight:700;font-size:10.5pt;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--bordeaux);margin:5mm 0 1.5mm;break-after:avoid;page-break-after:avoid}
+h4{font-family:var(--sans);font-weight:700;font-size:10.5pt;margin:4mm 0 1mm;break-after:avoid}
+p{margin:0 0 2.2mm;orphans:3;widows:3}
+strong{font-weight:700}
+em{font-style:italic}
+code{font-family:var(--mono);font-size:.9em}
+ul,ol{margin:0 0 2.5mm;padding-left:6.5mm}
+li{margin:0 0 1.2mm}
+ol li::marker{font-weight:700;color:var(--bordeaux)}
+ul li::marker{color:var(--bordeaux)}
+blockquote{margin:2.5mm 0 3mm;padding:2.2mm 4mm 1mm;border-left:3px solid var(--ocker);background:var(--papper);
+  break-inside:avoid;page-break-inside:avoid}
+blockquote p{margin-bottom:1.5mm}
+hr{border:0;border-top:1px solid var(--harfin);margin:5mm 0}
+.namn{display:flex;gap:6mm;margin:3mm 0 4mm;font-family:var(--mono);font-size:8pt;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--black2)}
+.namn span{flex:1;border-bottom:1px solid var(--skriv);padding-bottom:5mm}
+.namn span.kl{flex:0 0 38mm}
+.hall{break-inside:avoid;page-break-inside:avoid}
+.sidbrytning{break-after:page;page-break-after:always;height:0}
+table{width:100%;border-collapse:collapse;margin:1.5mm 0 3mm;table-layout:fixed;font-size:10pt}
+th{font-family:var(--mono);font-weight:700;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--bordeaux);text-align:left;padding:1.8mm 2.2mm;border-bottom:1.5px solid var(--linje);
+  vertical-align:bottom}
+td{padding:1.8mm 2.2mm;border:1px solid var(--harfin);vertical-align:top}
+tr{break-inside:avoid;page-break-inside:avoid}
+table.blankett td.etikett{background:var(--papper)}
+td.skriv{padding:0 2.2mm}
+td.skriv .r{height:var(--rad);border-bottom:.6pt solid var(--skriv)}
+.kort{border:1.5px solid var(--linje);margin:0 0 5mm;break-inside:avoid;page-break-inside:avoid}
+.kort > .kortnamn{font-family:var(--serif);font-weight:700;font-size:14pt;padding:2.5mm 4mm 1.5mm;
+  border-bottom:1px solid var(--linje);background:var(--papper)}
+.kort > .korttext{padding:3mm 4mm 2mm}
+.klippkort{border:1.2px dashed var(--black2);padding:2mm 2.5mm 0;margin:0 0 4mm;break-inside:avoid;
+  page-break-inside:avoid}
+.klippkort table{margin:0 0 1.5mm}
+.klippkort{--rad:5.8mm;margin-bottom:3mm}
+.klippkort td:first-child{font-size:8.5pt;line-height:1.3}
+.klippkort td{padding-top:1.2mm;padding-bottom:1.2mm}
+.klippkort td.skriv{padding:0 2.2mm}
+.klippkort th{border-bottom:1px solid var(--linje)}
+</style>
+</head>
+<body>
+<div class="skarm">Utskriftsversion · skriv ut med marginaler "Standard" och utan webbläsarens sidhuvud/sidfot</div>
+<main class="ark">
+<div class="topp"><span>Historia Nivå 1b</span><span>Antiken - framsteg för vem?</span></div>
+<h1>Provet i lektion 10: de här sidorna läser du</h1>
+<p>Provet frågar efter momentets fråga: <strong>Vilka framsteg gjordes under antiken - och vem fick del av dem?</strong> Det här är sidorna i <em>Samband Historia 1b</em> som provet bygger på.</p>
+<table><thead><tr><th>Sidor</th><th>Från rubriken ...</th><th>... till och med</th><th>Område</th></tr></thead><tbody><tr><td>71-72</td><td>Greker</td><td>Kolonisering</td><td>Frihet</td></tr><tr><td>75-80</td><td>Sparta och Athen - två ledande stadsstater</td><td>Grekisk-persiska krig</td><td>Frihet och styre</td></tr><tr><td>81-84</td><td>Den klassiska tiden</td><td>Vetenskap under antiken (Aristoteles)</td><td>Filosofi och vetenskap</td></tr><tr><td>87</td><td>Den hellenistiska perioden</td><td>(hela avsnittet)</td><td>Vetenskap</td></tr><tr><td>89-94</td><td>Den romerska republiken 509-31 f.Kr.</td><td>Augustus</td><td>Styre och frihet</td></tr><tr><td>97-98</td><td>Kejsartidens höjdpunkt 27 f.Kr.-180 e.Kr.</td><td>Rom - rikets centrum (före Forum Romanum)</td><td>Teknik</td></tr><tr><td>100-101</td><td>Kvinnor, män och familj</td><td>Slaveri</td><td>Frihet</td></tr><tr><td>103</td><td>Imperiet försvagas</td><td>(hela sidan)</td><td>Frihet</td></tr></tbody></table>
+<blockquote><p><strong>Hitta rätt med rubrikerna.</strong> Stämmer inte sidnumret på pricken är det rubriken som gäller.</p></blockquote>
+<p><strong>Lektionerna hör också till provet.</strong> En del står inte i boken utan bara i det vi gått igenom: Eratosthenes, Hippokrates och vem som byggde och betalade romarnas akvedukter och vägar. Det står på dina elevblad och på din <strong>framstegskarta</strong> - spara dem.</p>
+<p><strong>Inte på provet:</strong> fenicierna, Kreta och Perserriket (s. 67-70), Homeros, Grekisk religion, avsnittet Filip II och Alexander den store (s. 86), Roms kungatid, Forum Romanum och triumfen, religionerna och kristendomen, och Roms undergång (s. 104).</p>
+</main>
+</body>
+</html>
