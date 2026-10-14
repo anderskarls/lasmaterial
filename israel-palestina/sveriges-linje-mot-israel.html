@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rödgröna kan ändra Sveriges linje mot Israel - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-10-08</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Rödgröna kan ändra Sveriges linje mot Israel</h1>
+  
+  <p class="byline">Text TT · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Sverige röstade till riksdagen den 13 september 2026. Med <em>de rödgröna</em> menar artikeln Socialdemokraterna (S), Vänsterpartiet (V) och Miljöpartiet (MP). Ulf Kristerssons (M) regering sitter kvar som övergångsregering tills en ny regering är på plats, och Maria Malmer Stenergard (M) är fortfarande utrikesminister. Det är regeringen som för Sveriges utrikespolitik. Riksdagen kan inte bestämma den direkt, men en majoritet kan uppmana regeringen att göra något. EU och Israel har ett associeringsavtal som bland annat styr handeln mellan dem. Beslut om EU:s utrikespolitik fattas av medlemsländernas regeringar, ofta vid möten mellan utrikesministrarna.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>linje</dt><dd>Den hållning som ett land eller ett parti har i en fråga. <em>Sveriges linje mot Israel</em> är vad Sverige tycker och gör gentemot Israel.</dd><dt>associeringsavtal</dt><dd>Ett avtal mellan EU och ett land utanför EU om samarbete, bland annat om handel. Handelsdelen är bara en del av avtalet.</dd><dt>frysa</dt><dd>Här: att tillfälligt stoppa en del av ett avtal utan att säga upp det. En <em>paus</em> betyder ungefär samma sak.</dd><dt>utrikesutskottet</dt><dd>Den grupp riksdagsledamöter som förbereder riksdagens arbete med utrikesfrågor. Regeringen informerar utskottet före viktiga EU-möten.</dd><dt>övergångsregering</dt><dd>En regering som sitter kvar efter ett val tills en ny regering har bildats. Den brukar inte fatta stora nya beslut.</dd><dt>majoritet</dt><dd>Fler än hälften av rösterna. En majoritet i riksdagen är minst 175 av 349 platser.</dd><dt>ekonomiskt tryck</dt><dd>Att använda handel och pengar för att få ett annat land att ändra sig.</dd><dt>utrikespolitisk talesperson</dt><dd>Den person i ett parti som för partiets talan i utrikesfrågor.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Leta efter vem som talar. Fem politiker från fem partier finns i texten - vad vill var och en?</p><p>Gör en tidslinje. Vad tyckte regeringen i juli 2025, och vad tycker den nu? Vad har hänt däremellan?</p><p>Hitta argumenten. Varje politiker som säger något ger ett skäl. Skriv upp skälen bredvid namnen.</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p><span class="def">De rödgröna partierna kan vara på väg att ändra Sveriges linje mot Israel. De kan kräva att EU fryser handelsavtalet med Israel.</span></p></div>
+  <div class="stycke"><p>Utrikesminister <strong>Maria Malmer Stenergard (M)</strong> anser att det inte vore lämpligt just nu.</p></div>
+  <h4>Regeringens linje inför EU-mötet</h4>
+  <div class="stycke"><p>I torsdags träffades riksdagens <span class="begrepp" title="Den grupp riksdagsledamöter som förbereder riksdagens arbete med utrikesfrågor. Regeringen informerar utskottet före viktiga EU-möten.">utrikesutskott</span>. Där presenterade Malmer Stenergard vad regeringen tänker driva när EU:s utrikesministrar möts i <strong>Luxemburg</strong> på måndag.</p><aside class="gloss"><b>utrikesutskottet</b>Den grupp riksdagsledamöter som förbereder riksdagens arbete med utrikesfrågor. Regeringen informerar utskottet före viktiga EU-möten.</aside></div>
+  <div class="stycke"><p>En känslig fråga är EU:s handelsavtal med Israel. Avtalet har diskuterats mycket sedan Hamas terrorattack den <strong>7 oktober 2023</strong>.</p></div>
+  <h4>Från krav till tystnad</h4>
+  <div class="stycke"><p>Förra året gick den svenska regeringen ut och sa att den driver på inom EU för att <span class="begrepp" title="Här: att tillfälligt stoppa en del av ett avtal utan att säga upp det. En paus betyder ungefär samma sak.">frysa</span> avtalet. Statsminister <strong>Ulf Kristersson (M)</strong> skrev i <strong>juli 2025</strong>:</p><aside class="gloss"><b>frysa</b>Här: att tillfälligt stoppa en del av ett avtal utan att säga upp det. En <em>paus</em> betyder ungefär samma sak.</aside></div>
+  <div class="stycke"><p>”Sverige kräver därför att EU så snart som möjligt fryser handelsdelen i <span class="begrepp" title="Ett avtal mellan EU och ett land utanför EU om samarbete, bland annat om handel. Handelsdelen är bara en del av avtalet.">associeringsavtalet</span>. Det ekonomiska trycket mot Israel måste öka”</p><aside class="gloss"><b>Ett medel, inte ett mål</b>Att frysa handeln är inte målet. Det är ett medel för att få Israels regering att ändra sin politik. Kristersson kallar det <em>ekonomiskt tryck</em>.</aside></div>
+  <div class="stycke"><p>Utspelet gjorde både <strong>Sverigedemokraterna</strong> och <strong>Kristdemokraterna</strong> mycket upprörda. Regeringen behövde båda partiernas stöd. <mark>Därför</mark> har regeringen varit ganska tyst i frågan sedan dess.</p><aside class="gloss"><b>Mellanledet</b>Artikeln säger bara att SD och KD blev upprörda, och att regeringen sedan blev tyst. Att regeringen behövde partiernas stöd, och därför tystnade, är tillagt här som en trolig förklaring. Artikeln själv drar inte den slutsatsen.</aside></div>
+  <div class="stycke"><p>Efter utskottsmötet i torsdags hade Malmer Stenergard bråttom därifrån. Senare skickade hon en skriftlig kommentar. <span class="def">Av den framgår att hon inte längre aktivt driver att avtalet ska frysas.</span> Hon skriver till TT:</p></div>
+  <div class="stycke"><p>”I detta spända läge bedömer regeringen att det varken är lämpligt eller möjligt att initiera nya processer. Vi har valt att fokusera på att driva åtgärder som ökar pressen på den israeliska regeringen och som har en reell möjlighet att faktiskt beslutas om”</p><aside class="gloss"><b>Två skäl i ett citat</b>Malmer Stenergard ger två skäl. Det första är att det inte är <em>lämpligt</em> i ett spänt läge. Det andra är att det inte är <em>möjligt</em>: hon vill satsa på sådant som EU faktiskt kan komma överens om. Att <em>initiera nya processer</em> betyder att starta nya förslag.</aside></div>
+  <h4>Vad de rödgröna kan göra</h4>
+  <div class="stycke"><p>Efter valet har de rödgröna partierna <span class="begrepp" title="Fler än hälften av rösterna. En majoritet i riksdagen är minst 175 av 349 platser.">majoritet</span> i riksdagen. <mark>Därför</mark> kan de uppmana regeringen att driva på tydligare för en paus, eller en frysning, av handelsdelen i avtalet.</p><aside class="gloss"><b>majoritet</b>Fler än hälften av rösterna. En majoritet i riksdagen är minst 175 av 349 platser.</aside></div>
+  <div class="stycke"><p><strong>S, V och MP driver frågan.</strong> <mark>Därmed</mark> kan <strong>Centerpartiets</strong> röst bli avgörande, skriver TT.</p><aside class="gloss"><b>Något som inte går ihop</b>Artikeln säger först att de rödgröna har majoritet, och sedan att C:s röst kan bli avgörande. Har S, V och MP majoritet själva behövs inte C. Antingen räknar artikeln in C bland de rödgröna, eller så räcker S, V och MP inte ensamma. Det framgår inte. Ta reda på mandatfördelningen själv.</aside></div>
+  <div class="stycke"><p>Centerpartiets ledamot i utrikesutskottet, <strong>Birgitta Ohlsson</strong>, ger inget besked efter mötet:</p></div>
+  <p class="talstreck">– Vi kommer att skicka ut något, säger hon, utan att förklara närmare vad det betyder.</p>
+  <div class="stycke"><p>Inte heller utskottets ordförande, <strong>Morgan Johansson (S)</strong>, vill säga något i dag.</p></div>
+  <p class="talstreck">– Jag får återkomma, säger han.</p>
+  <h4>Den som säger nej</h4>
+  <div class="stycke"><p>Sverigedemokraternas utrikespolitiska talesperson <strong>Aron Emilsson</strong> säger tydligt att han inte vill att avtalet fryses. Han anser att det skulle vara skadligt, <mark>eftersom</mark> Sverige då skulle stå ensamt bland EU-länderna.</p></div>
+  <p class="talstreck">– Det skulle vara skadligt om en riksdagsmajoritet skulle driva fram en hållning som en övergångsregering skulle behöva försvara och kan ha svårt att ta ansvar för fullt ut. Så det vore olyckligt och det skulle störa våra relationer med Israel, säger han.</p>
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Vad ville regeringen i juli 2025, och vad vill den nu? Vad hände däremellan, enligt artikeln?</li><li>Malmer Stenergard säger att det varken är <em>lämpligt</em> eller <em>möjligt</em> att driva frysningen. Förklara skillnaden mellan de två skälen.</li><li>Artikeln säger både att de rödgröna har majoritet och att Centerpartiet kan bli avgörande. Vad vet du säkert ur artikeln, och vad måste du ta reda på själv för att förstå varför C spelar roll?</li><li>Emilsson ger tre skäl mot en frysning. Vilket av dem handlar om Sverige och EU, vilket om svensk inrikespolitik och vilket om Israel?</li><li>Koppla till momentet: är en frysning av handeln ett sätt att få Israel att följa folkrätten? Vad skulle en realist och en liberal institutionalist säga om att ett litet land som Sverige försöker påverka genom EU?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-10-08, text TT · <a href="https://www.dn.se/sverige/rodgrona-kan-andra-sveriges-linje-mot-israel/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

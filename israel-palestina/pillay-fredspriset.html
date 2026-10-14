@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Priset till Navi Pillay en markering för internationell rätt - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-10-09</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Priset till Navi Pillay en markering för internationell rätt</h1>
+  
+  <p class="byline">Text Erik Esbjörnsson · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Nobels fredspris delas ut av en norsk kommitté i Oslo och tillkännages i oktober varje år. Två internationella domstolar i Haag nämns i texten. ICJ, Internationella domstolen, är FN:s domstol och dömer i tvister mellan stater. ICC, Internationella brottmålsdomstolen, dömer enskilda personer för de allvarligaste brotten, till exempel folkmord och krigsbrott. FN:s människorättsråd tillsatte 2021 en utredningskommission om Israel och de palestinska områdena, och Navi Pillay ledde den. Kommissionen kom fram till att Israel begår folkmord i Gaza. Israel avvisar den slutsatsen och har inte samarbetat med kommissionen. Apartheid var Sydafrikas system för rasåtskillnad, som avskaffades i början av 1990-talet. Texten är en kommentar av DN:s Afrikakorrespondent Erik Esbjörnsson, som skriver från Johannesburg.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>internationell rätt</dt><dd>Samma sak som folkrätt: de regler som gäller mellan stater, till exempel avtal och FN-konventioner.</dd><dt>internationell rättvisa</dt><dd>Att de som begår de allvarligaste brotten, som folkmord, kan ställas inför en internationell domstol.</dd><dt>folkmord</dt><dd>Handlingar som begås i avsikt att helt eller delvis förinta en nationell, etnisk, rasmässig eller religiös grupp. Ett juridiskt begrepp med en exakt definition i en FN-konvention från 1948.</dd><dt>tribunal</dt><dd>En domstol som har inrättats för en särskild händelse. FN:s Rwandatribunal dömde dem som var ansvariga för folkmordet i Rwanda 1994.</dd><dt>människorättskommissarie</dt><dd>FN:s högsta tjänsteperson för mänskliga rättigheter.</dd><dt>panel / utredningskommission</dt><dd>En grupp experter som FN tillsätter för att utreda en situation och rapportera. Den dömer inte.</dd><dt>regelbaserad världsordning</dt><dd>Tanken att stater ska följa gemensamma regler, avtal och institutioner, i stället för att den starkaste bestämmer.</dd><dt>civilsamhället</dt><dd>Organisationer och rörelser som varken är stat eller företag, till exempel människorättsorganisationer och folkrörelser.</dd><dt>gun boat diplomacy</dt><dd>Engelska, ungefär <em>kanonbåtsdiplomati</em>: att en stark stat tvingar fram sin vilja genom att hota med militär makt.</dd><dt>apartheid</dt><dd>Sydafrikas system för rasåtskillnad 1948 till början av 1990-talet. Ordet används i dag också som juridiskt begrepp i folkrätten.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Skilj på vad som har hänt och vad Esbjörnsson bedömer. Raden <em>Detta är en kommenterande text</em> talar om att han får göra egna bedömningar.</p><p>Leta efter vem som har makt att <em>döma</em> och vem som bara kan <em>utreda</em> eller <em>hedra</em>. Texten blandar domstolar, en FN-panel och ett pris.</p><p>Gör en tidslinje över Pillays liv. Fundera på varför Esbjörnsson berättar om just de här delarna.</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>JOHANNESBURG. <strong>Navi Pillay</strong> är <strong>85</strong> år och blir den femte sydafrikanen som får Nobels fredspris. Hon är en av de tyngsta namnen inom <span class="begrepp" title="Att de som begår de allvarligaste brotten, som <span class="begrepp" title="Handlingar som begås i avsikt att helt eller delvis förinta en nationell, etnisk, rasmässig eller religiös grupp. Ett juridiskt begrepp med en exakt definition i en FN-konvention från 1948.">folkmord</span>, kan ställas inför en internationell domstol.">internationell rättvisa</span>. Hon har också varit ordförande för den FN-panel som har pekat ut Israel som ansvarigt för folkmord.</p><aside class="gloss"><b>internationell rättvisa</b>Att de som begår de allvarligaste brotten, som folkmord, kan ställas inför en internationell domstol.</aside></div>
+  <div class="stycke"><p><em>Detta är en kommenterande text. Skribenten svarar för analys och ställningstaganden i texten.</em></p></div>
+  <h4>En markering, trots allt</h4>
+  <div class="stycke"><p>Många hade tippat att Nobelkommittén i Oslo skulle ge priset till en av de två domstolarna <strong>ICC</strong> eller <strong>ICJ</strong>. Så blev det inte. <span class="def">Men Esbjörnsson menar att årets pris ändå är en stark markering, alltså en tydlig signal, till försvar för internationell rättvisa.</span> Pillay är en av världens mest respekterade jurister. Hon har spelat en nyckelroll när den regelbaserade världsordningen byggdes upp och blev stark. Den ordningen är nu under hård press.</p></div>
+  <div class="stycke"><p>Hon får priset ”för hennes ansträngningar för att främja fred och <span class="begrepp" title="Samma sak som folkrätt: de regler som gäller mellan stater, till exempel avtal och FN-konventioner.">internationell rätt</span>”.</p><aside class="gloss"><b>Varför domstolarna nämns</b>Att ICC och ICJ var förhandstippade säger något: priset sågs i år som ett sätt att stödja den internationella rätten. Pillay fick det i stället för domstolarna, men <mark>därför att</mark> hon står för samma sak.</aside></div>
+  <h4>Tre roller i FN</h4>
+  <div class="stycke"><p>På <strong>1990-talet</strong> blev Pillay den första som dömde någon för brottet folkmord. Det gjorde hon som domare i FN:s Rwandatribunal. Efter det var hon FN:s <span class="begrepp" title="FN:s högsta tjänsteperson för mänskliga rättigheter.">människorättskommissarie</span> i sex år. <span class="def">Och så sent som förra året slutade hon som ordförande för den FN-panel som har pekat ut Israel som ansvarigt för folkmord.</span></p><aside class="gloss"><b>Domare och utredare</b>Lägg märke till skillnaden. I Rwandatribunalen var Pillay domare och kunde döma. I FN-panelen om Israel var hon utredare. Panelen kan peka ut, men den kan inte döma någon.</aside></div>
+  <h4>Det hon sa i vintras</h4>
+  <div class="stycke"><p>Esbjörnsson intervjuade Pillay i vintras. Det var när hon och en annan sydafrikan, <strong>John Dugard</strong>, hade fått årets Palmepris. Hon sa då att man inte ska se läget som nattsvart, trots att det politiska stödet för internationell rättvisa har minskat mycket de senaste åren. Hon förklarade varför:</p></div>
+  <p class="talstreck">– Internationella institutioner, det är viktigt att betona, skapades inte av regeringar för att de plötsligt mjuknade eller kände att de hade ett ansvar för att försvara mänskliga rättigheter. Dessa förändringar kom i stadig takt över 80 års tid genom påtryckningar från civilsamhället, sade hon då.</p>
+  <h4>Från Robben Island till Rwanda</h4>
+  <div class="stycke"><p>Pillay vet vad hon talar om, skriver Esbjörnsson. Under större delen av sin tidiga karriär var hon försvarsadvokat i den långa och svåra kampen mot <span class="begrepp" title="Sydafrikas system för rasåtskillnad 1948 till början av 1990-talet. Ordet används i dag också som juridiskt begrepp i folkrätten.">apartheid</span>. Hon är född och uppvuxen i <strong>Durban</strong>. På <strong>1970-talet</strong> kämpade hon för att de politiska fångarna på ön <strong>Robben Island</strong> skulle få rätt till en advokat. En av fångarna var <strong>Nelson Mandela</strong>. Han blev Sydafrikas president efter de första fria valen <strong>1994</strong>.</p><aside class="gloss"><b>apartheid</b>Sydafrikas system för rasåtskillnad 1948 till början av 1990-talet. Ordet används i dag också som juridiskt begrepp i folkrätten.</aside></div>
+  <div class="stycke"><p>Samma år nominerade Mandela henne till landets högsta domstol. <mark>Men</mark> året efter fick hon i stället en tjänst vid FN-tribunalen som skulle döma de högst ansvariga för folkmordet i Rwanda.</p></div>
+  <h4>Ett pris som svider i Washington</h4>
+  <div class="stycke"><p>Pillay blir den femte fredspristagaren med koppling till kampen mot apartheid. En av de fem, <strong>F.W. de Klerk</strong>, kom dock från den gamla regimen. <span class="def">Esbjörnsson tror att det säkert svider för USA:s president <strong>Donald Trump</strong> att priset går till en sydafrikan.</span> <mark>Det beror på två saker.</mark> Trump verkade förra året kampanja för att själv få fredspriset. Och under det senaste året har Trump attackerat Sydafrika hårt, <mark>eftersom</mark> landet arbetar för att rätta till historiska orättvisor som finns kvar långt efter att apartheid avskaffades.</p><aside class="gloss"><b>En bedömning</b>Att det svider för Trump är Esbjörnssons gissning. Trump citeras inte i texten.</aside></div>
+  <div class="stycke"><p>I intervjun i vintras kritiserade Pillay också USA skarpt för hur landet agerat i <strong>Venezuela</strong>. Det agerandet har fått stöd av förra årets fredspristagare, <strong>María Corina Machado</strong>, och det stödet har varit omstritt.</p></div>
+  <p class="talstreck">– Det är ett av de allvarligaste brotten (mot folkrätten) som jag har sett. Därför att vi lever i en modern värld som har alla dessa mekanismer på plats för att stoppa den typ av <em>gun boat diplomacy</em> som vi nu ser i Latinamerika, sade Pillay till DN.</p>
+  <h4>Applåder i Nürnberg</h4>
+  <div class="stycke"><p>Just nu är Pillay i <strong>Nürnberg</strong>. Vid lunchtid på fredagen deltog hon i ett möte och fick applåder. Det råkar vara samma stad där <strong>Nürnbergprocessen</strong> hölls. Den rättegången lade grunden till den moderna internationella rättvisan.</p></div>
+  <p class="talstreck">– Är det sant? Det är inte första april? Jag sade att det måste vara ett skämt. Era applåder betyder mycket, för man vill inte ta emot ett pris om det inte har allmänhetens stöd, sade Pillay.</p>
+</article>
+
+
+
+<section><div class="ruta fakta"><h3 class="rubrik">Fakta</h3><ul><li><strong>1960:</strong> Albert Luthuli, för den fredliga kampen mot apartheid.</li><li><strong>1984:</strong> Desmond Tutu, för ledarskap i den fredliga antiapartheidkampen.</li><li><strong>1993:</strong> Nelson Mandela och F.W. de Klerk, för arbetet för att avskaffa apartheid och lägga grunden för demokrati.</li><li><strong>2026:</strong> Navi Pillay, för hennes ansträngningar för att stärka fred och internationell rätt.</li><li>Navanethem ”Navi” Pillay föddes <strong>1941</strong> i Sydafrika. På 1960-talet blev hon jurist. Stora delar av karriären kämpade hon mot apartheid och försvarade antiapartheidaktivister.</li><li><strong>1995-2003</strong> var hon domare vid Rwandatribunalen ICTR, och där blev hon också chefsdomare.</li><li><strong>2008-2014</strong> var hon FN:s människorättskommissarie.</li><li>Senast har hon avslutat en femårsperiod som chef för den utredningskommission som bevakar situationen i Israel och Palestina åt FN:s människorättsråd.</li></ul></div></section>
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Vad är skillnaden mellan Pillays roll i Rwandatribunalen och hennes roll i FN-panelen om Israel? Vad kunde hon göra i den ena som hon inte kunde i den andra?</li><li>Pillay säger att de internationella institutionerna inte skapades av snälla regeringar. Vad skapade dem enligt henne, och varför är det ett skäl att inte ge upp?</li><li>Vad i texten är fakta, och vad är Esbjörnssons bedömningar? Ge ett exempel på varje.</li><li>Koppla till L8: ett fredspris, en FN-panel och en domstol kan alla säga något om Israel. Vilken av dem kan tvinga fram något? Vad säger det om varför folkrätten är svår att tillämpa?</li><li>Hur skulle en realist förklara att stödet för internationell rätt har minskat? Hur skulle en konstruktivist tolka att priset gick till Pillay?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-10-09, text Erik Esbjörnsson · <a href="https://www.dn.se/varlden/erik-esbjornsson-priset-en-markering-till-stod-for-internationell-rattvisan/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

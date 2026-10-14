@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Standing together bildar nytt parti mot Netanyahu - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-06-22</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Standing together bildar nytt parti mot Netanyahu</h1>
+  
+  <p class="byline">Text Emma Bouvin · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Ungefär en femtedel av Israels medborgare är palestinier, eller araber, med israeliskt medborgarskap. De är ättlingar till de palestinier som stannade kvar inom Israels gränser 1948. De kan rösta i israeliska val, till skillnad från palestinierna på Västbanken och i Gaza. Israels parlament heter Knesset, och ett parti måste få minst 3,5 procent av rösterna för att komma in. Israels regering leds av Benjamin Netanyahu och har sedan 2022 med sig ministrarna Itamar Ben-Gvir och Bezalel Smotrich, som är emot en palestinsk stat. Israel håller val i oktober 2026. Artikeln skrevs i juni 2026, alltså några månader före valet. Haaretz är en israelisk dagstidning.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>gräsrotsrörelse</dt><dd>En rörelse som har vuxit fram underifrån, bland vanliga människor, och inte startats av ett parti eller en regering.</dd><dt>ockupation</dt><dd>När en stat med militär makt kontrollerar ett område som inte är dess eget. Här: Israels kontroll över Västbanken och Gaza sedan 1967.</dd><dt>tjänstledig</dt><dd>Ledig från sitt arbete en tid utan att säga upp sig.</dd><dt>partnerskap</dt><dd>Här: att judar och palestinier i Israel arbetar tillsammans som jämlikar, i stället för var för sig.</dd><dt>etablissemanget</dt><dd>De som redan har makten i ett samhälle: de stora partierna, ledande politiker och institutioner.</dd><dt>mänsklig sköld</dt><dd>Här: aktivister som ställer sig mellan bosättare och palestinier för att skydda palestinierna med sin närvaro.</dd><dt>spärr</dt><dd>Den lägsta andel röster ett parti måste få för att komma in i parlamentet. I Israel 3,5 procent.</dd><dt>bortslängda röster</dt><dd>Röster på ett parti som inte når spärren. De ger inga platser i parlamentet åt någon.</dd><dt>opposition</dt><dd>De partier som inte sitter i regeringen.</dd><dt>avsiktsförklaring</dt><dd>Ett uttalande om vad man tänker göra och vill uppnå.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Leta efter vem som talar. Tre personer från partiet citeras - vad säger var och en att partiet vill?</p><p>Leta efter vem som <em>inte</em> är glad. Partiet får motstånd från ett håll man kanske inte väntar sig - vilket, och varför?</p><p>Fråga dig var i texten det står något om en palestinsk stat. Står det något alls?</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Grundarna av rörelsen <em>Standing together</em> går från att vara protesterande aktivister till att bli partiledare. De ger sig in i israelisk partipolitik. Deras budskap är enkelt: <span class="def">Israel ska ha lika villkor för judar och palestinier.</span> Men i många israelers ögon är det budskapet mycket provocerande.</p></div>
+  <h4>Från gatan till politiken</h4>
+  <div class="stycke"><p>Förra gången DN träffade <strong>Alon-Lee Green</strong> släpade israeliska poliser ut honom ur Gamla stan i Jerusalem. Judiska högerextremister skrattade och klappade händerna. Green och hans palestinska partner <strong>Rula Daoud</strong> leder <em>Standing together</em>. Det är en <span class="begrepp" title="En rörelse som har vuxit fram underifrån, bland vanliga människor, och inte startats av ett parti eller en regering.">gräsrotsrörelse</span> där judar och araber är med tillsammans. Den har blivit känd för djärva protester och för sitt motstånd mot den israeliska ockupationen.</p><aside class="gloss"><b>gräsrotsrörelse</b>En rörelse som har vuxit fram underifrån, bland vanliga människor, och inte startats av ett parti eller en regering.</aside></div>
+  <div class="stycke"><p>Nu har de båda tagit <span class="begrepp" title="Ledig från sitt arbete en tid utan att säga upp sig.">tjänstledigt</span> från organisationen.</p><aside class="gloss"><b>tjänstledig</b>Ledig från sitt arbete en tid utan att säga upp sig.</aside></div>
+  <div class="stycke"><p>Det har länge gått rykten om att Green och Daoud vill gå in i politiken. Så blir det också. <mark>Men</mark> de tar inte med sig <em>Standing together</em> när de försöker komma in i det israeliska parlamentet, <strong>Knesset</strong>. I stället presenterar de ett nytt parti: <em>En plats för oss alla</em>.</p></div>
+  <p class="talstreck">– I flera år har politiken förts separat för judar och separat för araber. Vi erbjuder en annan vision, ett partnerskap, säger Rula Daood till Haaretz.</p>
+  <h4>Vilka partiet vill nå</h4>
+  <div class="stycke"><p>Kampanjen ska rikta sig till grupper som ofta inte röstar: framför allt palestinier med israeliskt medborgarskap, unga och kvinnor. Partiet vill nå människor som har känt sig ”utestängda från politiken och förlorat sin tro på att systemet faktiskt kan förändra något”.</p><aside class="gloss"><b>Mellanledet</b>Varför just de här grupperna? Artikeln säger det inte, men logiken är att ett nytt parti inte behöver ta väljare från andra partier om det kan få dem som annars inte röstar alls.</aside></div>
+  <div class="stycke"><p>Green är jude. Daood är palestinier med israeliskt medborgarskap. I hela partiet ska det vara lika många kvinnor som män, och lika många judar som palestinier. En av de sex personerna i ledningsgruppen är <strong>Yonatan Zeigen</strong>. Hans mamma, den kända israeliska fredsaktivisten <strong>Vivian Silver</strong>, dödades när Hamas attackerade Israel den <strong>7 oktober 2023</strong>. Efter det blev Zeigen en röst mot hatet som växte fram.</p></div>
+  <p class="talstreck">– Nu ser vi den allra värsta utgången av sättet vi har levt under de senaste 70 åren. Det är exakt vad hon slogs för att förhindra, sa Zeigen till DN i mitten av oktober 2023.</p>
+  <div class="stycke"><p>Nu säger han att han aldrig riktigt har känt sig företrädd av något av de partier som finns i Israel.</p></div>
+  <p class="talstreck">– Vårt mål är inte bara att påverka etablissemanget, utan att förändra det fullständigt, säger han till israeliska medier.</p>
+  <h4>Vad rörelsen har gjort</h4>
+  <div class="stycke"><p><em>Standing together</em> brukar beskrivas som en organisation på vänsterkanten. Sedan den 7 oktober 2023 har den blivit känd för flera uppmärksammade aktioner:</p></div><ul><li>Aktivister tog sig in i Israels <em>Big Brother</em>-hus och kastade röd färg i direktsändning, som protest mot Israels krig i Gaza.</li><li>Medlemmar brukar ställa sig som mänskliga sköldar när bosättare attackerar palestinier på Västbanken.</li><li>Rörelsen har flera gånger stått vid gränsen till Gaza för att hindra bosättare från att attackera hjälpkonvojer på väg in i den belägrade landremsan.</li><li>Den har demonstrerat mot Israels krig i Gaza, Libanon och Iran vid flera tillfällen.</li></ul>
+    <p class="talstreck">– Det här är ett parti som är jämställt på riktigt, som växte upp från marken och inte kommer att förlora kontakten med den. Vi gör detta för att det är den sista chansen att rädda vårt samhälle, säger Rula Daood, som nu blir den första kvinnliga, palestinska partiledaren i Israel.</p>
+  <h4>Vad partiet vill</h4>
+  <div class="stycke"><p>Tidigare i juni höll partiet sin första presskonferens i Jerusalem. Där stod Daood bredvid Green och läste upp sin <span class="begrepp" title="Ett uttalande om vad man tänker göra och vill uppnå.">avsiktsförklaring</span>.</p><aside class="gloss"><b>avsiktsförklaring</b>Ett uttalande om vad man tänker göra och vill uppnå.</aside></div>
+  <p class="talstreck">– Vi blir övergivna, mördade, vår framtid står i brand och jag vet att för att fixa detta räcker det inte att enbart säga vad vi är emot, säger hon.</p>
+  <div class="stycke"><p><em>En plats för oss alla</em> vill satsa på frågor som påverkar människors vardag: bostadsbristen, de höga levnadskostnaderna, våldsvågen i Israels arabiska städer - och att nå ett fredsavtal mellan Israel och Palestina.</p></div>
+  <p class="talstreck">– Vår kampanj är det som krävs för att nå målet och avsätta Ben-Gvir, Smotrich och Netanyahu, säger Alon-Lee Green.</p>
+  <h4>Risken med ett nytt parti</h4>
+  <div class="stycke"><p>För att komma in i Knesset måste ett parti få <strong>3,5 procent</strong> av rösterna. Den israeliska oppositionen är inte glad över att få konkurrens från ännu ett parti. <mark>Skälet är att</mark> partiet kan samla röster som blir <em>bortslängda</em> om <em>En plats för oss alla</em> inte når över <span class="begrepp" title="Den lägsta andel röster ett parti måste få för att komma in i parlamentet. I Israel 3,5 procent.">spärren</span>. <mark>Då</mark> får oppositionen färre platser, <mark>och det gör det svårare att</mark> avsätta Netanyahu, alltså det som både oppositionen och det nya partiet vill.</p><aside class="gloss"><b>Mellanledet</b>Att bortslängda röster gör det svårare att avsätta Netanyahu är tillagt här. Artikeln säger bara att oppositionen är <em>inte överlycklig</em>.</aside></div>
+  <div class="stycke"><p><span class="def">Det nya partiet säger att det vill ge hopp i valrörelsen. Om det är vad de israeliska väljarna vill ha återstår att se.</span></p></div>
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Varför tar Green och Daood inte med sig <em>Standing together</em> in i politiken, utan startar ett nytt parti? Vad säger texten, och vad måste du gissa?</li><li>Varför är oppositionen inte glad över det nya partiet, trots att de vill samma sak - att få bort Netanyahu? Följ orsakskedjan med spärren.</li><li>Vem säger vad? Para ihop Green, Daood och Zeigen med varsitt citat om vad partiet vill.</li><li>Koppla till momentets fråga: kan ett parti som detta vara ett argument för att tvåstatslösningen fortfarande är möjlig? Ge ett skäl för och ett emot. Tänk på att artikeln inte säger något om två stater.</li><li>Artikeln skrevs i juni, före valet i oktober. Ta reda på hur det går för <em>En plats för oss alla</em> i opinionen eller i valet. Ändrar det ditt svar på fråga 4?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-06-22, text Emma Bouvin · <a href="https://www.dn.se/varlden/aktivistrorelse-bildar-parti-for-att-ena-israeler-och-palestinier/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

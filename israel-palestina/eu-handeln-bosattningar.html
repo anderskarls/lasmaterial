@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rapport: EU handlar med illegala bosättare – i strid med internationell lag - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-06-10</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Rapport: EU handlar med illegala bosättare – i strid med internationell lag</h1>
+  
+  <p class="byline">Text Ulrika By · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Israel ockuperade Västbanken från Jordanien och Golanhöjderna från Syrien i kriget 1967. På båda platserna har Israel sedan dess byggt bosättningar. I juli 2024 gav Internationella domstolen i Haag (ICJ), som är FN:s domstol, ett rådgivande yttrande: ockupationen och bosättningarna strider mot folkrätten, och andra stater ska inte hjälpa till att upprätthålla dem, till exempel genom handel. EU och Israel har ett associeringsavtal som bland annat styr handeln mellan dem. EU skiljer i sina regler mellan varor från Israel och varor från bosättningarna. Artikeln är från juni 2026.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>bosättning</dt><dd>Ett israeliskt samhälle som byggts på mark som Israel ockuperade 1967. Artikeln kallar dem <em>illegala</em> eftersom de strider mot folkrätten.</dd><dt>ockupation</dt><dd>När en stat med militär makt kontrollerar ett område som inte är dess eget.</dd><dt>internationell rätt</dt><dd>Samma sak som folkrätt: de regler som gäller mellan stater, till exempel avtal och FN-konventioner.</dd><dt>rådgivande yttrande</dt><dd>Ett besked från ICJ om hur folkrätten ska förstås. Det är inte en dom, och det finns ingen polis som kan tvinga fram det, men det väger tungt.</dd><dt>tullhandlingar</dt><dd>Papper som följer med en vara över en gräns och som visar bland annat var varan kommer ifrån.</dd><dt>ursprung</dt><dd>Platsen där en vara är producerad. Det avgör vilka regler som gäller när varan säljs i EU.</dd><dt>efterlevnad</dt><dd>Att man faktiskt följer de regler man har bestämt.</dd><dt>sanktioner</dt><dd>Straffåtgärder som en stat eller EU riktar mot ett annat land, företag eller personer för att påverka dem.</dd><dt>importförbud</dt><dd>Ett förbud mot att föra in en viss sorts varor i landet.</dd><dt>konsensus</dt><dd>Att alla är överens. I EU kräver beslut om utrikespolitik ofta att alla medlemsländer håller med.</dd><dt>juridisk aktivism</dt><dd>Att använda rättssystemet, till exempel rapporter och rättsfall, för att driva en politisk fråga.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Leta efter vem som påstår vad. Mycket i artikeln är vad en organisation påstår i en rapport, inte vad DN själv har kontrollerat.</p><p>Följ kedjan från en ask dadlar i Europa tillbaka till en gård på Västbanken. Var i kedjan försvinner uppgiften om var varan kommer ifrån?</p><p>Räkna länderna. Vilka vill göra något, och vad vill de göra?</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Sedan <strong>2017</strong> har EU-länderna köpt jordbruksprodukter från illegala <span class="begrepp" title="Ett israeliskt samhälle som byggts på mark som Israel ockuperade 1967. Artikeln kallar dem illegala eftersom de strider mot folkrätten.">bosättningar</span> på Västbanken för minst <strong>29 miljoner euro</strong>. Det står i en ny rapport. Rapporten säger att de israeliska exportörerna döljer var varorna kommer ifrån, och den anklagar EU för att inte kontrollera det ordentligt.</p><aside class="gloss"><b>bosättning</b>Ett israeliskt samhälle som byggts på mark som Israel ockuperade 1967. Artikeln kallar dem <em>illegala</em> eftersom de strider mot folkrätten.</aside></div>
+  <div class="stycke"><p><span class="def">Flera länder, bland dem Sverige, anser att det är dags att förbjuda handeln.</span></p></div>
+  <h4>Kommer varorna verkligen från Israel?</h4>
+  <div class="stycke"><p>Dadlar, peppar, örter, citrusfrukter, tahini, avokado och olivolja är exempel på varor som importeras i stora mängder till Europa från Israel. Eller gör de verkligen det?</p></div>
+  <div class="stycke"><p>Organisationen <strong>Global Echo Litigation Center</strong> arbetar för mänskliga rättigheter och är uppmärksammad internationellt. Den har granskat <span class="begrepp" title="Papper som följer med en vara över en gräns och som visar bland annat var varan kommer ifrån.">tullhandlingar</span> för nästan <strong>6 000</strong> leveranser av jordbruksprodukter som skickades till Europa mellan <strong>2017 och 2026</strong>. <span class="def">Av leveranserna kom <strong>17 procent</strong> från illegala bosättningar på Västbanken och Golanhöjden.</span></p><aside class="gloss"><b>tullhandlingar</b>Papper som följer med en vara över en gräns och som visar bland annat var varan kommer ifrån.</aside></div>
+  <h4>Hur ursprunget döljs</h4>
+  <div class="stycke"><p>Enligt rapporten har producenterna fuskat systematiskt, alltså inte någon enstaka gång utan som ett mönster, för att dölja var varorna kommer ifrån. De har använt förfalskade eller påhittade adresser. Ibland har de blandat varor från Israel med varor från bosättningarna i samma leverans och sedan skrivit att hela leveransen är israelisk. <mark>Därför</mark> går det inte längre att spåra var varorna kommer ifrån.</p><aside class="gloss"><b>Mellanledet</b>Varför fusket lönar sig står inte i artikeln. Förklaringen är att EU har andra regler för varor från bosättningarna än för varor från Israel. En vara som ser israelisk ut slipper de reglerna.</aside></div>
+  <h4>Vilka regler handeln bryter mot</h4>
+  <div class="stycke"><p>Organisationen menar att handeln strider mot två saker. Den första är EU:s handelsavtal med Israel. Den andra är det <span class="begrepp" title="Ett besked från ICJ om hur folkrätten ska förstås. Det är inte en dom, och det finns ingen polis som kan tvinga fram det, men det väger tungt.">rådgivande yttrande</span> som Internationella domstolen, <strong>ICJ</strong>, gav i <strong>juli 2024</strong>. Rapporten beskriver hur <span class="begrepp" title="Samma sak som folkrätt: de regler som gäller mellan stater, till exempel avtal och FN-konventioner.">internationell rätt</span> och EU:s egna lagar systematiskt inte följs, och vad det får för följder för människorna som lever under ockupationen.</p><aside class="gloss"><b>Organisationens påstående</b>Att handeln är olaglig är vad rapporten hävdar. Artikeln återger rapporten, den har inte själv prövat saken.</aside></div>
+  <h4>Ett splittrat EU</h4>
+  <div class="stycke"><p>Rapporten kommer i ett läge där frågan räknas som <em>het</em> inom EU. Det ser ut att bli svårt att få alla EU-länder överens om hårdare <span class="begrepp" title="Straffåtgärder som en stat eller EU riktar mot ett annat land, företag eller personer för att påverka dem.">sanktioner</span> mot Israel. <mark>Men</mark> flera länder driver på:</p><aside class="gloss"><b>sanktioner</b>Straffåtgärder som en stat eller EU riktar mot ett annat land, företag eller personer för att påverka dem.</aside></div><ul><li><strong>Frankrike</strong> och <strong>Sverige</strong> argumenterar för ett importförbud.</li><li><strong>Nederländerna</strong> har ett eget förslag om att förbjuda handeln.</li><li><strong>Irland</strong> driver på med en egen lag.</li><li><strong>Storbritannien</strong>, som inte är med i EU, kritiserade dagen före artikeln Israel hårt. Den brittiska utrikesministern meddelade att landet inför sanktioner mot israeliska företag som pekas ut med namn.</li></ul>
+    <div class="stycke"><p><span class="def">Avsändaren av rapporten menar att EU, som det ser ut i dag, hjälper till med Israels olagliga ockupation och med att befolkningen drivs bort, <mark>eftersom</mark> EU fortsätter att handla med varor som bosättare har producerat.</span></p></div>
+  <div class="stycke"><p>”EU måste säkerställa att man lever upp till internationell rätt”, kräver rapportförfattarna.</p></div>
+  <h4>Bakgrund: Global Echo Litigation</h4><ul><li>Är en människorättsorganisation som arbetar med juridisk aktivism kopplad till konflikten mellan Israel och Palestina.</li><li>Grundare och verkställande direktör är <strong>Emily Schaeffer Omer-Man</strong>. Hon är expert på internationell humanitär rätt och på israelisk militär- och förvaltningsrätt, och en erfaren advokat. År <strong>2020</strong> fick hon priset IIE Goldberg Prize for Peace in the Middle East.</li></ul>
+  
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Följ kedjan: hur kan en vara från en bosättning sluta som <em>israelisk</em> i en svensk butik? Vilka två sätt att fuska beskriver rapporten?</li><li>Varför räcker det inte att ICJ har sagt sitt för att handeln ska upphöra? Använd ordet <em>rådgivande</em> i ditt svar.</li><li>Vem påstår att EU bidrar till ockupationen - DN, EU eller organisationen? Hur ser du det i texten?</li><li>Flera länder vill göra något, men EU som helhet gör inget. Förklara varför med hjälp av ordet <em>konsensus</em>.</li><li>Hur skulle en liberal institutionalist och en realist förklara att EU handlar med bosättningarna trots ICJ:s yttrande?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-06-10, text Ulrika By · <a href="https://www.dn.se/varlden/rapport-eu-handlar-med-illegala-bosattningar-i-strid-med-internationell-lag/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
