@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tomas Ramberg: Förödmjukat centerparti större problem för Andersson - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Samhällskunskap 1b</span>
+    <span class="etikett">Dagens Nyheter · 2026-10-13</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Tomas Ramberg: Förödmjukat centerparti större problem för Andersson</h1>
+  <p class="ingress">Regeringsbildningen handlar nu om att rädda ansiktet på Centerpartiet.</p>
+  <p class="byline">Text Tomas Ramberg · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Det här är <strong>ingen nyhetsartikel utan en kommentar</strong>. Tomas Ramberg är DN:s politiska kommentator. Han berättar inte bara vad som hänt, utan tolkar varför politikerna gör som de gör. Det han skriver är alltså hans bedömning, inte fakta. Texten skrevs den 13 oktober 2026, två dagar före riksdagens första statsministeromröstning efter valet. Läget då: Magdalena Andersson (S) har haft talmannens uppdrag att sondera vilken regering som kan bildas. Hon har stöd av tre partier till: V, MP och C. Men C har lovat väljarna att V inte ska få sitta i regeringen, och V kräver att få ministerposter. C hoppas i stället på en regering som också innehåller L och KD, två partier som har samarbetat med M och SD sedan 2022.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>kommenterande text</dt><dd>En text där skribenten tolkar och bedömer, till skillnad från en nyhetstext som ska beskriva.</dd><dt>regeringsfrågan</dt><dd>Frågan om vilka partier som ska bilda regering och vem som blir statsminister.</dd><dt>regeringsunderlag</dt><dd>De partier vars röster en regering är beroende av i riksdagen, även partier utan ministrar.</dd><dt>sonderingsuppdrag</dt><dd>Talmannens uppdrag till en partiledare att undersöka vilken regering som kan få stöd i riksdagen.</dd><dt>statsministeromröstning</dt><dd>Riksdagens omröstning om talmannens statsministerkandidat. Kandidaten faller om 175 av 349 ledamöter röstar nej.</dd><dt>mittenregering</dt><dd>En regering med partier från mitten, utan SD och V.</dd><dt>regeringsprogram</dt><dd>En skriftlig överenskommelse om vilken politik regeringen ska driva.</dd><dt>regeringskris</dt><dd>När en regering riskerar att falla, till exempel för att ett stödparti hotar att rösta emot den.</dd><dt>ytterkantspartier</dt><dd>Partierna längst ut till höger och vänster. Här menas SD och V.</dd><dt>rädda ansiktet</dt><dd>Att slippa se ut att ha förlorat eller svikit sitt löfte, även när man ändrar sig.</dd><dt>skyttegravar</dt><dd>En bild för låsta positioner som ingen vill lämna. Kommer från krig, där soldater grävde ned sig.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Skilj på vad som har hänt och vad Ramberg tror. Markera med två färger: fakta (möten, uttalanden) och tolkning (vad politikerna <em>egentligen</em> vill).</p><p>Ramberg använder många bilder: <em>ryggen mot väggen</em>, <em>frustar otåligt i regeringsfarstun</em>, <em>ta Centern i örat</em>. Stanna vid varje bild och säg vad den betyder i klartext.</p><p>Ramberg påstår att Andersson har ett skäl att inte stressa. Hitta skälet och följ kedjan av <em>därför att</em> bakåt.</p><p>Fundera på vem som skulle hålla med Ramberg och vem som inte skulle göra det.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Regeringsbildningen handlar nu om att <span class="begrepp" title="Att slippa se ut att ha förlorat eller svikit sitt löfte, även när man ändrar sig.">rädda ansiktet</span> på Centerpartiet. Magdalena Andersson är inte särskilt ledsen över att hon tvingas gå mot ett nederlag i torsdagens <span class="begrepp" title="Riksdagens omröstning om talmannens statsministerkandidat. Kandidaten faller om 175 av 349 ledamöter röstar nej.">statsministeromröstning</span>. <mark>Skälet är att</mark> hon behöver vinna tid för en lösning som Centern kan svälja.</p><aside class="gloss"><b>statsministeromröstning</b>Riksdagens omröstning om talmannens statsministerkandidat. Kandidaten faller om 175 av 349 ledamöter röstar nej.</aside></div>
+  <div class="stycke"><p><em>Detta är en <span class="begrepp" title="En text där skribenten tolkar och bedömer, till skillnad från en nyhetstext som ska beskriva.">kommenterande text</span>. Skribenten svarar för analys och ställningstaganden i texten.</em></p><aside class="gloss"><b>Tesen</b>Hela texten argumenterar för de två första meningarna. Läs resten som skäl för dem.</aside></div>
+  <h4>C står ensamt</h4>
+  <div class="stycke"><p>Centerledaren <strong>Elisabeth Thand Ringqvist</strong> står med ryggen mot väggen i <span class="begrepp" title="Frågan om vilka partier som ska bilda regering och vem som blir statsminister.">regeringsfrågan</span>, alltså utan någon väg att backa. I den offentliga debatten pekar nästan alla nu ut henne som den som står i vägen. Centerledningen tvingas gång på gång försöka förklara sin position för intervjuare som tror allt mindre på förklaringarna.</p><aside class="gloss"><b>regeringsfrågan</b>Frågan om vilka partier som ska bilda regering och vem som blir statsminister.</aside></div>
+  <div class="stycke"><p>Det var visserligen Centern som i fredags kallade ihop V, S och MP till ett första möte mellan de fyra partier som står bakom Magdalena Andersson. Men efter mötet förklarade centerledningen att det inte betyder att C accepterat V som en del av ett <span class="begrepp" title="De partier vars röster en regering är beroende av i riksdagen, även partier utan ministrar.">regeringsunderlag</span>. Elisabeth Thand Ringqvist föredrar fortfarande andra möjliga regeringsspår, spår som <em>”vi måste dra i botten”</em>. Också partikollegan <strong>Martin Ådahl</strong> hävdade att <em>”det fortfarande finns många olika tänkbara regeringsunderlag”</em>.</p><aside class="gloss"><b>Dra i botten</b>Att undersöka ett alternativ så grundligt att det inte går att säga att man inte försökt.</aside></div>
+  <div class="stycke"><p>Ramberg menar att nyckelordet här är <em>tänkbara</em>. Underlagen är tänkbara för C. Men de partier som C tänker på tänker själva helt annorlunda.</p></div>
+  <div class="stycke"><p><span class="def">Det syntes tydligt när Magdalena Andersson lämnade sin rapport till talmannen på tisdagen.</span> Ett av de partier som C tycker är ”tänkbara”, <strong>Simona Mohamssons</strong> Liberaler, har inte ens hittat tid att träffa Magdalena Andersson under hennes <span class="begrepp" title="Talmannens uppdrag till en partiledare att undersöka vilken regering som kan få stöd i riksdagen.">sonderingsuppdrag</span>. <mark>Om</mark> L inte ens vill träffa Andersson, är det svårt att se L i en regering under henne.</p><aside class="gloss"><b>sonderingsuppdrag</b>Talmannens uppdrag till en partiledare att undersöka vilken regering som kan få stöd i riksdagen.</aside></div>
+  <div class="stycke"><p>C och L delar alltså uppenbarligen inte samma bild av verkligheten. Centerfolket står ensamt.</p></div>
+  <blockquote>Nooshi Dadgostar vill att Magdalena Andersson offentligt ska ta Centern i örat</blockquote>
+  <h4>Rambergs tolkning: C köper tid</h4>
+  <div class="stycke"><p><mark>Därför</mark> ska Centerns uttalanden nog inte tas alltför bokstavligt, menar Ramberg. Det vore fel att tro att C faktiskt tror att andra partier kommer att låta sig övertalas att byta sida och bilda en <span class="begrepp" title="En regering med partier från mitten, utan SD och V.">mittenregering</span> under en socialdemokratisk statsminister. <span class="def">En rimligare tolkning, enligt Ramberg, är att Thand Ringqvist behöver tid.</span> Hon behöver visa sitt eget partifolk att alla vägar utan Vänsterpartiet verkligen är stängda, eller har <em>”dragits i botten”</em>, som hon säger. <mark>Först då</mark> kan C gå med på något som partiet lovat att inte göra, utan att medlemmarna känner sig svikna.</p><aside class="gloss"><b>Tolkning, inte fakta</b>Ramberg vet inte vad Thand Ringqvist tänker. Han drar slutsatsen ur hur hon agerar. C säger själv att andra regeringsunderlag är möjliga.</aside></div>
+  <div class="stycke"><p>Vänsterpartiet blir allt otåligare och vill in i regeringen nu. V-ledaren <strong>Nooshi Dadgostar</strong> vill att Magdalena Andersson offentligt ska ta Centern i örat, alltså säga till C på skarpen, och pressa Thand Ringqvist att börja förhandla om ett gemensamt <span class="begrepp" title="En skriftlig överenskommelse om vilken politik regeringen ska driva.">regeringsprogram</span>. Det kommer Andersson inte att göra, enligt Ramberg.</p><aside class="gloss"><b>regeringsprogram</b>En skriftlig överenskommelse om vilken politik regeringen ska driva.</aside></div>
+  <h4>Varför Andersson skyddar C</h4>
+  <div class="stycke"><p>Det är viktigt för Socialdemokraterna att ta hand om Centerns oro efter valet. Magdalena Andersson behöver ett nära band till C. Hon vill inte ha fyra år av återkommande regeringskriser och förhandlingar, och <span class="def">en stabil regering kräver ett stabilt Centern.</span> <mark>Om</mark> Andersson förödmjukade C skulle det bygga in en konflikt i samarbetet. <mark>Det skulle leda till att</mark> C ständigt ifrågasatte samarbetet med Socialdemokraterna.</p><aside class="gloss"><b>Kedjan</b>Förödmjukat C → konflikt inbyggd från start → C ifrågasätter samarbetet → regeringskriser i fyra år. <mark>Därför</mark> går Andersson försiktigt fram.</aside></div>
+  <div class="stycke"><p>Centern behöver lång tid, och kanske ytterligare någon statsministeromröstning, för att hitta fram till de andra rödgröna partierna. Ramberg tror att C först vill lägga skulden för att det inte blir en mittenregering på högerpartierna. Det kommer att heta att C kämpat ihärdigt, men att högerpartierna vägrat ta ansvar för en regering utan <span class="begrepp" title="Partierna längst ut till höger och vänster. Här menas SD och V.">ytterkantspartier</span>.</p><aside class="gloss"><b>Skulden</b>Ett tillagt mellanled: <mark>om</mark> skulden hamnar på högerpartierna, kan C säga till sina väljare att partiet inte hade något annat val än att samarbeta med V.</aside></div>
+  <h4>Vad C måste få</h4>
+  <div class="stycke"><p>Givetvis behöver Centern också få stor politisk utdelning. <mark>Även om</mark> regeringen innehåller vänsterministrar måste Thand Ringqvist kunna hävda att politikens tyngdpunkt ligger i mitten. Förmodligen vill C också få skrivningar om att Sveriges linje ligger fast på tunga områden som försvar, utrikes- och säkerhetspolitik.</p></div>
+  <div class="stycke"><p>Magdalena Andersson verkade på tisdagen inte ha särskilt bråttom. <mark>Om</mark> någon månads längre regeringsbildning kan få Centern att frivilligt lämna sina <span class="begrepp" title="En bild för låsta positioner som ingen vill lämna. Kommer från krig, där soldater grävde ned sig.">skyttegravar</span> från valrörelsen, kan hon leva med det.</p></div>
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Vad är Rambergs huvudpåstående? Skriv det i en mening med egna ord.</li><li>Ramberg menar att Andersson skyddar C. Förklara kedjan: varför skulle ett förödmjukat C vara ett problem för en S-regering?</li><li>Hur använder Ramberg Liberalerna som bevis för att C <em>står ensamt</em>?</li><li>Skilj på fakta och tolkning: välj ett påstående i texten som går att kontrollera och ett som är Rambergs bedömning. Hur skulle C själv beskriva sitt agerande?</li><li>Koppla till momentet: Ramberg skriver om C som <em>vågmästare</em> utan att använda ordet. Var i texten syns att C har den rollen?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-10-13, text Tomas Ramberg · <a href="https://www.dn.se/sverige/tomas-ramberg-forodmjukat-centerparti-storre-problem-for-andersson/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

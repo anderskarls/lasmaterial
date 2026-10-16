@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vänsterpartiets resa mot makten: ”Det är nu eller aldrig” - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Samhällskunskap 1b</span>
+    <span class="etikett">Dagens Nyheter · 2026-10-09</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Vänsterpartiets resa mot makten: ”Det är nu eller aldrig”</h1>
+  <p class="ingress">Januariavtalets ”förnedringsklausul” var en chock för V. De slog tillbaka – och blev övertygade om att det lönar sig att sätta hårt mot hårt. Efter valet 2026 står nästa strid.</p>
+  <p class="byline">Text Hans Rosén, Hanna Jakobson · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Efter riksdagsvalet den 13 september 2026 vill fyra partier ha Magdalena Andersson (S) som statsminister: S, V, MP och C. Men Vänsterpartiet (V) kräver att få ministerposter, alltså att själv sitta i regeringen, och Centerpartiet (C) säger nej till det. Den här artikeln förklarar varför V håller så hårt i sitt krav. Den går tillbaka till perioden 2018-2022. Då styrde Socialdemokraterna med Stefan Löfven som statsminister, och regeringen var beroende av att andra partier i riksdagen släppte igenom den. V har aldrig suttit i en svensk regering, trots att partiet funnits i över 100 år. Artikeln skrevs den 9 oktober 2026, före riksdagens första statsministeromröstning.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>ministerpost</dt><dd>En plats i regeringen som minister. Att kräva ministerposter är att kräva att få sitta i regeringen.</dd><dt>släppa fram</dt><dd>Att inte rösta emot en statsministerkandidat. Det räcker, eftersom kandidaten godkänns så länge inte 175 ledamöter röstar nej.</dd><dt>Januariavtalet</dt><dd>Överenskommelsen från januari 2019 mellan S, MP, C och L som gjorde att Löfven kunde fortsätta som statsminister.</dd><dt>förnedringsklausulen</dt><dd>V:s namn på den punkt i Januariavtalet som sa att V inte skulle få något inflytande. En klausul är en punkt i ett avtal.</dd><dt>röda linjer</dt><dd>Krav som ett parti säger att det aldrig ger upp. Här: villkor som skulle få V att sluta stödja regeringen.</dd><dt>fälla en statsminister</dt><dd>Att en majoritet i riksdagen röstar för en misstroendeförklaring, så att statsministern måste avgå.</dd><dt>samarbetsparti</dt><dd>Ett parti som stödjer regeringen i riksdagen i utbyte mot inflytande, men utan ministrar.</dd><dt>partistyrelse</dt><dd>Den grupp som leder ett parti mellan kongresserna.</dd><dt>partikongress</dt><dd>Partiets högsta beslutande möte, där ombud från hela landet fattar de viktigaste besluten.</dd><dt>partiprogram</dt><dd>Partiets grunddokument om vad det vill och står för.</dd><dt>regeringsfähigt</dt><dd>Ett parti som andra partier och väljare tror klarar av att sitta i en regering.</dd><dt>Tidöavtalet</dt><dd>Avtalet från 2022 mellan M, KD, L och SD. SD satt inte i regeringen men hade egna tjänstemän i Regeringskansliet.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Gör en tidslinje. Artikeln hoppar mellan 2019, 2021, 2022 och 2026. Skriv vid varje händelse vad V lärde sig av den.</p><p>Leta efter vem som talar. Fem personer och en anonym källa kommer till tals. Vilka är vänsterpartister, och vilken av dem står utanför partiet?</p><p>Artikeln påstår att V:s erfarenheter förklarar det hårda kravet i dag. Hitta minst två sådana orsakssamband.</p><p>Leta efter det som talar emot V. Vad ger S och C skäl att säga nej?</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p>Januariavtalets <em><span class="begrepp" title="V:s namn på den punkt i Januariavtalet som sa att V inte skulle få något inflytande. En klausul är en punkt i ett avtal.">förnedringsklausul</span></em> var en chock för V. Partiet slog tillbaka genom att fälla Stefan Löfven, och <mark>av det drog V slutsatsen</mark> att det lönar sig att sätta hårt mot hårt. Efter valet 2026 väntar nästa strid: den om ministerposter.</p><aside class="gloss"><b>förnedringsklausulen</b>V:s namn på den punkt i Januariavtalet som sa att V inte skulle få något inflytande. En klausul är en punkt i ett avtal.</aside></div>
+  <p class="talstreck">– Det är nu eller aldrig, säger en V-källa.</p>
+  <h4>2019: papperet ingen fick se</h4>
+  <div class="stycke"><p>V:s dåvarande partiledare <strong>Jonas Sjöstedt</strong> hade haft några riktigt svettiga dygn. Det hade krävts två stormiga möten innan <span class="begrepp" title="Den grupp som leder ett parti mellan kongresserna.">partistyrelsen</span> gick med på att <span class="begrepp" title="Att inte rösta emot en statsministerkandidat. Det räcker, eftersom kandidaten godkänns så länge inte 175 ledamöter röstar nej.">släppa fram</span> <strong>Stefan Löfven</strong> som statsminister. Nu stod Sjöstedt i riksdagens presscenter och försäkrade de samlade journalisterna att han hade gjort en uppgörelse med S-ledaren. Men vad handlade uppgörelsen om?</p><aside class="gloss"><b>släppa fram</b>Att inte rösta emot en statsministerkandidat. Det räcker, eftersom kandidaten godkänns så länge inte 175 ledamöter röstar nej.</aside></div>
+  <div class="stycke"><p>Det var oklart.</p></div>
+  <p class="talstreck">– Det finns ett papper ni aldrig kommer att få se, svarade Jonas Sjöstedt den där onsdagen i <strong>januari 2019</strong>.</p>
+  <div class="stycke"><p>Det alla däremot hade fått se var <em>förnedringsklausulen</em>. Den var en punkt i <span class="begrepp" title="Överenskommelsen från januari 2019 mellan S, MP, C och L som gjorde att Löfven kunde fortsätta som statsminister.">Januariavtalet</span>, som S hade slutit med MP, C och L <mark>för att</mark> avsluta den längsta regeringsbildningen i Sveriges historia. Punkten löd:</p><aside class="gloss"><b>Januariavtalet</b>Överenskommelsen från januari 2019 mellan S, MP, C och L som gjorde att Löfven kunde fortsätta som statsminister.</aside></div>
+  <div class="stycke"><p>”Denna överenskommelse innebär att Vänsterpartiet inte kommer att ha inflytande över den politiska inriktningen i Sverige under den kommande mandatperioden.”</p><aside class="gloss"><b>Varför släppte V ändå fram Löfven?</b>Artikeln säger det inte rakt ut. Alternativet var en regering under Ulf Kristersson (M), och den ville V ännu mindre ha.</aside></div>
+  <div class="stycke"><p>Förhandlingarna efter valet 2018 blev en kalldusch för Vänsterpartiet. Att S vände sig till borgerliga partier var en sak. <span class="def">Men att S gick med på att offentligt förödmjuka V, och samtidigt räknade med V:s stöd, var något helt annat.</span></p></div>
+  <p class="talstreck">– Vi blev chockade när vi såg innehållet. Partiet blev förnedrat, säger <strong>Karin Rågsjö</strong>, som satt i partistyrelsen vid den här tiden.</p>
+  <div class="stycke"><p>Minnet från 2019 är fortfarande högst levande inom partiet. <mark>Därför</mark> spelar det roll för det som händer efter årets val. Vänsterpartisterna har lovat varandra att de aldrig ska hamna där igen.</p></div>
+  <h4>En ny sorts V-politiker</h4>
+  <div class="stycke"><p>Men V:s krav på ministerposter har en ännu längre förhistoria. Den förre partisekreteraren <strong>Aron Etzler</strong> pekar på att en ny typ av V-politiker har tagit plats i landets kommuner och regioner ända sedan slutet av 90-talet. Många av dem gick partiets regeringsskola i våras, och efter valet har de kommit in i riksdagen. För de här vänsterpartisterna är det självklart att vara med och styra och ta ansvar, enligt Aron Etzler.</p></div>
+  <p class="talstreck">– Förr brukade sossar säga att ”vi bestämmer busstidtabellerna medan vänsterpartisterna har studiecirklar om marxism”. Något låg det väl i det, men så är det inte längre. Nu har Vänsterpartiet en generation politiker med både erfarenhet och ambitioner. Utan dem hade partiet inte kunnat driva sin linje i regeringsförhandlingarna, säger Aron Etzler.</p>
+  <h4>2021: V fäller Löfven</h4>
+  <div class="stycke"><p>Utöver papperet som ingen skulle få se hade Jonas Sjöstedt dragit ett par <span class="begrepp" title="Krav som ett parti säger att det aldrig ger upp. Här: villkor som skulle få V att sluta stödja regeringen.">röda linjer</span> i januari 2019. <mark>Om</mark> S-MP-regeringen gick vidare med Januariavtalets förslag om arbetsrätten och om marknadshyror, <mark>skulle</mark> V dra tillbaka sitt stöd.</p><aside class="gloss"><b>röda linjer</b>Krav som ett parti säger att det aldrig ger upp. Här: villkor som skulle få V att sluta stödja regeringen.</aside></div>
+  <div class="stycke"><p>Jonas Sjöstedt efterträddes av <strong>Nooshi Dadgostar</strong>. Efter bara drygt ett halvår som partiledare hade hon fått nog. Regeringen vägrade att släppa förslaget om hyrorna, <mark>och därför</mark> ställdes allt på sin spets.</p></div>
+  <div class="stycke"><p>Socialdemokrater talar fortfarande med bitterhet om det som hände den <strong>21 juni 2021</strong>. Det var unikt: V gick ihop med högern, till och med med Sverigedemokraterna, och fällde en statsminister från arbetarrörelsen.</p></div>
+  <div class="stycke"><p>För vänsterpartisterna var det den största adrenalinkicken. De hade rätat på ryggen och visat jätten S att det var nya tider nu.</p></div>
+  <div class="stycke"><p>Några månader senare kom ytterligare en politisk vinst. Dadgostars nära medarbetare <strong>Ida Gabrielsson</strong> fick sätta sig vid förhandlingsbordet och komma överens med S om en höjning av garantipensionerna. Men lika viktig var en annan formulering i överenskommelsen: ”alla <span class="begrepp" title="Ett parti som stödjer regeringen i riksdagen i utbyte mot inflytande, men utan ministrar.">samarbetspartier</span> behandlas med respekt och ges inflytande i proportion till sin storlek.”</p><aside class="gloss"><b>Från förnedring till respekt</b>Jämför formuleringen 2021 med förnedringsklausulen 2019. <mark>Det var den skillnaden</mark> V tog som bevis för att hårda tag fungerar.</aside></div>
+  <p class="talstreck">– Det visade att det gav resultat att sätta hårt mot hårt. Jag är helt övertygad om att vi gjorde rätt, men det är klart att det skadade relationen med Socialdemokraterna, säger <strong>Linda Snecker</strong>, en av de V-ledamöter som röstade ner Löfven.</p>
+  <h4>Varför avtal inte räcker</h4>
+  <div class="stycke"><p>Vänsterpartisterna hade fått smak för makt. Samtidigt drog de slutsatsen att skrivna avtal inte räcker när man samarbetar med sluga socialdemokrater. <mark>Skälet är att</mark> den som sitter i regeringen kan ändra på saker i efterhand: utredningar kan hamna i byrålådan, och överenskomna formuleringar kan förändras när S-ministrar ger instruktioner till sina myndigheter.</p></div>
+  <p class="talstreck">– Vi har absolut fått igenom en del hjärtefrågor tillsammans med dem, men det är väldigt lätt att bli bortkollrad. Man behöver sitta med inne i rummet och ha maktpositionerna, säger Linda Snecker, som i dag är konsult på public affairs-byrån Rud Pedersen.</p>
+  <h4>Att bli regeringsfähigt</h4>
+  <div class="stycke"><p>Under åren i opposition efter valet 2022 arbetade V intensivt med att göra partiet <span class="begrepp" title="Ett parti som andra partier och väljare tror klarar av att sitta i en regering.">regeringsfähigt</span>. Det var ingen liten uppgift, <mark>eftersom</mark> partiet funnits i över 100 år utan att lyckas ta sig ända dit.</p></div>
+  <div class="stycke"><p>Partiprogrammet skrevs om i grunden och blev mer pragmatiskt, alltså inriktat på vad som går att genomföra. Bland annat strök partiet kravet på att Sverige ska lämna EU. Ett gäng kommunalråd och riksdagsledamöter fick gå regeringsskola.</p></div>
+  <div class="stycke"><p>Men längs vägen har V också gett S och C nya argument för att säga nej till regeringssamarbete. Vänsterpartister har gjort antisemitiska uttalanden, hyllat Hamas och uttryckt stöd för dömda terrorister.</p></div>
+  <p class="talstreck">– Vänsterpartiet har en lång resa kvar att göra innan de är ett parti som kan sitta i regering, sade S-ledaren <strong>Magdalena Andersson</strong> kvällen före valet.</p>
+  <h4>2026: kongressen binder partiet</h4>
+  <div class="stycke"><p>När V höll <span class="begrepp" title="Partiets högsta beslutande möte, där ombud från hela landet fattar de viktigaste besluten.">partikongress</span> i Örebro i <strong>april 2026</strong> hade idén om att kräva ministerposter ändå mognat och hårdnat. En så gott som enhällig kongress ställde sig bakom partiledningen och spikade fast V vid kravet på ministerposter.</p></div>
+  <div class="stycke"><p><strong>Leonidas Aretakis</strong>, chefredaktör på den socialistiska tidningen Flamman, tror att partiledningen hade varit friare i förhandlingarna utan kongressbeslutet. Men han menar att det fanns ett tydligt skäl till att de valde att binda sig.</p></div>
+  <p class="talstreck">– Man har bett medlemmarna om att tvingas agera så här. De ville vara mer bakbundna, så att de inte kan förhandla bort det. Det ska vara tydligt att de inte tänker gå med på något liknande igen.</p>
+  <div class="stycke"><p>Ett kongressbeslut kan ändras, men utgången vore osäker, påpekar Aretakis.</p></div>
+  <p class="talstreck">– Det är inte omöjligt att en sån omröstning skulle bli än mer tvärsäker på att de inte ska tvingas ner på knä. Det grekiska vänsterpartiet Syriza stod inför en liknande situation under eurokrisen. Då hade de i stället en folkomröstning på sin sida. Men så backade de ändå till slut, och straffades hårt av väljarna. Det är riskabelt att backa när man varit så tydlig, säger han.</p>
+  <h4>Ett alternativ, och varför det är svårt</h4>
+  <div class="stycke"><p>Det finns vänsterpartister som funderar på alternativ till ministerposter. Ett sådant vore en lösning som liknar <span class="begrepp" title="Avtalet från 2022 mellan M, KD, L och SD. SD satt inte i regeringen men hade egna tjänstemän i Regeringskansliet.">Tidöavtalet</span>, med V-tjänstemän i Regeringskansliet och gemensamma presskonferenser. Men de pekar samtidigt på en grundläggande skillnad som talar starkt emot idén: SD var störst bland Tidöpartierna, <mark>medan</mark> V inte alls har den maktpositionen.</p><aside class="gloss"><b>Mellanledet</b>SD kunde få stort inflytande utan ministrar <mark>eftersom</mark> SD var det största partiet i samarbetet. V är mindre än S och skulle <mark>därför</mark> ha svårare att få samma inflytande på det sättet.</aside></div>
+  <div class="stycke"><p>En utbredd uppfattning i partiet är att valet 2026 gav V ett guldläge att till slut ta steget in i en regering. <mark>Om</mark> det inte lyckas nu, kan det dröja flera mandatperioder innan möjligheten kommer tillbaka.</p></div>
+  <p class="talstreck">– Det är nu eller aldrig, säger en källa i Vänsterpartiets toppskikt.</p>
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Förklara med en kedja av pilar hur förnedringsklausulen 2019 leder fram till kongressbeslutet 2026.</li><li>Varför räcker inte ett skrivet avtal, enligt Linda Snecker? Varför är det ett argument för ministerposter?</li><li>Aretakis menar att V <em>ville vara bakbundna</em>. Hur kan det vara en fördel i en förhandling att inte kunna ge efter? Vilken risk finns?</li><li>Vem påstår vad? Artikeln låter nästan bara vänsterpartister tala. Vilka argument mot V finns ändå med, och vem står för dem?</li><li>Koppla till momentet: varför har V så stor makt i regeringsbildningen just nu, trots att partiet fick 8,4 procent? Använd ordet regeringsunderlag eller 175.</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-10-09, text Hans Rosén, Hanna Jakobson · <a href="https://www.dn.se/sverige/vansterpartiets-resa-mot-makten-det-ar-nu-eller-aldrig/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
