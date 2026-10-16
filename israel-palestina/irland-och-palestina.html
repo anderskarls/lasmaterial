@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Så blev Irland det mest pro-palestinska landet i västvärlden - läsmaterial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+/* Arkiv v2.1, anpassat från slide till läsande dokument.
+   Tokens oförändrade i ljust läge; typskalan nedskalad eftersom sidan läses på
+   armlängds avstånd och inte projiceras.
+
+   Mörkt läge (2026-08-03): samma tokens, inverterade till varm mörk ton.
+   Färgerna är inte inverterade rakt av: bordeaux, ocker, marin och oliv är
+   uppljusade så att kontrasten mot den mörka bakgrunden håller.
+
+   Tre lägen i prioritetsordning (2026-08-03):
+     1. läsarens egen knapp   -> [data-tema] på <html>, sätts av sidans script
+     2. systeminställningen   -> prefers-color-scheme, gäller så länge inget valts
+     3. pappersljust          -> utgångsläget, och det enda som gäller utan JS
+   De mörka värdena bor i --m-*-variablerna nedan och sätts på ett ställe.
+   Blocken därunder tilldelar bara; ändra aldrig en hex på två ställen. */
+:root{
+  color-scheme:light;
+  --papper:#F4EDE1; --papper2:#EBE1CF; --black:#1F1A15; --black2:#4A3F33;
+  --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+  --ocker:#B8862F; --moss:#3E5A3E; --tegel:#C96442;
+  --harfin:rgba(42,34,26,.13);
+  --markbg:rgba(184,134,47,.28);
+  /* Ljus text på mossgrön platta - fast i båda lägena, plattan är mörk även i
+     ljust läge och får därför inte följa med när --papper byter håll. */
+  --papperljus:#F4EDE1;
+  /* mörka läget, värdena. --m-linje bär knappramen och är därför ett
+     gränssnittselement: ljusad till 3,5:1 mot bakgrunden, inte bara till
+     "syns nätt och jämnt". */
+  --m-papper:#191512; --m-papper2:#221D17; --m-black:#EFE6D8; --m-black2:#B6A895;
+  --m-linje:#7A6B5C; --m-bordeaux:#E2907E; --m-marin:#89A8CB; --m-oliv:#A3B872;
+  --m-ocker:#D8A94D; --m-moss:#33472F; --m-tegel:#DE8058;
+  --m-harfin:rgba(239,230,216,.14);
+  --m-markbg:rgba(216,169,77,.32);
+  --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Inter Tight','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --matt:62ch; --gloss:230px; --rannil:44px; --kant:28px;
+}
+/* Systemet får bestämma bara så länge läsaren inte gjort ett eget val.
+   :not([data-tema]) är hela mekaniken: så fort knappen tryckts finns
+   attributet, och den här regeln slutar gälla utan att något skrivs över. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]){
+    color-scheme:dark;
+    --papper:var(--m-papper); --papper2:var(--m-papper2);
+    --black:var(--m-black); --black2:var(--m-black2);
+    --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+    --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+    --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+  }
+  :root:not([data-tema]) body{-webkit-font-smoothing:antialiased}
+}
+:root[data-tema="mork"]{
+  color-scheme:dark;
+  --papper:var(--m-papper); --papper2:var(--m-papper2);
+  --black:var(--m-black); --black2:var(--m-black2);
+  --linje:var(--m-linje); --bordeaux:var(--m-bordeaux); --marin:var(--m-marin);
+  --oliv:var(--m-oliv); --ocker:var(--m-ocker); --moss:var(--m-moss);
+  --tegel:var(--m-tegel); --harfin:var(--m-harfin); --markbg:var(--m-markbg);
+}
+:root[data-tema="mork"] body{-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--papper); color:var(--black);
+  font-family:var(--sans); font-size:19px; line-height:1.68;
+  font-weight:400; text-rendering:optimizeLegibility;
+}
+.omslag,main,footer{max-width:calc(var(--matt) + var(--gloss) + var(--rannil) + 96px); margin:0 auto; padding:0 var(--kant)}
+
+/* ---------- etiketter ---------- */
+.etikett{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--black2)}
+h3.rubrik{font-family:var(--mono); font-size:12.5px; font-weight:600;
+  letter-spacing:.15em; text-transform:uppercase; margin:0 0 14px}
+
+/* ---------- omslag ---------- */
+.omslag{padding-top:56px; padding-bottom:8px}
+.omslag .rad{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline;
+  border-bottom:1.5px solid var(--linje); padding-bottom:14px}
+.omslag .rad span+span::before{content:"▸ "; color:var(--bordeaux)}
+h1{font-family:var(--serif); font-weight:600; color:var(--bordeaux);
+  font-size:clamp(2.2rem,6.2vw,4.05rem); line-height:1.06; letter-spacing:-.015em;
+  margin:30px 0 0; max-width:20ch; text-wrap:balance}
+.ingress{font-family:var(--serif); font-style:italic; font-weight:400;
+  font-size:clamp(1.24rem,2.7vw,1.6rem); line-height:1.45; color:var(--black2);
+  margin:20px 0 0; max-width:46ch}
+.byline{margin:26px 0 0; font-family:var(--mono); font-size:12.5px;
+  letter-spacing:.08em; color:var(--black2)}
+
+/* ---------- sektioner ---------- */
+main{padding-top:8px; padding-bottom:64px}
+section{margin-top:64px}
+h2{font-family:var(--serif); font-weight:500; font-size:clamp(1.75rem,3.6vw,2.35rem);
+  line-height:1.15; margin:0 0 26px; color:var(--black); text-wrap:balance}
+h2 em{font-style:italic; color:var(--bordeaux)}
+
+/* ---------- stödrutor ---------- */
+.ruta{background:var(--papper2); border-left:5px solid var(--marin);
+  padding:26px 30px; margin:0 0 26px; max-width:var(--matt)}
+.ruta.procedur{border-left-color:var(--oliv)}
+.ruta.fakta{border-left-color:var(--marin)}
+.ruta h3.rubrik{color:var(--marin)}
+.ruta.procedur h3.rubrik{color:var(--oliv)}
+.ruta p:last-child,.ruta ul:last-child{margin-bottom:0}
+.ruta p{margin:0 0 14px}
+.ruta ul{margin:0; padding-left:1.2em}
+.ruta li{margin:0 0 10px} .ruta li:last-child{margin-bottom:0}
+/* fördjupningsruta i artikeln (> **★ ...**) - ockra, skild från citatens bordeaux */
+.ruta.fordjupning{border-left-color:var(--ocker); margin:30px 0}
+
+/* ---------- tabell och underrubrik i artikeln ---------- */
+.artikel h5{font-family:var(--serif); font-weight:600; font-style:italic;
+  font-size:1.32rem; margin:32px 0 12px; max-width:var(--matt); color:var(--black2)}
+.tabell{max-width:var(--matt); overflow-x:auto; margin:26px 0}
+.tabell table{border-collapse:collapse; width:100%; font-size:.92rem; line-height:1.4}
+.tabell th,.tabell td{text-align:left; vertical-align:top; padding:9px 12px;
+  border-bottom:1px solid var(--harfin)}
+.tabell thead th{border-bottom:2px solid var(--linje); color:var(--marin)}
+.tabell tbody td:first-child{font-weight:600}
+
+/* ---------- ordlista ---------- */
+.ordlista{display:grid; grid-template-columns:minmax(140px,auto) 1fr;
+  gap:2px 26px; max-width:var(--matt); margin:0}
+.ordlista dt{font-weight:600; color:var(--bordeaux); padding:9px 0 0}
+.ordlista dd{margin:0; padding:9px 0; border-bottom:1px solid var(--harfin)}
+.ordlista dt{border-bottom:1px solid var(--harfin)}
+.ordlista dt:last-of-type,.ordlista dd:last-of-type{border-bottom:none}
+
+/* ---------- växeln ---------- */
+/* Bleeder ut i marginalen så att texten som rullar förbi inte sticker fram
+   vid kanterna av den klistrade listen. */
+.vaxel{position:sticky; top:0; z-index:20; background:var(--papper);
+  border-bottom:1.5px solid var(--linje); padding:12px var(--kant) 13px;
+  margin:64px calc(var(--kant) * -1) 0;
+  display:flex; gap:18px; align-items:center; flex-wrap:wrap}
+.knappar{display:inline-flex; border:1.5px solid var(--linje); background:var(--papper)}
+.knappar button{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 17px;
+  border:none; background:transparent; color:var(--black2); cursor:pointer}
+.knappar button+button{border-left:1.5px solid var(--linje)}
+.knappar button[aria-pressed="true"]{background:var(--bordeaux); color:var(--papper)}
+.knappar button:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+.vaxelnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.05em;
+  color:var(--black2); max-width:42ch}
+
+/* Ljus/mörk. Tonad ner mot versionsväxeln med flit: vilken text du läser är
+   ett pedagogiskt val, vilken bakgrund du läser den mot är en bekvämlighet. */
+.temaknapp{font-family:var(--mono); font-size:12px; font-weight:600;
+  letter-spacing:.11em; text-transform:uppercase; padding:9px 15px;
+  border:1.5px solid var(--linje); background:transparent; color:var(--black2);
+  cursor:pointer; white-space:nowrap}
+.temaknapp:hover{color:var(--black)}
+.temaknapp:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+/* Etiketten säger vad knappen ger dig, inte var du är. Vilken av de två som
+   syns avgörs av samma villkor som färgerna - annars hinner fel ord blinka
+   förbi innan scriptet vaknat, och utan JS skulle den ljuga rakt av. */
+.tema-ljus{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-tema]) .tema-mork{display:none}
+  :root:not([data-tema]) .tema-ljus{display:inline}
+}
+:root[data-tema="mork"] .tema-mork{display:none}
+:root[data-tema="mork"] .tema-ljus{display:inline}
+
+/* ---------- artikeln ---------- */
+.artikel{margin-top:38px}
+.artikel[hidden]{display:none}
+.stycke{position:relative; max-width:var(--matt); margin:0 0 22px}
+.stycke > p{margin:0}
+.artikel h4{font-family:var(--serif); font-weight:600; font-size:1.45rem;
+  margin:40px 0 16px; max-width:var(--matt); color:var(--black)}
+blockquote{margin:30px 0; padding:4px 0 4px 26px; border-left:4px solid var(--bordeaux);
+  max-width:var(--matt); font-family:var(--serif); font-style:italic;
+  font-size:1.42rem; line-height:1.42; color:var(--black)}
+blockquote cite{display:block; margin-top:12px; font-family:var(--mono);
+  font-style:normal; font-size:11.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--black2)}
+.talstreck{max-width:var(--matt); margin:0 0 22px; font-family:var(--serif);
+  font-size:1.3rem; font-style:italic; line-height:1.45}
+
+/* betoningsverktyg */
+mark{background:var(--markbg); color:inherit; padding:0 4px}
+.def{border-bottom:3px solid var(--bordeaux); padding-bottom:1px}
+
+/* begrepp + marginalgloss */
+.begrepp{border-bottom:2px dotted var(--ocker); cursor:help}
+.gloss{background:var(--papper2); border-left:3px solid var(--ocker);
+  padding:13px 15px; font-size:15.5px; line-height:1.5; color:var(--black2);
+  margin:12px 0 22px}
+.gloss b{display:block; font-family:var(--mono); font-size:11px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--bordeaux); margin-bottom:5px}
+@media (min-width:1180px){
+  .gloss{position:absolute; top:0; left:calc(100% + var(--rannil));
+    width:var(--gloss); margin:0; background:transparent; border-left-width:2px}
+  /* Glossen lyfts ur flödet. Ett kort stycke med gloss blir därför lägre än
+     sin egen gloss, och nästa gloss lägger sig ovanpå. Reservera höjd. */
+  .stycke:has(> .gloss){min-height:9rem}
+}
+
+/* ---------- efter läsningen ---------- */
+.efter{background:var(--moss); color:var(--papperljus); padding:38px 34px; max-width:var(--matt)}
+.efter h3.rubrik{color:rgba(244,237,225,.72)}
+.efter ol{margin:0; padding-left:1.3em}
+.efter li{margin:0 0 15px} .efter li:last-child{margin-bottom:0}
+.efter li::marker{font-family:var(--mono); font-size:13px; color:rgba(244,237,225,.6)}
+
+/* ---------- sidfot ---------- */
+footer{border-top:1.5px solid var(--linje); padding-top:22px; padding-bottom:70px;
+  font-size:16px; color:var(--black2); max-width:var(--matt)}
+footer em{font-family:var(--serif); font-size:1.15rem}
+footer .kalla{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; margin-top:16px}
+footer .kontrollnot{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  margin-top:16px; color:var(--black2)}
+a{color:var(--bordeaux)}
+a:focus-visible{outline:3px solid var(--bordeaux); outline-offset:2px}
+
+/* ---------- telefon ---------- */
+@media (max-width:600px){
+  :root{--kant:20px}
+  body{font-size:18px}
+  .omslag{padding-top:38px}
+  section{margin-top:48px}
+  .ruta{padding:22px 22px}
+  .efter{padding:30px 24px}
+  .ordlista{grid-template-columns:1fr; gap:0}
+  .ordlista dt{border-bottom:none; padding-bottom:0}
+  .ordlista dd{padding-top:2px}
+  .vaxel{gap:12px}
+  .vaxelnot{max-width:none}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+/* ---------- utskrift ---------- */
+/* Tokens tvingas tillbaka till papper: den som skriver ut från en mörk skärm
+   ska inte få en svart sida. Båda versionerna skrivs ut, och får rubriker så
+   att de inte läses som samma text två gånger. */
+@media print{
+  :root{
+    --papper:#FFFFFF; --papper2:#F2ECE1; --black:#000000; --black2:#3B322A;
+    --linje:#2A221A; --bordeaux:#7A2E2E; --marin:#2C3E55; --oliv:#5A6A3A;
+    --ocker:#B8862F; --harfin:rgba(42,34,26,.2); --markbg:rgba(184,134,47,.3);
+  }
+  .vaxel{display:none}
+  .artikel[hidden]{display:block!important}
+  .artikel{break-inside:auto}
+  .artikel::before{display:block; font-family:var(--mono); font-size:11px;
+    font-weight:600; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--black2); border-top:1.5px solid var(--linje);
+    padding-top:10px; margin-bottom:24px}
+  #version-stod::before{content:"Artikeln med stöd"}
+  #version-orig::before{content:"Artikeln i original"; break-before:page}
+  body{font-size:11pt}
+  h1{font-size:30pt}
+  .stycke,blockquote,.efter,.ruta,h4{break-inside:avoid}
+  .efter{background:none; color:var(--black); border:1.5px solid var(--linje)}
+  .efter h3.rubrik{color:var(--black2)}
+  .efter li::marker{color:var(--black2)}
+  .gloss{position:static!important; width:auto!important; background:var(--papper2)!important;
+    margin:12px 0 22px!important; border-left-width:3px!important}
+  .stycke:has(> .gloss){min-height:0}
+  footer a::after{content:" (" attr(href) ")"; word-break:break-all}
+}
+</style>
+<script>
+/* Läsarens tidigare val av ljust/mörkt, satt före sidan ritas ut. Ligger i
+   head med flit: körs det efteråt hinner fel bakgrund blinka förbi. Har inget
+   valts sätts inget attribut, och systeminställningen får fortsätta gälla. */
+(function(){try{
+  var t=localStorage.getItem('lasmaterial-tema');
+  if(t==='ljus'||t==='mork') document.documentElement.setAttribute('data-tema',t);
+}catch(e){}})();
+</script>
+</head>
+<body>
+
+<header class="omslag">
+  <div class="rad">
+    <span class="etikett">Internationella relationer</span>
+    <span class="etikett">Dagens Nyheter · 2026-10-04</span>
+    <span class="etikett">Läsmaterial</span>
+  </div>
+  <h1>Så blev Irland det mest pro-palestinska landet i västvärlden</h1>
+  
+  <p class="byline">Text Sandra Stiskalo · <span>Bearbetad version med stöd</span></p>
+</header>
+
+<main>
+
+<section>
+  <h2>Innan du <em>läser</em></h2>
+  <div class="ruta"><h3 class="rubrik">Det här behöver du veta först</h3><p>Irland var en del av Storbritannien fram till 1921, då största delen av ön blev självständig. Den nordöstra delen, Nordirland, är fortfarande en del av Storbritannien. Där har det länge funnits en konflikt mellan <em>republikaner</em>, oftast katoliker som vill att Nordirland ska höra till Irland, och <em>unionister</em>, oftast protestanter som vill stanna i Storbritannien. EEG var en föregångare till EU. Uefa är det europeiska fotbollsförbundet, och Nations League är en av Uefas turneringar för landslag. IDF är förkortningen för Israels försvarsmakt. Vattenmelonen är en palestinsk symbol, eftersom den har samma färger som den palestinska flaggan. Artikeln skrevs samma dag som den andra matchen spelades.</p></div>
+  <h3 class="rubrik">Ord du behöver</h3><dl class="ordlista"><dt>pro-palestinsk</dt><dd>Som stödjer palestiniernas sak.</dd><dt>bojkott</dt><dd>Att vägra delta i, köpa eller titta på något, som en protest.</dd><dt>antipati</dt><dd>Stark motvilja.</dd><dt>självbestämmanderätt</dt><dd>Ett folks rätt att självt bestämma hur det ska styras, till exempel genom att bilda en egen stat.</dd><dt>ockuperade palestinska territorier</dt><dd>Västbanken, östra Jerusalem och Gaza, de områden Israel tog i kriget 1967.</dd><dt>koloni</dt><dd>Ett område som styrs av en annan stat, ofta långt borta och mot befolkningens vilja.</dd><dt>koloniala förflutna</dt><dd>Den tid då ett land var en koloni, och minnet av den tiden.</dd><dt>övermakt</dt><dd>En motståndare som är mycket starkare än man själv.</dd><dt>ockupationsmakt</dt><dd>En stat som med militär kontrollerar ett område som inte hör till den.</dd><dt>statsvetare</dt><dd>En forskare som studerar politik och stater.</dd><dt>etniska band</dt><dd>Släktskap eller gemensam folkgrupp mellan befolkningen i två länder.</dd><dt>rävsax</dt><dd>En fälla där alla val är dåliga.</dd></dl>
+  <div class="ruta procedur" style="margin-top:26px"><h3 class="rubrik">När du läser</h3><p>Hitta frågan artikeln ställer. Den kommer ungefär i mitten. Vilka svar säger artikeln <em>inte</em> fungerar, och vilket svar ger den i stället?</p><p>Leta efter vem som talar och vad de vill. Kampanjen, fotbollsförbundet, spelarna, förbundskaptenen och fansen vill inte samma sak.</p><p>Hitta siffrorna och vem som har tagit fram dem. Skilj på en forskningsstudie och en fråga på en sportsajt.</p><p>Stanna efter varje avsnitt och säg för dig själv vad som just hände. Går det inte, läs om avsnittet innan du fortsätter.</p></div>
+</section>
+
+<div class="vaxel">
+  
+  <button type="button" class="temaknapp" id="btn-tema"><span class="tema-mork">Mörkt läge</span><span class="tema-ljus">Ljust läge</span></button>
+  
+</div>
+
+<article class="artikel" id="version-stod" aria-label="Artikeln med stöd">
+  <div class="stycke"><p><em>Artikeln är skriven i London av DN:s korrespondent. Där skribenten skriver "jag" berättar hon om sitt eget besök.</em></p></div>
+  <div class="stycke"><p><span class="def">Kvällens fotbollsmatch mellan Irland och Israel väntas bli en uppvisning i antipati.</span> De pro-palestinska irländarna vill bojkotta matchen helt, och de är beredda att betala priset.</p></div>
+  <h4>Två matcher på en vecka</h4>
+  <div class="stycke"><p>Irland och Israel spelar på söndagskvällen. Matchen spelas i den lilla staden <strong>Bačka Topola</strong> i norra <strong>Serbien</strong>, inför tomma läktare.</p></div>
+  <div class="stycke"><p>Det är andra gången på en vecka som landslagen möts i turneringen <strong>Uefa Nations League</strong>. Förra söndagen spelade de i <strong>Ungern</strong>, och Irland vann med <strong>3-0</strong>. Under den matchen bar de irländska spelarna svarta armbindlar <mark>för att</mark> hedra offren i Gazakriget. Spelarna skakade inte hand. När slutsignalen kom började den lilla grupp israeliska supportrar som fått vara på plats att ropa <em>IDF</em>, alltså förkortningen för Israels försvarsmakt.</p></div>
+  <div class="stycke"><p>Även dagens match väntas bli laddad och obehaglig. Det har varit osäkert in i det sista om matcherna alls skulle bli av.</p></div>
+  <h4>Protesterna</h4>
+  <div class="stycke"><p>Organisationen <strong>Irish Sport for Palestine</strong> har startat kampanjen <em>Stop The Game</em>. I veckan publicerade kampanjen ett öppet brev där den uppmanar Irland att inte spela söndagens match.</p></div>
+  <div class="stycke"><p><span class="def">Fler än <strong>140</strong> irländska pubar och sportbarer har sagt att de inte tänker visa matchen.</span> Det är ovanligt, <mark>eftersom</mark> pubarna brukar vara fulla när landslaget spelar. Public service-bolaget <strong>RTE</strong> sänder matchen, men utan kommentator och utan analyser i halvtid.</p></div>
+  <h4>Hela samhället</h4>
+  <div class="stycke"><p>Motståndet mot Israel finns inte bara bland fotbollsfans. Kritiken finns på alla nivåer i det irländska samhället. <span class="def">Irland är faktiskt ett av västvärldens mest pro-palestinska länder.</span></p></div>
+  <div class="stycke"><p>Det syns också på gatorna. Den som är några dagar i <strong>Dublin</strong>, och ännu mer i republikanska kvarter i <strong>Nordirland</strong>, kan knappast missa graffiti med vattenmeloner och väggmålningar i den palestinska flaggans färger. Där syns stödet för Palestina, och fördömandet av Israels krig i Gaza och ockupationen av Västbanken.</p></div>
+  <h4>Irland var först</h4>
+  <div class="stycke"><p>Irland har länge legat före andra länder i frågan:</p></div><ul><li>Irland var det första medlemslandet i <strong>EEG</strong>, föregångaren till EU, som officiellt krävde palestinsk självbestämmanderätt och en självständig palestinsk stat.</li><li>Irland lät inte Israel öppna en ambassad i Dublin förrän i mitten av <strong>1990-talet</strong>.</li><li>I somras antog Irland en lag som förbjuder handel med israeliska bosättningar i de ockuperade palestinska territorierna. Det skedde några månader <mark>innan</mark> Storbritannien gjorde samma sak.</li></ul>
+    <h4>Vad irländarna tycker</h4>
+  <div class="stycke"><p>Forskare vid <strong>Trinity College</strong> i Dublin har nyligen gjort en studie om vad européer tycker om konflikten mellan Israel och Palestina. En stor majoritet av de irländare som svarade sa att konflikten var <em>ganska viktig</em> eller <em>mycket viktig</em> för dem. <strong>53 procent</strong> sa att de kände större sympati för den palestinska sidan. Bara <strong>11 procent</strong> sympatiserade med Israel.</p></div>
+  <div class="stycke"><p>Siffrorna sticker ut. <mark>Som jämförelse</mark> var de flesta i <strong>Spanien</strong>, som också brukar räknas till EU:s pro-palestinska länder, kluvna eller osäkra.</p></div>
+  <h4>Varför just Irland?</h4>
+  <div class="stycke"><p><span class="def">Hur ska man förstå att irländarna stödjer Palestina så starkt?</span></p></div>
+  <div class="stycke"><p>De förklaringar som <span class="begrepp" title="En forskare som studerar politik och stater.">statsvetare</span> brukar använda fungerar inte här. Irland har inga <span class="begrepp" title="Släktskap eller gemensam folkgrupp mellan befolkningen i två länder.">etniska band</span> till regionen. Irland har inga stora ekonomiska intressen där, och inte heller något direkt och större militärt engagemang.</p><aside class="gloss"><b>Förklaringarna som inte fungerar</b>Statsvetare brukar förklara ett lands utrikespolitik med släktskap mellan folk, med pengar och handel, eller med militär närvaro. Inget av det finns i Irlands fall. <mark>Därför</mark> måste förklaringen sökas någon annanstans.</aside></div>
+  <div class="stycke"><p><span class="def">I stället har orsakerna till stor del med Irlands egen historia att göra.</span></p></div>
+  <div class="stycke"><p>Irland var en brittisk <span class="begrepp" title="Ett område som styrs av en annan stat, ofta långt borta och mot befolkningens vilja.">koloni</span> fram till <strong>1921</strong>. I Trinity Colleges undersökning jämförde många irländska deltagare, utan att någon frågat om det, Irlands <span class="begrepp" title="Den tid då ett land var en koloni, och minnet av den tiden.">koloniala förflutna</span> med palestiniernas erfarenhet. De talade om att behöva kämpa mot en <span class="begrepp" title="En motståndare som är mycket starkare än man själv.">övermakt</span> för mänskliga och medborgerliga rättigheter.</p><aside class="gloss"><b>koloni</b>Ett område som styrs av en annan stat, ofta långt borta och mot befolkningens vilja.</aside></div>
+  <div class="stycke"><p>Skribenten besökte nyligen <strong>Bogside</strong>, ett katolskt arbetarområde i <strong>Derry</strong> i Nordirland. Hon knackade på dörren till ett hus och frågade varför de hade målat den palestinska flaggan på trädgårdsmuren.</p></div>
+  <p class="talstreck">– För att vi vet hur det är att leva under en auktoritär ockupationsmakt, svarade <strong>Niall</strong> som bodde i huset.</p>
+  <h4>Förbundet vill inte bojkotta</h4>
+  <div class="stycke"><p>Irlands fotbollsförbund har föreslagit för Uefa att Israel ska stängas av från turneringar, på samma sätt som <strong>Ryssland</strong> stängdes av efter den fullskaliga invasionen av <strong>Ukraina</strong>. <span class="def">Men förbundet vill inte att Irland själv ska bojkotta matcher mot Israel.</span></p><aside class="gloss"><b>Två olika sorters protest</b>Förbundet vill att Uefa ska stänga av Israel, alltså att alla länder gör samma sak. En egen bojkott, där bara Irland vägrar spela, vill förbundet inte ha. En trolig orsak står längre ned: en egen bojkott kostar Irland poäng.</aside></div>
+  <div class="stycke"><p>Före förra söndagens match i Ungern höll de irländska spelarna en egen, inofficiell omröstning i laget. Majoriteten röstade för att spela matchen mot Israel ändå. Målvakten <strong>Gavin Bazunu</strong> valde att inte spela.</p></div>
+  <div class="stycke"><p>Om hela laget hade vägrat spela hade Israel fått matchpoängen. <mark>Det hade i sin tur kunnat</mark> göra det svårare för Irland att kvala in till <strong>EM 2028</strong>.</p></div>
+  <div class="stycke"><p><span class="def">Många irländare tycker att det vore värt priset.</span> När irländska sportsajter frågar fotbollsfans om landet borde bojkotta matcherna mot Israel svarar <strong>över 70 procent</strong> ja.</p></div>
+  <div class="stycke"><p>Förbundskaptenen, islänningen <strong>Heimir Hallgrímsson</strong>, har sett mer och mer plågad ut för varje presskonferens. Han har beskrivit situationen som en <em><span class="begrepp" title="En fälla där alla val är dåliga.">rävsax</span></em>, för honom själv, för förbundet och för spelarna.</p><aside class="gloss"><b>rävsax</b>En fälla där alla val är dåliga.</aside></div>
+  <p class="talstreck">– Det har varit tufft för dem, de vill spela fotboll och de vill representera Irland.</p>
+  <blockquote><strong>Fakta: Irland-Israel</strong>
+
+Ländernas fotbollslandslag möts två gånger i Uefa Nations League 2026/2027. Första matchen spelades i Ungern söndagen den <strong>27 september</strong> och slutade <strong>3-0</strong> till Irland. Andra matchen spelas söndagen den <strong>4 oktober</strong> i Bačka Topola i Serbien.
+
+De senaste åren har Israel av säkerhetsskäl fått spela de flesta av sina hemmamatcher i Ungern.
+
+Den andra matchen skulle från början ha spelats på Irlands nationalarena <strong>Aviva Stadium</strong> i Dublin. I juni beslutade det irländska fotbollsförbundet <strong>FAI</strong>, efter samråd med bland andra den irländska polisen, att flytta matchen till en neutral plats. Uefa godkände flytten. <mark>Därför</mark> spelas matchen i Serbien, utan publik.</blockquote>
+</article>
+
+
+
+
+
+<section><div class="efter"><h3 class="rubrik">Efter läsningen</h3><ol><li>Vilka tre förklaringar säger artikeln att statsvetare brukar använda, och varför fungerar de inte för Irland?</li><li>Vilken förklaring ger artikeln i stället? Följ kedjan från Irlands historia till Nialls flagga på muren.</li><li>Artikeln har två sorters siffror: en forskningsstudie från Trinity College och en fråga på sportsajter. Vilken litar du mest på, och varför?</li><li>Fotbollsförbundet vill att Uefa stänger av Israel, men vill inte att Irland bojkottar på egen hand. Varför, enligt artikeln?</li><li>Koppla till momentet: Vilken av de tre teorierna förklarar bäst Irlands hållning? Fundera på varför en realist skulle ha svårt med just det här fallet, och vad en konstruktivist skulle säga om <em>identitet</em> och <em>historia</em>. Pröva sedan åt andra hållet: finns det något i texten som stödjer en realistisk förklaring?</li></ol></div></section>
+
+</main>
+
+<footer>
+  <p><em>Bearbetningen är en stötta, inte en permanent version. Den som klarar den bearbetade texten ska få originalet nästa gång. Stöd som aldrig fasas ut slutar vara stöd.</em></p>
+  <p class="kontrollnot">Bearbetningen är kontrollerad mot originalet: sex innehållsfrågor ställda på originaltexten, 6/6 besvarbara.</p>
+  <p class="kalla">Källa: Dagens Nyheter 2026-10-04, text Sandra Stiskalo · <a href="https://www.dn.se/varlden/sa-blev-irland-det-mest-pro-palestinska-landet-i-vastvarlden/">Originalartikeln</a> finns hos källan</p>
+</footer>
+
+<script>
+(function(){
+
+
+  // Ljust/mörkt. Attributet på <html> vinner över systeminställningen; sätts
+  // det aldrig fortsätter systemet bestämma, även om det byter mitt i läsningen.
+  var rot=document.documentElement, bT=document.getElementById('btn-tema');
+  function tema(){
+    var v=rot.getAttribute('data-tema');
+    if(v==='mork'||v==='ljus') return v;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches)
+      ? 'mork' : 'ljus';
+  }
+  if(bT) bT.addEventListener('click',function(){
+    var ny = tema()==='mork' ? 'ljus' : 'mork';
+    rot.setAttribute('data-tema',ny);
+    try{localStorage.setItem('lasmaterial-tema',ny);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
